@@ -1,11 +1,11 @@
 {
-  "name": "gatsby-starter-blog",
+  "name": "Ideas in Development",
   "private": true,
-  "description": "A starter for a blog powered by Gatsby and Markdown",
+  "description": "Harry Anderson's personal blog",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Harry Anderson <hrtanderson@gmail.com>",
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/xari/xari-dev/issues"
   },
   "dependencies": {
     "gatsby": "^2.20.35",
@@ -33,12 +33,13 @@
     "typeface-merriweather": "0.0.72",
     "typeface-montserrat": "0.0.75",
     "typography": "^0.16.19",
+    "typography-theme-twin-peaks": "^0.16.19",
     "typography-theme-wordpress-2016": "^0.16.19"
   },
   "devDependencies": {
     "prettier": "2.0.4"
   },
-  "homepage": "https://github.com/gatsbyjs/gatsby-starter-blog#readme",
+  "homepage": "https://xari.dev",
   "keywords": [
     "gatsby"
   ],
@@ -46,7 +47,7 @@
   "main": "n/a",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gatsbyjs/gatsby-starter-blog.git"
+    "url": "git+https://github.com/xari/xari-dev.git"
   },
   "scripts": {
     "build": "gatsby build",
