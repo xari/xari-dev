@@ -8,14 +8,18 @@
     "url": "https://github.com/xari/xari-dev/issues"
   },
   "dependencies": {
-    "gatsby": "^2.20.35",
+    "@babel/plugin-proposal-pipeline-operator": "^7.12.1",
+    "@mdx-js/mdx": "^1.6.19",
+    "@mdx-js/react": "^1.6.19",
+    "gatsby": "^2.24.85",
     "gatsby-image": "^2.3.5",
     "gatsby-plugin-feed": "^2.4.4",
     "gatsby-plugin-google-analytics": "^2.2.5",
     "gatsby-plugin-manifest": "^2.3.7",
+    "gatsby-plugin-mdx": "^1.2.51",
     "gatsby-plugin-offline": "^3.1.5",
     "gatsby-plugin-react-helmet": "^3.2.5",
-    "gatsby-plugin-sharp": "^2.5.7",
+    "gatsby-plugin-sharp": "^2.6.43",
     "gatsby-plugin-typography": "^2.4.4",
     "gatsby-remark-copy-linked-files": "^2.2.4",
     "gatsby-remark-images": "^3.2.6",
@@ -23,7 +27,6 @@
     "gatsby-remark-responsive-iframe": "^2.3.4",
     "gatsby-remark-smartypants": "^2.2.4",
     "gatsby-source-filesystem": "^2.2.5",
-    "gatsby-transformer-remark": "^2.7.5",
     "gatsby-transformer-sharp": "^2.4.7",
     "prismjs": "^1.19.0",
     "react": "^16.12.0",
@@ -37,6 +40,7 @@
     "typography-theme-wordpress-2016": "^0.16.19"
   },
   "devDependencies": {
+    "babel-preset-gatsby": "^0.5.14",
     "prettier": "2.0.4"
   },
   "homepage": "https://xari.dev",

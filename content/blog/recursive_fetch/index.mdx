@@ -1,5 +1,6 @@
-
-# Paginated API requests in JavaScript
+---
+title: Paginated API requests in JavaScript
+---
 
 A simple call to the Punk API will serve-up a sampling of beers by default.
 
@@ -74,16 +75,16 @@ However; because this database is constantly being updated with new beers, the n
 And not only that; the number of beers that the last page returns is just as unpredictable as the total number of pages.
 So; if we want to `fetch` the entire list of beers from the API, we'll need to write a function that will loop through each page, until it finds a page with less than `80` beers, or a page that returns empty array.
 
-<Pullquote narrow={true}>
+<blockquote>
 	Remember; we don't know how many times the loop will run, because we don't know the total number of pages.
 	On top of that, `fetch` requests are _asynchronous_, meaning, in this case, that our script will continue to run while we wait for the API to deliver our beers to us.
 	The reason that I'm pointing this out is that you may be wondering why we won't be using `map()`, or `for` or `while` to `fetch` to simply iterate through the paginated URLs.
 	Using `map()` or `for` would require us to know the number of pages ahead of making the request.
 	Both of these, along with `while`, would execute _synchronously_; holding-up the rest of our script from running. 
-</Pullquote>
+</blockquote>
 
 We need to write a _recursive_ function that can query the first page, and then decide whether or not to keep going, based on the `length` of the returned array.
-The function below will allow us to call `getBeers()` once, without any arguments, to return a `Promise`, which resolves to the array of beers.
+The function below will allow us to call `getBeers()` once, without any arguments, to return a Promise, which resolves to the array of beers.
 
 ```javascript
 function getBeers(page = 1, beers = []) {
@@ -103,16 +104,16 @@ function getBeers(page = 1, beers = []) {
 }
 ```
 
-<Pullquote narrow={true}>
+<blockquote>
 	In case you've never seen a recursive function before, what's happening in the highlighted portion of the function above is **the function re-calling itself as long as the `length` of `newBeers` isn't `0`**. 
 	Each time it calls itself, it passes the `page` number, and the previously fetched `beers` along.
-</Pullquote>
+</blockquote>
 
 This is fab, isn't it?
 Let's keep going then, and actually do something with all these beers!
 
-The code below shows how we can access the fetched beers once the `Promise` has resolved.
-If you haven't yet worked with `Promise`s, then I recommend reading-up on them [here](https://medium.com/@kevinyckim33/what-are-promises-in-javascript-f1a5fc5b34bf).
+The code below shows how we can access the fetched beers once the Promise has resolved.
+If you haven't yet worked with Promises, then I recommend reading-up on them [here](https://medium.com/@kevinyckim33/what-are-promises-in-javascript-f1a5fc5b34bf).
 
 ```javascript
 getBeers().
@@ -155,10 +156,10 @@ getBeers().
 
 Or; if you're running Node.js, you can use the pipe syntax!
 
-<Pullquote narrow={true}>
+<blockquote>
 The pipe syntax in JavaScript, `|>`, is very similar to `%>%` in the R language.
 It is currently only a proposal to JS, but you can start using it if you follow the steps [here](https://www.geeksforgeeks.org/javascript-pipeline-operator/). 
-</Pullquote>
+</blockquote>
 
 ```javascript
 getBeers().
@@ -167,4 +168,5 @@ getBeers().
 
 Doesn't that look nice! :-D
 
+<div className="tacos">E burritos</div>
 
