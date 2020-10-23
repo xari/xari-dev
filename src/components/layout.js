@@ -1,7 +1,18 @@
-import React from "react"
+import React, { useRef } from "react"
+import { MDXProvider } from "@mdx-js/react"
 import { Link } from "gatsby"
-
 import { rhythm, scale } from "../utils/typography"
+import scatterplot from "../utils/scatterplot.js"
+
+function Scatterplot(props) {
+	const ref = useRef();
+
+	scatterplot(ref)
+
+	return <svg ref={ref.current} />;
+}
+
+const shortcodes = { Scatterplot };
 
 const Layout = ({ location, title, children }) => {
   const rootPath = `${__PATH_PREFIX__}/`
@@ -57,7 +68,9 @@ const Layout = ({ location, title, children }) => {
       }}
     >
       <header>{header}</header>
-      <main>{children}</main>
+      <main>
+	  <MDXProvider components={shortcodes}>{children}</MDXProvider>
+      </main>
       <footer>
         © {new Date().getFullYear()}
       </footer>

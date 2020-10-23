@@ -11,6 +11,7 @@
     "@babel/plugin-proposal-pipeline-operator": "^7.12.1",
     "@mdx-js/mdx": "^1.6.19",
     "@mdx-js/react": "^1.6.19",
+    "d3": "^6.2.0",
     "gatsby": "^2.24.85",
     "gatsby-image": "^2.3.5",
     "gatsby-plugin-feed": "^2.4.4",
