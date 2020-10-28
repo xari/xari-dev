@@ -1,4 +1,5 @@
 import * as d3 from "d3";
+import fetch from "node-fetch";
 
 function getBeers(page = 1, beers = []) {
   return fetch(`https://api.punkapi.com/v2/beers?per_page=80&page=${page}`).
