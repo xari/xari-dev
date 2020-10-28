@@ -5,11 +5,11 @@ import { rhythm, scale } from "../utils/typography"
 import scatterplot from "../utils/scatterplot.js"
 
 function Scatterplot(props) {
-	const ref = useRef();
+	const plotRef = useRef();
 
-	scatterplot(ref)
+	scatterplot(plotRef);
 
-	return <svg ref={ref.current} />;
+	return <svg ref={plotRef} />;
 }
 
 const shortcodes = { Scatterplot };
