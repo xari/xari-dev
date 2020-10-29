@@ -170,4 +170,3 @@ getBeers().
 
 Doesn't that look nice! :-D
 
-<Scatterplot />

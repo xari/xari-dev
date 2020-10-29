@@ -34,7 +34,7 @@ export default function scatterplot(ref) {
 	// set the dimensions and margins of the graph
 	const margin = { top: 10, right: 30, bottom: 40, left: 50 },
 		width = 520 - margin.left - margin.right,
-		height = 520 - margin.top - margin.bottom;
+		height = 450 - margin.top - margin.bottom;
 
 	const svg = d3.select(ref.current)
 		.attr("width", width + margin.left + margin.right)
@@ -55,23 +55,23 @@ export default function scatterplot(ref) {
 
 			// Add X axis
 			const x = d3.scaleLinear()
-				.domain([0, x_max * 1.01])
+				.domain([-0.02 * (width / x_max), x_max * 1.01])
 				.range([0, width]);
 
 			svg.append("g")
 				.attr("transform", `translate(0, ${height})`)
-				.call(d3.axisBottom(x).tickSize(- height * 1.3).ticks(10))
+				.call(d3.axisBottom(x).tickSize(- height * 1.3).tickSizeOuter(0))
 				.select(".domain")
 				.remove();
 
 			// Add Y axis
 			const y = d3.scaleLinear()
-				.domain([0, y_max * 1.01])
+				.domain([-0.02 * (height / y_max), y_max * 1.01])
 				.range([height, 0])
 				.nice();
 
 			svg.append("g")
-				.call(d3.axisLeft(y).tickSize(- width * 1.3).ticks(7))
+				.call(d3.axisLeft(y).tickSize(- width * 1.3).ticks(6).tickSizeOuter(0))
 				.select(".domain")
 				.remove();
 
