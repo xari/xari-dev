@@ -1,22 +1,39 @@
 ---
-title: 2020 Reading List
+title: Reading List
 date: 2020-04-26
-description: For personal growth and enrichment
+description: 
 ---
+
+# 2021
+
+### Fiction
+
+* The Three Body Problem
+* The Dark Forest
+* Death's End
+* La Rédemption du Temps
 
 ### Non-Fiction
 
-* [Shape Up](https://basecamp.com/shapeup)
 * Clojure for the Brave and True
-* The Soul of an Entrepreneur — David Sax
-* Done: ~~[Site Reliability Engineering](https://books.google.ch/books/about/Site_Reliability_Engineering.html?id=81UrjwEACAAJ&redir_esc=y)~~
-* Done: ~~[**Around the World in 1000 Days**](https://gawellforlag.com/product/around-the-world-in-1000-days)~~
-* Done: ~~[**Shoe Dog**](https://www.kobo.com/ch/en/ebook/shoe-dog-1)~~
+* [Shape Up](https://basecamp.com/shapeup)
+
+---
+
+# 2020
+
+### Non-Fiction
+
+
+* The Making of Prince of Persia: Journals 1985-1993
+* Site Reliability Engineering
+* [Around the World in 1000 Days](https://gawellforlag.com/product/around-the-world-in-1000-days)
+* Shoe Dog
+* 12 Rules for Life
 
 ### Fiction
 
 I'm experimenting with a new technique for improving my language skills; reading books that I already know and love in the language that I'm trying to get better at.
 
-* **Harry Potter und der Gefangene von Askaban**
-* **Harry Potter et la Coupe de Feu**
-* [**The Three Body Problem**](https://www.kobo.com/us/en/ebook/the-three-body-problem-3)
+* Harry Potter et l'Enfant maudit
+* Harry Potter et la Coupe de Feu
