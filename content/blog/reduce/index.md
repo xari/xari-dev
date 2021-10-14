@@ -1,7 +1,12 @@
 ---
 title: Mastering reduce()
-date: 2021-10-12
+date: 2021-10-14
 description: Grokking the most versitile Array method.
+---
+
+> This post explores the way that the `map()`, `flatMap()` and `reduce()` methods in JavaScript can be used to transform data.
+> It is the companion to a testing suite that I wrote for [testing solutions to common algorhithm challenges](https://github.com/xari/perf-eval/blob/main/solutions.test.js).
+
 ---
 
 I recently created my own unit test runner from scratch.

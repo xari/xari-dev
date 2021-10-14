@@ -1,5 +1,7 @@
 ---
 title: Paginated API requests in JavaScript
+date: 2021-03-10
+description: Using ES6 for more concise request structuring
 ---
 
 A simple call to the Punk API will serve-up a sampling of beers by default.
@@ -56,7 +58,8 @@ We can increase the numbers of items in the response by appending the `per_page`
 ```javascript
 "https://api.punkapi.com/v2/beers" // Provides an array of 25 beers
 
-"https://api.punkapi.com/v2/beers?per_page=80" // Provides an array of max 80 beers 
+"https://api.punkapi.com/v2/beers?per_page=80" // Provides an array of max 80 beers
+
 ```
 
 Attempting to return more than `80` will result in a `400` error, with the message, `'Must be a number greater than 0 and less than 80'`.
@@ -67,10 +70,11 @@ In other words:
 ```javascript
 "https://api.punkapi.com/v2/beers?per_page=80&page=1" // First page of 80 beers // highlight-line
 
-"https://api.punkapi.com/v2/beers?per_page=80&page=2" // Second page 
+"https://api.punkapi.com/v2/beers?per_page=80&page=2" // Second page
 
-"https://api.punkapi.com/v2/beers?per_page=80&page=3" // Third page 
-                                                      // etc.
+"https://api.punkapi.com/v2/beers?per_page=80&page=3" // Third page
+// etc.
+
 ```
 
 However; because this database is constantly being updated with new beers, the number of pages will evolve over time.
@@ -90,19 +94,20 @@ The function below will allow us to call `getBeers()` once, without any argument
 
 ```javascript
 function getBeers(page = 1, beers = []) {
-  return fetch(`https://api.punkapi.com/v2/beers?per_page=80&page=${page}`).
-      then(response => response.json()).
-      then(newBeers => {
-          const allBeers = [...beers, ...newBeers];
+  return fetch(`https://api.punkapi.com/v2/beers?per_page=80&page=${page}`)
+    .then(response => response.json())
+    .then(newBeers => {
+      const allBeers = [...beers, ...newBeers]
 
-	  if (newBeers.length !== 0) { // highlight-start
-	      page++;
+      if (newBeers.length !== 0) {
+        // highlight-start
+        page++
 
-	      return getBeers(page, allBeers);
-	  } // highlight-end
+        return getBeers(page, allBeers)
+      } // highlight-end
 
-	  return allBeers;
-	  });
+      return allBeers
+    })
 }
 ```
 
@@ -118,42 +123,41 @@ The code below shows how we can access the fetched beers once the Promise has re
 If you haven't yet worked with Promises, then I recommend reading-up on them [here](https://medium.com/@kevinyckim33/what-are-promises-in-javascript-f1a5fc5b34bf).
 
 ```javascript
-getBeers().
-    then(fetchedBeers => console.log(fetchedBeers));
+getBeers().then(fetchedBeers => console.log(fetchedBeers))
 ```
 
 The first thing we'll do with our array of beers is to strip away the data that we're not interested in, and keep only what will be useful to us.
 
 ```javascript
-getBeers().
-    then(fetchedBeers => fetchedBeers.map(beer => ({
-         name: beer.name,
-	 tagline: beer.tagline,
-	 description: beer.description,
-	 first_brewed: beer.first_brewed,
-	 food_pairing: beer.food_pairing,
-	 abv: beer.abv, // alcohol by volume
-	 ibu: beer.ibu // bitterness
-    })));
+getBeers().then(fetchedBeers =>
+  fetchedBeers.map(beer => ({
+    name: beer.name,
+    tagline: beer.tagline,
+    description: beer.description,
+    first_brewed: beer.first_brewed,
+    food_pairing: beer.food_pairing,
+    abv: beer.abv, // alcohol by volume
+    ibu: beer.ibu, // bitterness
+  }))
+)
 ```
 
 In fact; let's wrap that into a function, so that we can keep our data pipeline easier to read.
 
 ```javascript
 function keepOnlyWantedProperties(beers) {
-    return beers.map(beer => ({
-         name: beer.name,
-	 tagline: beer.tagline,
-	 description: beer.description,
-	 first_brewed: beer.first_brewed,
-	 food_pairing: beer.food_pairing,
-	 abv: beer.abv, // alcohol by volume
-	 ibu: beer.ibu // bitterness
-    }));
+  return beers.map(beer => ({
+    name: beer.name,
+    tagline: beer.tagline,
+    description: beer.description,
+    first_brewed: beer.first_brewed,
+    food_pairing: beer.food_pairing,
+    abv: beer.abv, // alcohol by volume
+    ibu: beer.ibu, // bitterness
+  }))
 }
 
-getBeers().
-    then(fetchedBeers => keepOnlyWantedProperties(fetchedBeers));
+getBeers().then(fetchedBeers => keepOnlyWantedProperties(fetchedBeers))
 ```
 
 Or; if you're running Node.js, you can use the pipe syntax!
@@ -164,9 +168,7 @@ It is currently only a proposal to JS, but you can start using it if you follow 
 </blockquote>
 
 ```javascript
-getBeers().
-    then(fetchedBeers => fetchedBeers |> keepOnlyWantedProperties)
+getBeers().then(fetchedBeers => fetchedBeers |> keepOnlyWantedProperties)
 ```
 
 Doesn't that look nice! :-D
-
