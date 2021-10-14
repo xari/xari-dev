@@ -3,7 +3,7 @@ module.exports = {
     title: `Ideas in Development`,
     author: {
       name: `Harry Anderson`,
-      summary: `is alive and well.`,
+      summary: ``,
     },
     description: `Ideas in development.`,
     siteUrl: `https://xari-dev/`,

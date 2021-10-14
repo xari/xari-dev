@@ -59,10 +59,6 @@ const Bio = () => {
       />
       <p>
         <strong>{author.name}</strong> {author.summary}
-        <br />
-        <a href={`https://www.extensionschool.ch/`} target="_blank">
-          Teaching WebDev &amp; Data @EXTS
-        </a>
       </p>
     </div>
   )
