@@ -1,7 +1,7 @@
 ---
-title: transducers
+title: Transducers
 date: 2021-10-27
-description: Reducers for your reducers.
+description: Yo dogg... I heard you like reducers. Let's write some transducers for your reducers, so you can reduce while you reduce.
 ---
 
 > Search for JavaScript transducer
