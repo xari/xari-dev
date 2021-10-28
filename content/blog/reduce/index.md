@@ -1,16 +1,16 @@
 ---
 title: Mastering reduce()
 date: 2021-10-14
-description: Grokking the most versitile Array method.
+description: Grokking the most versatile Array method.
 ---
 
 > This post explores the way that the `map()`, `flatMap()` and `reduce()` methods in JavaScript can be used to transform data.
-> It is the companion to a testing suite that I wrote for [testing solutions to common algorhithm challenges](https://github.com/xari/perf-eval/blob/main/solutions.test.js).
+> It is the companion to a testing suite that I wrote for [testing solutions to common algorithm challenges](https://github.com/xari/perf-eval/blob/main/solutions.test.js).
 
 ---
 
 I recently created my own unit test runner from scratch.
-I had been working on my algorhithm skills for an interview, and I wanted to create a simple test suite where I could test different approaches to the same problem, using several different input values.
+I had been working on my algorithm skills for an interview, and I wanted to create a simple test suite where I could test different approaches to the same problem, using several different input values.
 
 The problem was to find the first positive integer that doesn't occur in an array of values (`A`).
 Below you can see one of the functions that I wrote to solve this problem.
@@ -36,7 +36,7 @@ There are four other solutions that I wrote,`find_missing_int_reduce`, `find_mis
 Each of these functions must be able to accept an array of `[-100000, ..., 100000]`, and return an integer.
 
 Here's what my test input values look like.
-Notice that `find_missing_int` is given as a property; this is done to keep this testing suite as generic as possible, so that I can continue to use it in my continued algorhithm practice.
+Notice that `find_missing_int` is given as a property; this is done to keep this testing suite as generic as possible, so that I can continue to use it in my continued algorithm practice.
 
 ```js
 const testCases = [

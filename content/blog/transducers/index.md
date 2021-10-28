@@ -4,8 +4,7 @@ date: 2021-10-27
 description: Yo dogg... I heard you like reducers. Let's write some transducers for your reducers, so you can reduce while you reduce.
 ---
 
-> Search for JavaScript transducer
->
+> Search for JavaScript transducer</br>
 > And be blown away
 
 This was the message that I received from my pal Xavier that kicked-off several days of brain-racking and mental gymnastics that finally allowed me to transform the core of my home-grown test runner from a [previous post](https://xari.dev/reduce/).
@@ -31,7 +30,7 @@ Sure; it may look on the surface that what I've achieved here is actually more c
 
 So; what's a transducer, anyway?
 In short, a transducer is a function that takes a reducer, and returns a reducer.
-We can think of it like a higher-order reducer, for those of us familliar with higher-order functions.
+We can think of it like a higher-order reducer, for those of us familiar with higher-order functions.
 These functions allow us to write complex reductions using multiple functions, rather than cramming everything into a single reducer function, and they also give us the benefits of currying.
 More on that in a bit.
 
@@ -93,7 +92,7 @@ This may not seem like a problem to some, but as developers I'd argue that a cri
 Something that managers would do well to appreciate the importance of, if they hope to retain their best developers in the long-run.
 
 Let's examine this problem in light of the all-mighty transducer.
-We're going to write a transducer that can do the finite number check, and be composed with our `getMaxReducer`, allowing us to get what we want in a programatically generic way, out of a single `reduce()` call.
+We're going to write a transducer that can do the finite number check, and be composed with our `getMaxReducer`, allowing us to get what we want in a programmatically generic way, out of a single `reduce()` call.
 
 ```js
 const getMaxReducer = (a, b) => Math.max(a, b)
@@ -114,7 +113,7 @@ const max = [127, 33, 1, 2, 3, 4, 8, 9, -22, "hmmm."].reduce(
 > How do you like them apples?
 
 Without modifying our original `getMaxReducer` function, we've been able to filter out any non-number values without any added method chains at all!
-We simply composed our reducer with a transducer to get what we needed out of the arry in a single call to `reduce`.
+We simply composed our reducer with a transducer to get what we needed out of the array in a single call to `reduce`.
 
 We could even write a composer function that could make this a little easier to follow:
 
