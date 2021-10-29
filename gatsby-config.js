@@ -3,13 +3,10 @@ module.exports = {
     title: `Ideas in Development`,
     author: {
       name: `Harry Anderson`,
-      summary: ``,
+      summary: `ʘ‿ʘ`,
     },
     description: `Ideas in development.`,
     siteUrl: `https://xari-dev/`,
-    social: {
-      twitter: `xari-dev`,
-    },
   },
   plugins: [
     {
@@ -50,13 +47,7 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-    {
-      resolve: `gatsby-plugin-google-analytics`,
-      options: {
-        //trackingId: `ADD YOUR TRACKING ID HERE`,
-      },
-    },
-    `gatsby-plugin-feed`,
+    { resolve: `gatsby-plugin-feed`, options: { feeds: [] } },
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
