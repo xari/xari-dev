@@ -1,7 +1,4 @@
 {
-  "plugins": [
-    ["@babel/plugin-proposal-pipeline-operator", { "proposal" : "minimal" }]
-  ],
   "presets": [
     [
       "babel-preset-gatsby",
