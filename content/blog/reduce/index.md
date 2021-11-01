@@ -301,8 +301,6 @@ results.fail.forEach(({ name, details }) => {
 })
 ```
 
----
-
 `reduce()` can help us to transform the structure and the length of our data in a single customizable and fast step.
 It can be used as more customizable alternative to `filter()` or `map()`, but it's real power is in the way that it enables us to modify the structure of our data.
 _Reducing_ many inputs into a single, new output.

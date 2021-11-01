@@ -1,25 +1,24 @@
 ---
 title: Transducers
 date: 2021-10-27
-description: Yo dogg... I heard you like reducers. Let's write some transducers for your reducers, so you can reduce while you reduce.
+description: I heard you like reducers... How about we write some transducers for your reducers, so you can reduce while you reduce.
 ---
 
 > Search for JavaScript transducer</br>
 > And be blown away
 
-This was the message that I received from my pal Xavier that kicked-off several days of brain-racking and mental gymnastics that finally allowed me to transform the core of my home-grown test runner from a [previous post](https://xari.dev/reduce/).
+This was the message that I received from my friend Xavier that kicked-off several days of brain-racking and mental gymnastics that finally allowed me to transform the core of my home-grown test runner from a [previous post](https://xari.dev/reduce/).
 
 Learning how to implement transducers helped me to increase the overall performance of my test-runner by reducing the number of links in my array method chain.
-We'll examine this example in detail toward the end of this post, but to give you a preview, and to show you what this post is all about; transducers allowed me to simplify my code by going from this:
+I'll explore the test-runner refactor toward the end of this post, but to show you quickly what we're working toward...
+Using a transducer allowed me to reduce the overall performance complexity of my test runner by removing one stage in the method chain below.
 
 ```js
+// Old way
 const results = testCases.flatMap(test).reduce(resultsReducer, []),
 )
-```
 
-—to this!
-
-```js
+// New way
 const results = testCases.reduce(
   getResultsTransducer(condenseResultsReducer),
   []
@@ -28,7 +27,7 @@ const results = testCases.reduce(
 
 Sure; it may look on the surface that what I've achieved here is actually more complex, but in this post I'll break down why I believe this to be a superior pattern, and why it might be worthwhile for you to also invest the time to learn how to use _transducers_ in your code.
 
-So; what's a transducer, anyway?
+What's a transducer?
 In short, a transducer is a function that takes a reducer, and returns a reducer.
 We can think of it like a higher-order reducer, for those of us familiar with higher-order functions.
 These functions allow us to write complex reductions using multiple functions, rather than cramming everything into a single reducer function, and they also give us the benefits of currying.
