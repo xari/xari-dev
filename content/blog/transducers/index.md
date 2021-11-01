@@ -34,15 +34,14 @@ These functions allow us to write complex reductions using multiple functions, r
 More on that in a bit.
 
 How do we make a transducer?
-That's simple; just wrap a reducer in a bit of extra scaffolding, and any reducer
+That's simple; just wrap a reducer in a bit of extra scaffolding, and any reducer can be a transducer.
+Have a look below:
 
 ```js
+// This reducer
 const getMaxReducer = (a, b) => Math.max(a, b)
-```
 
-—becomes a transducer:
-
-```js
+// becomes a transducer...
 const getMaxTransducer = nextReducer => (a, b) => nextReducer(a, Math.max(a, b))
 ```
 
