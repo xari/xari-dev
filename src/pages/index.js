@@ -16,7 +16,7 @@ const BlogIndex = ({ data, location }) => {
       {posts.map(({ node }) => {
         const title = node.frontmatter.title || node.fields.slug
         return (
-          <article key={node.fields.slug} className="max-w-xl mb-8">
+          <article key={node.fields.slug} className="max-w-xl mb-10">
             <header>
               <h3 className="text-3xl">
                 <Link to={node.fields.slug}>{title}</Link>

@@ -8,9 +8,7 @@ const Layout = ({ location, title, children }) => {
   if (location.pathname === rootPath) {
     header = (
       <h1 className="text-5xl my-3">
-        <Link to={`/`} className="text-black">
-          {title}
-        </Link>
+        <Link to={`/`}>{title}</Link>
       </h1>
     )
   } else {

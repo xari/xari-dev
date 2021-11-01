@@ -30,7 +30,7 @@ const Bio = () => {
 
   const { author } = data.site.siteMetadata
   return (
-    <div className="group leading-6 flex items-center space-x-3 sm:space-x-4 pb-5">
+    <div className="group leading-6 flex items-center space-x-3 sm:space-x-4 mb-10">
       <GatsbyImage
         image={data.avatar.childImageSharp.gatsbyImageData}
         alt={author.name}
