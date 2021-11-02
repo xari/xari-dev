@@ -11,6 +11,7 @@ This was the message that I received from my friend Xavier that kicked-off sever
 
 Learning how to implement transducers helped me to increase the overall performance of my test-runner by reducing the number of links in my array method chain.
 I'll explore the test-runner refactor toward the end of this post, but to show you quickly what we're working toward...
+
 Using a transducer allowed me to reduce the overall performance complexity of my test runner by removing one stage in the method chain below.
 
 ```js
