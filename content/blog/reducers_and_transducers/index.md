@@ -6,10 +6,14 @@ description: Expanding on reducers and transducers.
 
 What is a reducer?
 A function that takes an accumulator and a value, and returns a value.
+Below is an example of one that can be used to reduce the greatest number from an array of numbers.
 
 ```js
 const getMax = (acc, val) => Math.max(acc, val)
 ```
+
+Imagine that the `Array.reduce` method didn't exist.
+If we wanted to be able to use the `getMax` reducer, we'd need to write our own reducer function that could take an array and a reducer, and then run the reducer using the array.
 
 ```js
 // Pay attention, and don't confuse arr for acc
