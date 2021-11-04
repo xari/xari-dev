@@ -1,7 +1,7 @@
 ---
-title: Reducer notes
+title: Reducers and Transducers
 date: 2021-11-03
-description: Notes for the forthcoming reducer/transducer artifact.
+description: Expanding on reducers and transducers.
 ---
 
 What is a reducer?
