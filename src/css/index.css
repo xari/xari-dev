@@ -64,3 +64,11 @@ pre[class*="language-"] {
 h1 a {
   color: hsla(0, 0%, 0%, 0.73);
 }
+
+.call-out-indigo {
+  @apply bg-indigo-50;
+  @apply -mx-5;
+  @apply px-5;
+  @apply py-10;
+  @apply mb-10;
+}

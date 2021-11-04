@@ -96,7 +96,7 @@ Reduce is versatile enough to be able to combine those two steps easily.
 But we now have a _less generalized_ function instead of the two generic functions that we started with.
 Better would be to keep our functions as generic as possible, but be able to compose them together as needed.
 
-<div class="bg-indigo-50 -mx-5 px-5 py-10 mb-10">
+<div class="call-out-indigo">
 
 #### A quick note about function composition
 
