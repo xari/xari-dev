@@ -147,7 +147,7 @@ max // 5
 
 #### Review
 
-So; now that we understand what the `Array.reduce` method is, let's look at a common method chain and see whether there's a way that we can improve upon it.
+Now that we understand what the `Array.reduce` method is, let's look at a common method chain and see whether there's a way that we can improve upon it.
 
 Below is a new array method chain that uses both `filter` and `reduce` to return the greatest odd number from the provided array.
 

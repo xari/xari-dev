@@ -12,6 +12,12 @@
   h5 {
     @apply font-display;
   }
+  h2,
+  h3,
+  h4,
+  h5 {
+    @apply mt-10;
+  }
   body {
     @apply font-body;
     @apply text-2xl;
@@ -74,8 +80,8 @@ h1 a {
 
 .call-out-indigo {
   @apply is-wide;
-  @apply py-10;
-  @apply mb-10;
+  @apply pt-2;
+  @apply pb-4;
   @apply painted-border;
   border-image-source: url(./code-med-indigo.svg);
 }
