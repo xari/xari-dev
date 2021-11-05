@@ -4,20 +4,79 @@ date: 2021-11-03
 description: Expanding on reducers and transducers.
 ---
 
-What is a reducer?
-A function that takes an accumulator and a value, and returns a value.
-Below is an example of one that can be used to reduce the greatest number from an array of numbers.
+Reducers are functions that take an accumulator and a value, and return a value.
+They are often used to _reduce_ an array of multiple items to a single value, but they don't _have_ to be used that way.
+In fact; a reducer can be used as a more verbose alternative to other array methods like `map` or `filter`.
+
+For example; below I'm using `Array.reduce` for something that could be accomplished using `Array.map` using less code.
 
 ```js
-const getMax = (acc, val) => Math.max(acc, val)
+const integers = ["8", "7", "6", "5", "4"].reduce(
+  (acc, cur) => acc.concat(parseInt(cur)),
+  []
+)
+
+integers // [8, 7, 6, 5, 4]
 ```
+
+Anyone who knows ES6 will know that `Array.map` is better suited for such a task, as shown below.
+
+```js
+const integers = ["8", "7", "6", "5", "4"].map(parseInt)
+
+integers // [8, 7, 6, 5, 4]
+```
+
+The examples above can begin to show us the difference between `map` and `reduce`.
+Map provides us with a simple interface for the situations in which we need to apply a function to each element in an array, while `reduce` gives us full control over each iteration of the array traversal.
+
+Here's another example.
+Imagine that you have an array of integer and string values that you want to convert into an array of only integers.
+You want to keep all of the actual numbers from the original array, but you want to remove any irrelevant non-numeric characters.
+We can accomplish this simply by chaining two array methods together: `map` and `filter`.
+
+```js
+const original = [8, "7", 6, "5", 4, "", "postal_code"]
+
+const parsed = original.map(x => parseInt(x))
+
+parsed // [8, 7, 6, 5, 4, NaN, NaN]
+
+const filtered = parsed.filter(Number.isFinite)
+
+filtered // [8, 7, 6, 5, 4]
+```
+
+The approach above traverses the array twice.
+First, to convert the strings to integers where possible, and then once more to filter out the `NaN` items.
+
+Using `reduce`, however, we could do it in a single step; traversing the array only once.
+
+```js
+const parsedAndFiltered = original.reduce((acc, cur) => {
+  const parsed = parseInt(cur)
+  return Number.isFinite(parsed) ? acc.concat(parsed) : acc
+}, [])
+
+parsedAndFiltered // [8, 7, 6, 5, 4]
+```
+
+We're able to do this because `Array.reduce` gives us control over the data that gets sent from one iteration to the next.
+
+```js
+const ascending = [8, 7, 6, 5, 4].reduceRight((acc, cur) => acc.concat(cur), [])
+
+ascending // [4, 5, 6, 7, 8]
+```
+
+#### How `Array.reduce` works
 
 Imagine that the `Array.reduce` method didn't exist.
 If we wanted to be able to use the `getMax` reducer, we'd need to write our own reducer function that could take an array and a reducer, and then run the reducer using the array.
 
 ```js
-// Pay attention, and don't confuse arr for acc
-function reduce(arr, reducer, initialValue) {
+// Pay attention; don't confuse arr for acc
+function customReduce(arr, reducer, initialValue) {
   let acc
   let i = 0
 
@@ -36,11 +95,31 @@ function reduce(arr, reducer, initialValue) {
 }
 ```
 
+Below is a reducer that can be used to surface the greatest number from an array of numbers.
+
 ```js
-reduce([1, 2, 3, 4, 5], getMax) // 5
+const getMax = (acc, val) => Math.max(acc, val)
 ```
 
-If we wanted to make our home-grown `reduce` function an array method, we'd could do that by trading `arr` for `this`, shown below, and by naming it something other than `reduce`, which is already taken.
+This is how we would use `getMax` with our `customReduce` function.
+
+```js
+// Our home-grown reduce function
+const max = customReduce([1, 2, 3, 4, 5], getMax)
+
+max // 5
+```
+
+And this is what it would look like using the standard `Array.reduce` method.
+
+```js
+// The out-of-the-box JS Array.reduce method
+const max = [-8, -7, -6, -4, -5].reduce(getMax)
+
+max // -5
+```
+
+If we wanted to make our home-grown reduce function an array method, we'd could do that by trading `arr` for `this`, shown below, and by naming it something other than `reduce`, which is already taken.
 
 ```js
 Array.prototype.newReduce = function (reducer, initialValue) {
@@ -65,6 +144,8 @@ const max = [6, 7, 8, 9, 10].newReduce(getMax)
 
 max // 5
 ```
+
+#### Review
 
 So; now that we understand what the `Array.reduce` method is, let's look at a common method chain and see whether there's a way that we can improve upon it.
 
@@ -201,3 +282,6 @@ largeArray.filter().map().sort().reduce()
 ```
 
 In this case, being able to perform your complex transformation in a single traversal, instead of four, would be a game-changer.
+
+But remember; performance gains are only half of the argument in favor of learning function composition.
+Being able to compose transducers and reducers together means that you can write functions that are more generic, and thus more stable and easier to test, ultimately keeping your projects lighter and more robust.
