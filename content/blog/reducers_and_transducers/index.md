@@ -63,12 +63,6 @@ parsedAndFiltered // [8, 7, 6, 5, 4]
 
 We're able to do this because `Array.reduce` gives us control over the data that gets sent from one iteration to the next.
 
-```js
-const ascending = [8, 7, 6, 5, 4].reduceRight((acc, cur) => acc.concat(cur), [])
-
-ascending // [4, 5, 6, 7, 8]
-```
-
 #### How `Array.reduce` works
 
 Imagine that the `Array.reduce` method didn't exist.
