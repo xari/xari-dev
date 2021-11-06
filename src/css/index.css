@@ -53,7 +53,8 @@ pre[class*="language-"] {
 
 .is-wide {
   @apply -mx-5;
-  @apply px-5;
+  @apply pr-0;
+  @apply pl-5;
   @apply max-w-4xl;
   @apply w-screen;
 }
@@ -63,7 +64,10 @@ pre[class*="language-"] {
 .painted-border {
   background: transparent;
   border-image-slice: 6.8965517241% 7.8636959371% 7.0993914807% 0 fill;
-  border-width: 2.125rem 3.75rem 2.1875rem 0;
+  @apply border-t-30;
+  @apply border-r-50;
+  @apply border-b-30;
+  @apply border-l-0;
   border-style: solid;
   overflow: hidden;
 }
@@ -72,6 +76,7 @@ pre[class*="language-"] {
   @apply is-wide;
   @apply painted-border;
   border-image-source: url(./code-med.svg);
+  overflow: scroll;
 }
 
 h1 a {
@@ -80,12 +85,19 @@ h1 a {
 
 .call-out-indigo {
   @apply is-wide;
-  @apply pt-2;
-  @apply pb-4;
   @apply painted-border;
+  @apply pt-2;
+  @apply pr-0;
+  @apply pb-4;
   border-image-source: url(./code-med-indigo.svg);
 }
 
 .call-out-indigo pre[class*="language-"] {
   border: none;
+  width: calc(100% + 20px);
+  @apply max-w-none;
+}
+
+.call-out-indigo code[class*="language-"] {
+  @apply pr-0;
 }
