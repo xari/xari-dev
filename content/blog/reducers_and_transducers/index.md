@@ -8,7 +8,7 @@ Reducers are functions that take an accumulator and a value, and return a value.
 They are often used to _reduce_ an array of multiple items to a single value, but they don't _have_ to be used that way.
 In fact; a reducer can be used as a more verbose alternative to other array methods like `map` or `filter`.
 
-For example; below I'm using `Array.reduce` for something that could be accomplished using `Array.map` using less code.
+For example; below I'm using `Array.reduce` for something that could be accomplished with less code by using `Array.map`.
 
 ```js
 const integers = ["8", "7", "6", "5", "4"].reduce(
