@@ -169,7 +169,7 @@ The Ramda `transduce`-based solution has almose the same performance as the simp
 
 ---
 
-According to the benchmark, the most performant of the ones tested was the `for...of` approach.
+According to the benchmark, the most performant of the tested functions was the `for...of` approach.
 The `for`-based approach had virtually the same perfomance as the `for...of`, which makes sense, while the Ramda approaches were the least performant.
 
 However; all of the approaches that are mentioned in this post are _performant enough_, and on the Codility platform each of these scored 100%.
