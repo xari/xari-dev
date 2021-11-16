@@ -21,7 +21,7 @@ I used the [Benchmark.js](https://benchmarkjs.com/) library, and you can find th
 
 #### The problem
 
-The benchmark tests six functions that I wrote to solve the following algorithm problem.
+The benchmark tests seven functions that I wrote to solve the following algorithm problem.
 
 > Write a function that, given an array `A` of N integers, returns the smallest positive integer **(greater than 0)** that does not occur in `A`.
 >
@@ -190,6 +190,8 @@ es6_reduce       x 70.24 ops/sec ±0.29% (72 runs sampled)
 es6_reduce_eject x 67.27 ops/sec ±0.53% (69 runs sampled)
 
 ramda_reduce     x 62.83 ops/sec ±0.37% (65 runs sampled)
+
+ramda_transduce  x 58.47 ops/sec ±0.23% (75 runs sampled)
 ```
 
 However, all of the approaches above are performant _enough_ to get the job done.
