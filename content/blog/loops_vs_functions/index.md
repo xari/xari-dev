@@ -17,15 +17,11 @@ This post examines the results of my benchmarking suite, and offers my own thoug
 These tests were carried-out on my mid-2015 MacBook Pro 2.5 GHz Quad-Core i7 with 16GB of RAM.
 I used the [Benchmark.js](https://benchmarkjs.com/) library, and you can find the source code for all approaches and the benchmarking test suite [here on GitHub](https://github.com/xari/perf-eval/blob/main/solutions.test.js).
 
-The benchmark passes each tested function an array, `A`, that begins at `-123` and has a `length` of `456789`.
-
 </div>
 
 #### The problem
 
-The functions that I benchmarked are each named for the pattern that they use.
-They are: `classic_for`, `es6_for_of`, `es6_reduce`, `es6_reduce_eject`, `ramda_reduce` `ramda_transduce`.
-Each of them solves the following problem in their own way.
+The benchmark tests six functions that I wrote to test the following problem.
 
 > Write a function that, given an array `A` of N integers, returns the smallest positive integer **(greater than 0)** that does not occur in `A`.
 >
@@ -34,6 +30,8 @@ Each of them solves the following problem in their own way.
 > Assume that N is an integer within the range `[1..100,000]`; each element of array `A` is an integer within the range `[−1,000,000..1,000,000]`.
 
 From this description, we can intuit that the solution will be a function that takes an unsorted array of integers, _sorts it_, and then iterates through it to _return the first positive integer_ that isn't in the original array.
+
+Each of the functions in this benchmark is named according to the pattern that it employs (`classic_for`, `es6_for_of`, .etc), and each was invoked with an array containing `456789` integers.
 
 #### A classic `for` loop
 
