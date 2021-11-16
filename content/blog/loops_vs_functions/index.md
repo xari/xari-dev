@@ -6,19 +6,27 @@ description: Benchmarking different approaches to a classic algorithm problem.
 
 I recently did a deep-dive into classic algorithm problems in JavaScript.
 As I worked my way through the material, I often read that loops were more performant than array methods.
-Naturally, this bothered me as a functional enthusiast, so I set out to write a benchmarking suite to compare different approaches to a classic algorithm problem to settle the matter once and for all! 🤠
+As a functional enthusiast this peaked my curiosity, so I decided to write a benchmarking suite to test that claim.
+
+This post examines the results of my benchmarking suite, and offers my own thoughts on why I tend to forgoe loops in lieu of function composition.
+You can find the benchmarking suite [here on GitHub](https://github.com/xari/perf-eval/blob/main/solutions.test.js).
 
 <div class="call-out-indigo">
 
-#### TLDR
+#### My testing environment
 
-The loops that I benchmarked were faster than their functional counterparts.
-But it could be said that all approaches were in the same league, in terms of performance.
-Functional patterns offer numerous benefits through composition and a more refined sytax, and Ramda's functions offer some under-the-hood optimizations that I'm still learning about.
+These tests were carried-out on my mid-2015 MacBook Pro 2.5 GHz Quad-Core i7 with 16GB of RAM.
+I used the [Benchmark.js](https://benchmarkjs.com/) library, and you can find the source code for all approaches and the benchmarking test suite [here on GitHub](https://github.com/xari/perf-eval/blob/main/solutions.test.js).
+
+The provided array, `A`, begins at `-123` and has a `length` of `456789`.
 
 </div>
 
-Below is the description of the problem.
+#### The problem
+
+The functions that I benchmarked are each named for the pattern that they use.
+They are: `classic_for`, `es6_for_of`, `es6_reduce`, `es6_reduce_eject`, `ramda_reduce` `ramda_transduce`.
+Each of them solves the following problem in their own way.
 
 > Write a function that, given an array `A` of N integers, returns the smallest positive integer **(greater than 0)** that does not occur in `A`.
 >
@@ -58,17 +66,6 @@ Simple enough.
 Here's the benchmark:
 
 > `classic_for x 98.75 ops/sec ±0.21% (71 runs sampled)`
-
-<div class="call-out-indigo">
-
-#### My testing environment
-
-These tests were carried-out on my mid-2015 MacBook Pro 2.5 GHz Quad-Core i7 with 16GB of RAM.
-I used the [Benchmark.js](https://benchmarkjs.com/) library, and you can find the source code for all approaches and the benchmarking test suite [here on GitHub](https://github.com/xari/perf-eval/blob/main/solutions.test.js).
-
-The provided array, `A`, begins at `-123` and has a `length` of `456789`.
-
-</div>
 
 As someone who has grown fond of functional programming, the classic `for` loop is too verbose for my taste.
 ES6 offers a syntactically condensed version of the classic `for` loop with its `for...of` statement, and [I've included a solution that uses it in the repository](https://github.com/xari/perf-eval/blob/393fe3529f548d94ffa047968a47d17b2ad25b97/solutions.js#L21).
@@ -132,7 +129,7 @@ Array methods like `reduce` offer condensed syntax, but for now, they don't seem
 
 #### Ramda
 
-[Ramda](https://ramdajs.com/) is a functional library for JavaScript that, in addition to many thing, offers `filter`, `map` and `reduce` functions that might not be as performant as their ES6 counterparts, but more than make up for it in their API.
+[Ramda](https://ramdajs.com/) is a functional library for JavaScript that, in addition to many things, offers `filter`, `map` and `reduce` functions that offer an alternative syntax to JavaScrips's array methods, along with [other optimizations](https://github.com/ramda/ramda/issues/2404).
 
 The solution below uses Ramda's `compose` function to compose the `sort` and `reduce` together.
 
@@ -149,12 +146,16 @@ function ramda_reduce(A) {
 }
 ```
 
-This approach is slightly less performant than the ES6 `reduce` approach, but Ramda does a few nice under-the-hood optimizations that ES6 doesn't do, while offering a more flexible syntactic interface.
+This approach is slightly less performant than the ES6 `reduce` approach, but the composable nature of it offer a lot of flexibility.
 
 > `ramda_reduce x 62.83 ops/sec ±0.37% (65 runs sampled)`
 
-Some developers may find the condensed syntax of functional approaches less appealing than that of loops.
-But there are ways to make functional programming more readable.
+#### Transducers
+
+As a developer, I'm often wrangling data in longer pipelines than the simple sort-filter-reduce manner that I've examined in this post.
+The function above (`ramda_reduce`) composes two functions, and each of these will traverse the array once the composed function is invoked.
+Each new function that gets added to that `transformer` composition will add another array traversal.
+But there's a pattern that can perform any number of these transformations using a single array traversal.
 I'm referring to transducers, which I wrote about in [a recent post](https://xari.dev/reducers_and_transducers/).
 
 Ramda offers a `transduce` function, shown at work below, which let me efficiently break-out the filtering step of the algorithm into it's own function, without incresing the number of times that the array is iterated over.
@@ -173,7 +174,8 @@ function ramda_transduce(A) {
 If you've never seen a transducer at work before, I highly reccomend learning how to use them.
 This small example might not be enough to convince you, but try to consider how it could be applied to a more complex transformation that filters, maps, and reduces an array over several steps.
 
-The Ramda `transduce`-based solution has almose the same performance as the simple Ramda `reduce`-based solution, but it offers a more scaleable platform for development.
+The `ramda_transduce` solution has almost the same performance as `ramda_reduce` for this benchmark.
+However, it's important to keep in mind that `R.transduce` offers a more scaleable platform for complex transformations.
 
 > `ramda_transduce x 58.47 ops/sec ±0.23% (75 runs sampled)`
 
@@ -196,8 +198,9 @@ es6_reduce_eject x 67.27 ops/sec ±0.53% (69 runs sampled)
 ramda_reduce     x 62.83 ops/sec ±0.37% (65 runs sampled)
 ```
 
-However; all of the approaches above are performant _enough_ to get the job done.
-On the [Codility platform](https://www.codility.com/) each of these scored 100% for the challenge.
-I'd argue that after a certain performance threshold, other factors like syntax, immutability, and ease of testability matter far more than marginal performance gains.
-It's in these areas that functional approaches really shine.
+However, all of the approaches above are performant _enough_ to get the job done.
+On the [Codility platform](https://www.codility.com/) each of these scored 100% for the posted challenge.
+
+After a certain performance threshold, I'd argue that other factors like syntax, immutability, and ease of testability matter far more than marginal performance gains.
+It's in these areas that functional patterns really shine.
 Ramda's approach is particularly interesting to me, and I'm looking forward to getting to know it better as I dive deeper into this rabbit hole.
