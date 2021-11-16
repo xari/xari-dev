@@ -8,6 +8,10 @@ I recently did a deep-dive into classic algorithm problems in JavaScript.
 As I worked my way through the material, I often read that loops were more performant than array methods.
 Naturally, this bothered me as a functional enthusiast, so I set out to write a benchmarking suite to compare different approaches to a classic algorithm problem to settle the matter once and for all! 🤠
 
+> TLDR: The loops that I benchmarked were faster than their functional counterparts.
+> But it could be said that all approaches were in the same league, in terms of performance.
+> Functional patterns offer numerous benefits through composition and a more refined sytax, and Ramda's functions offer some under-the-hood optimizations that I'm still learning about.
+
 <div class="call-out-indigo">
 
 #### My testing environment
@@ -167,11 +171,27 @@ The Ramda `transduce`-based solution has almose the same performance as the simp
 
 > `ramda_transduce x 58.47 ops/sec ±0.23% (75 runs sampled)`
 
----
+#### Wrapping it up
 
 According to the benchmark, the most performant of the tested functions was the `for...of` approach.
 The `for`-based approach had virtually the same perfomance as the `for...of`, which makes sense, while the Ramda approaches were the least performant.
 
-However; all of the approaches that are mentioned in this post are _performant enough_, and on the Codility platform each of these scored 100%.
+```
+es6_for_of       x 99.61 ops/sec ±0.28% (73 runs sampled)
+
+classic_for      x 98.75 ops/sec ±0.21% (71 runs sampled)
+
+es6_forEach      x 72.16 ops/sec ±0.40% (74 runs sampled)
+
+es6_reduce       x 70.24 ops/sec ±0.29% (72 runs sampled)
+
+es6_reduce_eject x 67.27 ops/sec ±0.53% (69 runs sampled)
+
+ramda_reduce     x 62.83 ops/sec ±0.37% (65 runs sampled)
+```
+
+However; all of the approaches above are performant _enough_ to get the job done.
+On the [Codility platform](https://www.codility.com/) each of these scored 100% for the challenge.
 I'd argue that after a certain performance threshold, other factors like syntax, immutability, and ease of testability matter far more than marginal performance gains.
-Functional patterns and libraries like Ramda offer a lot of potential to keep codebases enjoyable to maintain.
+It's in these areas that functional approaches really shine.
+Ramda's approach is particularly interesting to me, and I'm looking forward to getting to know it better as I dive deeper into this rabbit hole.
