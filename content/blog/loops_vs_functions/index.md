@@ -8,8 +8,7 @@ I recently did a deep-dive into classic algorithm problems in JavaScript.
 As I worked my way through the material, I often read that loops were more performant than array methods.
 As a functional enthusiast this peaked my curiosity, so I decided to write a benchmarking suite to test that claim.
 
-This post examines the results of my benchmarking suite, and offers my own thoughts on why I tend to forgoe loops in lieu of function composition.
-You can find the benchmarking suite [here on GitHub](https://github.com/xari/perf-eval/blob/main/solutions.test.js).
+This post examines the results of my benchmarking suite, and offers my own thoughts on why I prefer to forgo loops in lieu of function composition.
 
 <div class="call-out-indigo">
 
@@ -18,7 +17,7 @@ You can find the benchmarking suite [here on GitHub](https://github.com/xari/per
 These tests were carried-out on my mid-2015 MacBook Pro 2.5 GHz Quad-Core i7 with 16GB of RAM.
 I used the [Benchmark.js](https://benchmarkjs.com/) library, and you can find the source code for all approaches and the benchmarking test suite [here on GitHub](https://github.com/xari/perf-eval/blob/main/solutions.test.js).
 
-The provided array, `A`, begins at `-123` and has a `length` of `456789`.
+The benchmark passes each tested function an array, `A`, that begins at `-123` and has a `length` of `456789`.
 
 </div>
 
