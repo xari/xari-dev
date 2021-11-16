@@ -8,18 +8,13 @@ I recently did a deep-dive into classic algorithm problems in JavaScript.
 As I worked my way through the material, I often read that loops were more performant than array methods.
 Naturally, this bothered me as a functional enthusiast, so I set out to write a benchmarking suite to compare different approaches to a classic algorithm problem to settle the matter once and for all! 🤠
 
-> TLDR: The loops that I benchmarked were faster than their functional counterparts.
-> But it could be said that all approaches were in the same league, in terms of performance.
-> Functional patterns offer numerous benefits through composition and a more refined sytax, and Ramda's functions offer some under-the-hood optimizations that I'm still learning about.
-
 <div class="call-out-indigo">
 
-#### My testing environment
+#### TLDR
 
-These tests were carried-out on my mid-2015 MacBook Pro 2.5 GHz Quad-Core i7 with 16GB of RAM.
-I used the [Benchmark.js](https://benchmarkjs.com/) library, and you can find the source code for all approaches and the benchmarking test suite [here on GitHub](https://github.com/xari/perf-eval/blob/main/solutions.test.js).
-
-The provided array, `A`, begins at `-123` and has a `length` of `456789`.
+The loops that I benchmarked were faster than their functional counterparts.
+But it could be said that all approaches were in the same league, in terms of performance.
+Functional patterns offer numerous benefits through composition and a more refined sytax, and Ramda's functions offer some under-the-hood optimizations that I'm still learning about.
 
 </div>
 
@@ -63,6 +58,17 @@ Simple enough.
 Here's the benchmark:
 
 > `classic_for x 98.75 ops/sec ±0.21% (71 runs sampled)`
+
+<div class="call-out-indigo">
+
+#### My testing environment
+
+These tests were carried-out on my mid-2015 MacBook Pro 2.5 GHz Quad-Core i7 with 16GB of RAM.
+I used the [Benchmark.js](https://benchmarkjs.com/) library, and you can find the source code for all approaches and the benchmarking test suite [here on GitHub](https://github.com/xari/perf-eval/blob/main/solutions.test.js).
+
+The provided array, `A`, begins at `-123` and has a `length` of `456789`.
+
+</div>
 
 As someone who has grown fond of functional programming, the classic `for` loop is too verbose for my taste.
 ES6 offers a syntactically condensed version of the classic `for` loop with its `for...of` statement, and [I've included a solution that uses it in the repository](https://github.com/xari/perf-eval/blob/393fe3529f548d94ffa047968a47d17b2ad25b97/solutions.js#L21).
