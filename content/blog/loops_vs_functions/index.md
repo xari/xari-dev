@@ -1,5 +1,5 @@
 ---
-title: Loops vs. Functions
+title: Loops vs. Functions (in JavaScript)
 date: 2021-11-13
 description: Benchmarking different approaches to a classic algorithm problem.
 ---
