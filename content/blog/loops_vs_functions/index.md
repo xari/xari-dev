@@ -29,9 +29,10 @@ The benchmark tests six functions that I wrote to solve the following algorithm 
 >
 > Assume that N is an integer within the range `[1..100,000]`; each element of array `A` is an integer within the range `[−1,000,000..1,000,000]`.
 
-From this description, we can intuit that the solution will be a function that takes an unsorted array of integers, _sorts it_, and then iterates through it to _return the first positive integer_ that isn't in the original array.
+From this description, we can intuit that the solution will be a function that takes an unsorted array of integers, sorts it, and then iterates through it to return the first positive integer that isn't in the original array.
+In other words, the array will need to be sorted, filtered, and reduced to a single value that is the first positive integer.
 
-Each of the functions in this benchmark is named according to the pattern that it employs (`classic_for`, `es6_for_of`, .etc), and each was invoked with an array containing `456789` integers.
+Each of the functions in this benchmark solves this problem, and is named according to the pattern that it employs (`classic_for`, `es6_for_of`, .etc).
 
 #### A classic `for` loop
 
@@ -59,18 +60,17 @@ function classic_for(A) {
 }
 ```
 
-Simple enough.
-Here's the benchmark:
+Calling this function with an array of `456789` integers yields the following performance throughput.
 
 > `classic_for x 98.75 ops/sec ±0.21% (71 runs sampled)`
 
-As someone who has grown fond of functional programming, the classic `for` loop is too verbose for my taste.
 ES6 offers a syntactically condensed version of the classic `for` loop with its `for...of` statement, and [I've included a solution that uses it in the repository](https://github.com/xari/perf-eval/blob/393fe3529f548d94ffa047968a47d17b2ad25b97/solutions.js#L21).
-The `for...of` solution scored the following, which shows a negligable performance improvement over the `for` loop:
+The `for...of` solution had the following throughput, which is more or less the same as that of the `for` loop.
 
 > `es6_for_of x 99.61 ops/sec ±0.28% (73 runs sampled)`
 
-To sum-up the `for`-based approaches; they come in at almost `100 ops/sec` using 14 lines of code.
+The `for` loop approaches come in at almost `100 ops/sec` using 14 lines of code.
+Let's see whether ES6's functional array methods can compete with that.
 
 #### ES6 `Array` methods
 
@@ -87,21 +87,20 @@ function es6_reduce(A) {
 ```
 
 The function above performs the exact same job as the classic `for` loop further up the page.
-But it does it uses a very different approach under-the-hood, resulting, in this case, in a notably lower benchmark score.
+But it does that using a very different approach under-the-hood, resulting in a notably lower benchmark score.
 
 > `es6_reduce x 70.24 ops/sec ±0.29% (72 runs sampled)`
 
-The `Array.forEach` method is something of a hybrid between loops and `Array` these functional methods, and it scored a similar number.
+The `Array.forEach` method ([see GitHub](https://github.com/xari/perf-eval/blob/393fe3529f548d94ffa047968a47d17b2ad25b97/solutions.js#L37)) scored a similar number.
 
 > `es6_forEach x 72.16 ops/sec ±0.40% (74 runs sampled)`
 
 <div class="call-out-indigo">
 
 The truely savvy among those reading this post will have noted that the `es6_reduce` function above doesn't offer the early `return` feature of the `classic_for` approach.
+The benefit of this feature is that it will break the loop in the first iteration if the first item in the array is larger than `1`.
 
-The benefit of this feature is that if the provided array is very large but only begins at `2`, it won't iterate through the entire array before ultimately returning `1`.
-
-Here's a `reduce`-based solution that return `1` immediately if `A[0]` is greater than `1`.
+Here's a `reduce`-based solution that can do this.
 
 ```js
 function es6_reduce_eject(A) {
@@ -114,9 +113,7 @@ function es6_reduce_eject(A) {
 ```
 
 The function above may not be pretty, but if `A` begins with an integer greater than `1`, it will provide a significant performance gain.
-
-In this benchmark, however, the array begins at `-123` and ends at `456665`.
-Not only is this gain not realized, but it seems that this additional line of code slightly reduces the overall performance of the function.
+However, the array used in this benchmark begins at `-123` and contains only consecutive integers, so this early return didn't help the following score.
 
 > `es6_reduce_eject x 67.27 ops/sec ±0.53% (69 runs sampled)`
 
