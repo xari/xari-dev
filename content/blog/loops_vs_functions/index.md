@@ -194,7 +194,7 @@ ramda_reduce     x 62.83 ops/sec ±0.37% (65 runs sampled)
 ramda_transduce  x 58.47 ops/sec ±0.23% (75 runs sampled)
 ```
 
-However, all of the approaches above are performant _enough_ to get the job done.
+However, all of the approaches above are _performant enough_ to get the job done.
 On the [Codility platform](https://www.codility.com/) each of these scored 100% for the posted challenge.
 
 After a certain performance threshold, I'd argue that other factors like syntax, immutability, and ease of testability matter far more than marginal performance gains.
