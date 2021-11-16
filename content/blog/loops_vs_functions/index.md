@@ -21,7 +21,7 @@ I used the [Benchmark.js](https://benchmarkjs.com/) library, and you can find th
 
 #### The problem
 
-The benchmark tests six functions that I wrote to test the following problem.
+The benchmark tests six functions that I wrote to solve the following algorithm problem.
 
 > Write a function that, given an array `A` of N integers, returns the smallest positive integer **(greater than 0)** that does not occur in `A`.
 >
