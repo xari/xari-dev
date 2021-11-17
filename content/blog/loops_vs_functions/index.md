@@ -1,5 +1,5 @@
 ---
-title: Loops vs. Functions (in JavaScript)
+title: Loops vs. Functions (in JS)
 date: 2021-11-13
 description: Benchmarking different approaches to a classic algorithm problem.
 ---
@@ -197,6 +197,10 @@ ramda_transduce  x 58.47 ops/sec ±0.23% (75 runs sampled)
 However, all of the approaches above are _performant enough_ to get the job done.
 On the [Codility platform](https://www.codility.com/) each of these scored 100% for the posted challenge.
 
-After a certain performance threshold, I'd argue that other factors like syntax, immutability, and ease of testability matter far more than marginal performance gains.
+It's important to also reflect on the data that this benchmark used, and how it was being transformed.
+The problem that these functions solve is a textbook problem using a very simple array of integers.
+It wouldn't surprise me to see a different benchmark for a "real-world" problem that showed Ramda's `reduce` in first place.
+
+Still, after a certain performance threshold, I'd argue that other factors like syntax, immutability, and ease of testability matter far more than marginal performance gains.
 It's in these areas that functional patterns really shine.
 Ramda's approach is particularly interesting to me, and I'm looking forward to getting to know it better as I dive deeper into this rabbit hole.
