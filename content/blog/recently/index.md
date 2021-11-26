@@ -1,14 +1,14 @@
 ---
 title: Silence, Clean Code, and the Burnout Society
 date: 2021-11-22
-description: Readings for professional development.
+description: Things I read this week.
 ---
 
-I'm taking a brief intermission from my musings about functional programming patterns to reflect on three articles that I've been shaing with friends in the past few weeks.
+I'm taking a brief intermission from my musings about functional programming patterns to reflect on three articles that I read this week.
+
+![Grindlewald](./grindelwald.jpeg)
 
 #### [The many gifts of awkward SILENCE](https://jessicahagy.substack.com/p/the-many-gifts-of-awkward-silence)
-
-I came accross on Hacker News this morning.
 
 Sometimes questions are framed in a way that suggests that we're hitting balls in a racquetball court, when we're actually out LARPing in a field somewhere, or playing any game where we have a creative influence on the rules and the framing of it.
 Silence can help us when we seek to navigate ambiguity, and [this post](https://jessicahagy.substack.com/p/the-many-gifts-of-awkward-silence) explores how.
@@ -44,9 +44,6 @@ But how many of them had traveled outside of their own country by the time they 
 None of them could launch their own TV shows without any credentials or experience.
 Meanwhile, my YouTube subscriptions consist of one-man shows by people with an idea and a camera, and millions of subscribers before they were 30 years old.
 
-Traditional rewards no longer exist, but the opportunity to launch our careers into the stratosphere is all around us.
-But it is still hard to succeed, despite how many examples of success we see around us.
-
 > Our motivations today come from within. Our goals are success and health. Our life is like a project, its worth measured by our accumulation of those things. No longer obedience-subjects, we are **achievement-subjects**. If the rejects of disciplinary society were madmen and criminals, the rejects of achievement society are depressives and losers.
 
 ##### Surviaval is the new success.
@@ -60,4 +57,4 @@ In the meantime, I'll be:
 
 - [Not trying](https://www.youtube.com/watch?v=eMTDAHK-tkE&feature=youtu.be).
 - Writing code that works, in lieu of code that satisfies all of my functional itches.
-- Taking a moment to listen before I speak.
+- Listening before I speak.
