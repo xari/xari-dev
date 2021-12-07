@@ -55,7 +55,7 @@ pre[class*="language-"] {
   @apply -mx-5;
   @apply pr-0;
   @apply pl-5;
-  @apply max-w-4xl;
+  @apply max-w-3xl;
   @apply w-screen;
 }
 
@@ -77,6 +77,14 @@ pre[class*="language-"] {
   @apply painted-border;
   border-image-source: url(./code-med.svg);
   overflow: scroll;
+}
+
+pre[class*="language-"] span {
+  @apply text-base;
+}
+
+.sm-text pre[class*="language-"] span {
+  @apply text-sm;
 }
 
 h1 a {

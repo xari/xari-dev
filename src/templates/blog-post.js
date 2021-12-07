@@ -25,7 +25,6 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           className="my-5 py-5 max-w-2xl"
           dangerouslySetInnerHTML={{ __html: post.html }}
         />
-        <hr />
         <footer>
           <Bio />
         </footer>
