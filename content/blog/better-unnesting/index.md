@@ -284,14 +284,23 @@ const hops = beers
   .filter(keepUniqueHops)
 ```
 
-Instead of leaving `hopsHash` in the global scope, I'll also wrap it up into a _higher-order function_ that returns the predicate used by `filter()`.
+Going one step further, we can switch-out our pseudo-hash-table for ES6's `Set` object.
+
+```js
+const hopsSet = new Set()
+
+const keepUniqueHops = x => (hopsSet.has(x) ? false : hopsSet.add(x))
+```
+
+`Set` objects let us store unique values of any type, and they offer a simple way to check check whether a set already contains a value.
+
+Instead of leaving `hopsSet` in the global scope, I'll also wrap it up into a _higher-order function_ that returns the predicate used by `filter()`.
 
 ```js
 const keepUnique = () => {
-  const uniqueHash = {}
+  const uniqueSet = new Set()
 
-  return (x, i) =>
-    uniqueHash.hasOwnProperty(x) ? false : (uniqueHash[i] = true)
+  return x => (uniqueSet.has(x) ? false : uniqueSet.add(x))
 }
 
 const keepUniqueHops = keepUnique()
@@ -314,7 +323,7 @@ Well; that depends on what we mean by better.
 
 ## Further optimization with `reduce()`
 
-**Warning: This might look complex at first, but if you stick with me, I'll break it down into something that's easier to look at.**
+**Note: This next part gets into crazy territory. I do not recommend trying this at work without the blessing of your colleagues.**
 
 The real question is _why_ we might want to further improve on what's already there.
 The current pipeline already uses standard array methods, and the `filter()` predicate is already very generic.
@@ -331,13 +340,13 @@ When you need to reduce _multiple arrays into one_, you can nest a reducer insid
 Have a look at the reducers below, and pay attention to the relationship between the accumulators `outerAcc` and `innerAcc`.
 
 ```js
-const hopsHash = {}
+const hopsSet = new Set()
 
 const hops = beers.reduce((outerAcc, cur) => {
   return cur.ingredients.hops.reduce((innerAcc, { name }) => {
-    return hopsHash.hasOwnProperty(name)
+    return hopsSet.has(name)
       ? innerAcc
-      : (hopsHash[name] = true) && innerAcc.concat(name)
+      : hopsSet.add(name) && innerAcc.concat(name) // Add name to hopsSet AND concat it to the accumulator
   }, outerAcc)
 }, [])
 ```
@@ -353,14 +362,14 @@ This function is similar to the earlier `keepUnique()` function, but it returns 
 
 ```js
 const keepUnique = property => {
-  const uniqueHash = {}
+  const uniqueSet = new Set()
 
   return (acc, cur) => {
     const value = cur[property]
 
-    return uniqueHash.hasOwnProperty(value)
-      ? acc
-      : (uniqueHash[value] = true) && acc.concat(value)
+    return uniqueSet.has(value)
+      ? uniqueSet
+      : uniqueSet.add(value) && acc.concat(value)
   }
 }
 ```
