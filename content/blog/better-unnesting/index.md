@@ -1,22 +1,25 @@
 ---
 title: Better array unnesting in JavaScript
 date: 2021-12-06
-description: Supercharging reduce for unnesting data from complex objects.
+description: Patterns for unnesting and reducing array items.
 ---
-
-> TLDR: scroll to the bottom see how closure, currying, and a double-reduce can be used to radically improve performance when unnesting arrays.
 
 Data wrangling can be one of the most rewarding tasks in programming.
 I'm constantly searching for ways to make my data pipelines cleaner and faster, and in this post I outline a technique that I'm developing for simultaniously unnesting and reducing data.
 In short; I'll be reducing an array of 325 objects into an array of 166 _unique_ strings.
 
 This is a long post.
-I'm going to first show the step-by-step process of surfacing and unnesting the data, and afterward I'll dig into some techniques I'm using to refining those transformations.
+We'll first examine the step-by-step process of surfacing and unnesting the names of the hops that Brewdog uses in its beer, and as we progress we'll develop a pattern that can combine multiple array permutations into a single step.
 
 ## A dataset of 325 beers!
 
-Have a look at the data.
-I requested this data from the [Punk API](https://punkapi.com/), stored it in a variable called `beers` because each object represents a beer brewed by the Brewdog Brewery in Scotland.
+Brewdog is a highly successful brewery in Scotland.
+They maintain a public REST API that can be used to query a database of their entire beer catalogue.
+
+![Punk API](./punk_api.png)
+
+Let's have a look at the data.
+I requested this data from the [Punk API](https://punkapi.com/), stored it in a variable called `beers`, shown below.
 
 ```js
 beers // Array(325) [{…}, {…}, {…}, {…}, {…}, …]
@@ -153,14 +156,14 @@ More on that in a moment.
 
 ## Unnesting the data
 
-Surfacing the hops from their nested arrays can be simply achieved by a couple of `map` calls.
+We'll begin by surfacing the nested hop names from the beer objects by chaining a few array methods together.
 I'm only interested in the `name` of each hop, so I won't be keeping the other three properties.
 
 ```js
 const hops = beers.map(x => x.ingredients.hops) // Surface the hops object
 ```
 
-A single `map` call can bring the `ingredients.hops` data to the surface.
+A single `map()` call can bring the `ingredients.hops` data to the surface.
 
 ```js
 hops // Array(325) [Array(5), Array(4), Array(1), Array(6), Array(3), …]
@@ -171,8 +174,8 @@ The length is still `325`, meaning I've surfaced a single array from each of the
 Notice in the preview above that the nested arrays contain one or more objects.  
 We can expect from this that when we unnest those arrays, the `length` of `hops` will be far greater than `325`.
 
-The simplist way to unnest the nested arrays is to use `flatMap` instead of `map`.
-`flatMap` works like `map`, except that it flattens the result by one level.
+The simplist way to unnest the nested arrays is to use `flatMap()` instead of `map()`.
+`flatMap()` works like `map()`, except that it flattens the result by one level.
 This means that the contents of any nested arrays will all get dumped into the top-level.
 
 ```js
@@ -203,13 +206,13 @@ Each of these objects has the following structure.
 
 </div>
 
-I'm only interested in the `name` property, so I'm going to tack-on a second `map` call to bring those to the surface.
+As I mentioned though, we're only interested in the `name` of each hop, so let's tack-on a second call to our method chain (`map`) to surface those names.
 
 ```js
 const hops = beers.flatMap(x => x.ingredients.hops).map(x => x.name)
 ```
 
-The combined `flatMap` and `map` calls returns an array of all hop strings.
+The combined `flatMap()` and `map()` calls return an array of all hop strings.
 
 ```js
 hops // Array(1817) ["Fuggles", "First Gold", "Cascade", "Amarillo", "Simcoe", …]
@@ -219,7 +222,7 @@ The data is now in the right shape, but there are duplicate records in it that n
 
 ## Removing the duplicates
 
-`filter` is the perfect method for removing items that we don't want in our array.
+`filter()` is a great method for removing items that we don't want in our array.
 
 ```js
 const hops = beers
@@ -228,7 +231,7 @@ const hops = beers
   .filter((x, i, arr) => arr.indexOf(x) == i) // Remove the duplicates.
 ```
 
-The filter predicate above uses `Array.prototype.indexOf()` to check whether a hop name already exists in the array.
+The filter predicate above uses `indexOf()` to check whether a hop name already exists in the array.
 
 ```js
 hops // Array(166) ["Fuggles", "First Gold", "Cascade", "Amarillo", "Simcoe", …]
@@ -240,19 +243,19 @@ The array now contains 166 _unique_ hop names.
 ## Checking the performance
 
 Let's check the time complexity of this pipeline.
-It uses `flatMap`, then `map`, followed by `filter`.
-This would be **O(3)**, were it not using `Array.prototype.indexOf()` for the filter predicate.
-Because `indexOf()` is also iterating through the array, it brings the time complexity of the pipeline up to **O(3<sup>2</sup>)**.
+It uses `flatMap()`, then `map()`, followed by `filter()`.
+This would be **O(n)**, were it not using `indexOf()` for the filter predicate.
+Because `indexOf()` is also iterating through the array, it brings the time complexity of the pipeline up to **O(n<sup>2</sup>)**.
 
-Let's see if there are some low-hanging fruit that I can quickly pick.
+Let's see if there are some low-hanging fruit that we can quickly pick.
 
 ## Optimizing the performance
 
 A StackOverflow search for more efficient ways to remove duplicate items turned-up [this gem of an answer](https://stackoverflow.com/questions/9229645/remove-duplicate-values-from-js-array).
-Following it's advice, I'm going to switch-out `indexOf()` for a hash-table-based solution.
+Following it's advice, let's switch-out `indexOf()` for a hash-table-based solution.
 
-`hopsHash` is initalized as an empty object, and each iteration of `filter` adds a new property to it, unless that property already exists.
-I also removed the third argument to `filter`, since we're no longer using it.
+`hopsHash` is initalized as an empty object, and each iteration of `filter()` adds a new property to it, unless that property already exists.
+I also removed the third argument to `filter()`, since we're no longer using it.
 
 ```js
 const hopsHash = {}
@@ -260,22 +263,66 @@ const hopsHash = {}
 const hops = beers
   .flatMap(x => x.ingredients.hops)
   .map(x => x.name)
-  .filter((x, i) =>
-    hopsHash.hasOwnProperty(x) ? false : (hopsHash[item] = true)
-  )
+  .filter((x, i) => (hopsHash.hasOwnProperty(x) ? false : (hopsHash[i] = true)))
 ```
 
-The result here is the same, but it brings our time complexity down to **O(3)** because the filter predicate no longer iterates through the array.
+The result here is the same, but it brings our time complexity down to **O(n)** because `indexOf()` is no longer iterating the array.
 
 ![South Park](https://i.imgur.com/6K1tEDW.jpg)
 
+To clean this up slightly, we can move the predicate into its own function (`keepUniqueHops()`).
+
+```js
+const hopsHash = {}
+
+const keepUniqueHops = (x, i) =>
+  hopsHash.hasOwnProperty(x) ? false : (hopsHash[i] = true)
+
+const hops = beers
+  .flatMap(x => x.ingredients.hops)
+  .map(x => x.name)
+  .filter(keepUniqueHops)
+```
+
+Instead of leaving `hopsHash` in the global scope, I'll also wrap it up into a _higher-order function_ that returns the predicate used by `filter()`.
+
+```js
+const keepUnique = () => {
+  const uniqueHash = {}
+
+  return (x, i) =>
+    uniqueHash.hasOwnProperty(x) ? false : (uniqueHash[i] = true)
+}
+
+const hops = beers
+  .flatMap(x => x.ingredients.hops)
+  .map(x => x.name)
+  .filter(keepUnique())
+```
+
+Higher-order functions are functions that return functions.
+In this case, `keepUnique()` returns an anonymous function that can be used as a predicate in `filter()` calls.
+
+Changing the specific `keepUniqueHops()` function to the generic `keepUnique()` function means that this new function can be used throughout the codebase anytime that duplicate items need to be removed from an array.
+
 But is there a way it can be even better?
-Of course there is!
-Enter, `reduce()`.
+Well; that depends on what we mean by better.
 
 <div class="call-out-indigo">
 
-## Supercharged optimization using `reduce()`
+## Further optimization with `reduce()`
+
+**Warning: This might look complex at first, but if you stick with me, I'll break it down into something that's easier to look at.**
+
+The real question is _why_ we might want to further improve on what's already there.
+The current pipeline already uses standard array methods, and the `filter()` predicate is already very generic.
+The time complexity is a linear **O(n)**.
+This is already more than good enough to handle the relatively small `beers` array.
+
+The way that these functional array methods work is to create and delete a new array at each step of the method chain.
+There are situations in which this kind of array churn can be very RAM intensive, and `reduce()` offers us a way to combine these three steps (`flatMap()`, `map()`, `filter()`) into one.
+This simplification reduces the space complexity of the pipeline by a factor of three.
+The pattern we're about to explore will also reduce the _actual_ time complexity of the pipeline by a factor of three, despite its Big-O remaining **O(n)**.
 
 A few months ago, I started nesting `reduce()` calls inside of `reduce()` calls.
 When you need to reduce _multiple arrays into one_, you can nest a reducer inside of another reducer.
@@ -293,49 +340,14 @@ const hops = beers.reduce((outerAcc, cur) => {
 }, [])
 ```
 
-**The `initialValue` of the outer reducer is an empty array (`[]`).
-This same empty array is also the `initialValue` of the inner reducer.
-This means that both reducers are sharing a common accumulator.**
-This replaces the `flatMap`, `map` and `filter` steps with a array iteration, bringing the time complexity of the transformation down to **O(1)**.
+Don't freak out.
+I know it's ugly.
+You're looking at an inner-reducer nested inside of an outer-reducer.
+The outer-reducer is running on the `beers` array, while the inner-reducer is running on the `ingredients.hops` array of each beer object.
 
-![Friday](https://memegenerator.net/img/instances/58297502.jpg)
-
-</div>
-
-## Closure and the higher-order reducer
-
-When I finally figured out the solution above, I didn't think this data transformation could get any wilder.
-Boy, did I not see what was coming next.
-
-To begin with, I'm going to break-out the inner reducer into it's own function.
-
-```js
-const keepUniqueHops = (acc, { name }) => {
-  const hopsHash = {}
-
-  return hopsHash.hasOwnProperty(name)
-    ? acc
-    : (hopsHash[name] = true) && acc.concat(name)
-}
-```
-
-Nothing radical there, but it at least improves the overall readability of the pipeline because it gives me a simple function reference (`keepUniqueHops`) that I can pass to the outer reducer.
-Since `hopsHash` is only used by the inner reducer, I also took it out of the outer context and nested it inside of `keepUniqueHops`.
-
-```js
-const hops = beers.reduce((acc, cur) => {
-  return cur.ingredients.hops.reduce(keepUniqueHops, acc)
-}, [])
-```
-
-This is already pretty clean, but `keepUniqueHops` is a specific function, rather than a generic one that I could use over and over again in my codebase.
-It accepts an `ingredients.hops` object, and it extracts and returns the `name` property from it.
-But a generic function would be able to extract and return any property from any object....
-
-I've been learning a lot about functional programming lately, and one common practice is to use currying to turn multi-argument functions into single argument functions.
-For example, we can write a higher-order function that returns the inner reducer.
-
-The `keepUnique()` function below will generate a reducer using whatever property name is passed to it.
+Let's break out the inner-reducer into it's own function.
+This inner-reducer is doing the work that `filter()` was previously doing.
+This function is similar to the earlier `keepUnique()` function, but it returns a reducer, instead of a filter predicate.
 
 ```js
 const keepUnique = property => {
@@ -351,8 +363,11 @@ const keepUnique = property => {
 }
 ```
 
-How does this work?
 Calling `keepUnique("name")` will return the inner reducer that we'll feed to the outer reducer.
+
+Now for the crazy part.
+**Both of these reducers share a common accumulator.**
+The outer reducer is given the `initialValue` of `[]`, and it passes this value along to the inner reducer.
 
 ```js
 const hops = beers.reduce((acc, cur) => {
@@ -362,4 +377,14 @@ const hops = beers.reduce((acc, cur) => {
 }, [])
 ```
 
-Not only does this pattern keep the pipeline **O(1)**, but it also creates a `keepUnique()` function that can be used over and over again throughout the codebase.
+This single iteration of the `beers` array replaces the calls to `flatMap()`, `map()` and `filter()` because the outer-reducer just returns whatever the inner-reducer returns, and the inner reducer is only concatenating new hop names to the accumulator if they don't already exist in `uniqueHash`.
+
+![Friday](https://memegenerator.net/img/instances/58297502.jpg)
+
+Not only does this pattern keep the pipeline **O(n)**, it reduces the space complexity and number of times the array is iterated by a factor of three, because it only runs a single array method on `beers` (`reduce()`), instead of three (`flatMap()`, `map()`, `filter()`).
+
+</div>
+
+I'm still learning about all of the ways that `reduce()` can be used, but so far it strikes me as an incredibly flexible array method.
+If you've made it all the way to the bottom of this post, we'll done.
+I hope you've enjoyed reading it as much as I've enjoyed writing it.
