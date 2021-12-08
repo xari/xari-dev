@@ -294,10 +294,12 @@ const keepUnique = () => {
     uniqueHash.hasOwnProperty(x) ? false : (uniqueHash[i] = true)
 }
 
+const keepUniqueHops = keepUnique()
+
 const hops = beers
   .flatMap(x => x.ingredients.hops)
   .map(x => x.name)
-  .filter(keepUnique())
+  .filter(keepUniqueHops)
 ```
 
 Higher-order functions are functions that return functions.
