@@ -29,7 +29,7 @@ As you can see; this array contains 325 beers.
 I want to compile an array of all hops used by Brewdog.
 To do that, I'll need to surface the hops data from each beer object.
 We can see the first beer below.
-There's a lot to it, but what I'm looking for is nested deep-down under `.ingredients.hops`.
+There's a lot to it, but what I'm looking for is nested deep-down under `ingredients.hops`.
 
 <div class="sm-text">
 
