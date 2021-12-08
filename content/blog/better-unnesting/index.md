@@ -19,7 +19,7 @@ They maintain a public REST API that can be used to query a database of their en
 ![Punk API](./punk_api.png)
 
 Let's have a look at the data.
-I requested this data from the [Punk API](https://punkapi.com/), stored it in a variable called `beers`, shown below.
+I requested this data from the [Punk API](https://punkapi.com/), and stored it in a variable called `beers`, shown below.
 
 ```js
 beers // Array(325) [{…}, {…}, {…}, {…}, {…}, …]
