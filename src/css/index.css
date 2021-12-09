@@ -75,8 +75,12 @@ pre[class*="language-"] {
 pre[class*="language-"] {
   @apply is-wide;
   @apply painted-border;
-  border-image-source: url(./code-med.svg);
+  border-image-source: url(./bg-paper.svg);
   overflow: scroll;
+}
+
+.gatsby-highlight:nth-of-type(2n) pre[class*="language-"] {
+  border-image-source: url(./bg-paper-flip.svg);
 }
 
 pre[class*="language-"] span {
@@ -97,7 +101,7 @@ h1 a {
   @apply pt-2;
   @apply pr-0;
   @apply pb-4;
-  border-image-source: url(./code-med-indigo.svg);
+  border-image-source: url(./bg-paper-indigo.svg);
 }
 
 .call-out-indigo pre[class*="language-"] {
