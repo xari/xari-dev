@@ -1,7 +1,7 @@
 ---
-title: Better array unnesting in JavaScript
+title: Data Wrangling With JS Array Methods
 date: 2021-12-06
-description: Patterns for unnesting and reducing array items.
+description: Patterns for unnesting and reducing structured data.
 ---
 
 Data wrangling can be one of the most rewarding tasks in programming.
@@ -330,10 +330,10 @@ The current pipeline already uses standard array methods, and the `filter()` pre
 The time complexity is a linear **O(n)**.
 This is already more than good enough to handle the relatively small `beers` array.
 
-The way that these functional array methods work is to create and delete a new array at each step of the method chain.
-There are situations in which this kind of array churn can be very RAM intensive, and `reduce()` offers us a way to combine these three steps (`flatMap()`, `map()`, `filter()`) into one.
-This simplification reduces the space complexity of the pipeline by a factor of three.
-The pattern we're about to explore will also reduce the _actual_ time complexity of the pipeline by a factor of three, despite its Big-O remaining **O(n)**.
+In reality though, the real time complexity is **O(3n)**, because the method chain traverses the array three times.
+Big-O notation doesn't make this kind of nuanced distinction, and just considers **O(3n)** to be **O(n)**.  
+But if we found a way to combine the `flatMap()`, `map()`, and `filter()`, we could reduce the real time complexity by a factor of three.
+Better yet; it might even make our codebase _more_ readable and maintainable.
 
 A few months ago, I started nesting `reduce()` calls inside of `reduce()` calls.
 When you need to reduce _multiple arrays into one_, you can nest a reducer inside of another reducer.
