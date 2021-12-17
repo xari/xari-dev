@@ -76,12 +76,8 @@ const outlineSVG = d3
   .attr("xmlns", "http://www.w3.org/2000/svg")
 ```
 
-<div class="call-out-indigo">
-
-It also defines the `xmlns` attribute of the SVG tag, which explicitly defines this new DOM element as an SVG.
+I'm also defining the `xmlns` attribute of the SVG tag, which explicitly defines this new DOM element as an SVG.
 This isn't necessary if you're creating an SVG that will be inserted directly into a web page, but if you want to create a standalone SVG file, you'll want to include it.
-
-</div>
 
 The following variables will be used to set the general size and layout of our chart.
 
