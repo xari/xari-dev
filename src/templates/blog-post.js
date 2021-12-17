@@ -21,8 +21,9 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           <h1 className="text-5xl">{post.frontmatter.title}</h1>
           <p>{post.frontmatter.date}</p>
         </header>
+        <span>{post.frontmatter.source_code}</span>
         <section
-          className="my-5 py-5 max-w-2xl"
+          className="my-5 pb-5 max-w-2xl"
           dangerouslySetInnerHTML={{ __html: post.html }}
         />
         <footer>
