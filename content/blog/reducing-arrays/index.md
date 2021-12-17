@@ -1,17 +1,47 @@
 ---
-title: JS Data Recipies Pt II — Reducing Arrays
+title: Reducing Arrays
 date: 2021-12-12
 description: Replacing flatmap(), map(), and filter() with a single reduce().
 ---
 
-## Further optimization with `reduce()`
+<div class="call-out-indigo">
 
-The real question is _why_ we might want to further improve on what's already there.
-The current pipeline already uses standard array methods, and the `filter()` predicate is already very generic.
+This post is part of a series on data wrangling and visualisation with JavaScript.
+You can find the other posts in the series at the link below.
+
+- [Intro — Data Wrangling and Visualisation with JavaScript](../data-wrangling-with-js)
+- [Pt. I — Unnesting Arrays](../unnesting-arrays)
+- [Pt. II — Reducing Arrays](../reducing-arrays)
+- [Pt. III — Intro to D3](../intro-to-d3)
+- [Pt. IV — Binding data with D3](../binding-data-d3)
+- [Pt. V — Horizontal Bar Plot With D3](../horizontal-bar-plot)
+
+</div>
+
+In the previous post in this series, we unnested and filtered an array of hop names from an array of beers that use these hops.
+Below we can see where we left off.
+
+```js
+const keepUnique = () => {
+  const uniqueSet = new Set()
+
+  return x => (uniqueSet.has(x) ? false : uniqueSet.add(x))
+}
+
+const keepUniqueHops = keepUnique()
+
+const hops = beers
+  .flatMap(x => x.ingredients.hops)
+  .map(x => x.name)
+  .filter(keepUniqueHops)
+```
+
+The current pipeline uses standard array methods, and the `filter()` predicate is already very generic.
 The time complexity is a linear **O(n)**.
 This is already more than good enough to handle the relatively small `beers` array.
+So why might we consider improving on what we already have?
 
-In reality though, the real time complexity is **O(3n)**, because the method chain traverses the array three times.
+Well, in reality, the real time complexity is **O(3n)**, because the method chain traverses the array three times.
 Big-O notation doesn't make this kind of nuanced distinction, and just considers **O(3n)** to be **O(n)**.  
 But if we found a way to combine the `flatMap()`, `map()`, and `filter()`, we could reduce the real time complexity by a factor of three.
 Better yet; it might even make our codebase _more_ readable and maintainable.

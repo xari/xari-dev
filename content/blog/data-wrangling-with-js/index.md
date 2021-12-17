@@ -1,20 +1,25 @@
 ---
-title: JS Data Recipies Pt. 1 — Intro
+title: Data Wrangling and Visualisation with JavaScript
 date: 2021-12-08
-description: Patterns for unnesting and reducing structured data.
+description: A new series on data wrangling and visualisation with JavaScript.
 ---
 
-Data wrangling can be one of the most rewarding tasks in programming.
-I'm constantly searching for ways to make my data pipelines cleaner and faster, and in this post I outline a technique that I'm developing for simultaniously unnesting and reducing data.
-In short; I'll be reducing an array of 325 objects into an array of 166 _unique_ strings.
+<div class="call-out-indigo">
 
 This is the first post in a series.
 We'll first examine the step-by-step process of surfacing and unnesting the names of the hops that Brewdog uses in its beer, and as we progress we'll develop a pattern that can combine multiple array permutations into a single step.
 
 - [Pt. I — Unnesting Arrays](../unnesting-arrays)
 - [Pt. II — Reducing Arrays](../reducing-arrays)
-- [Pt. III — Horizontal Bar Plot With D3.js](../horizontal-bar-plot)
-- [Bonus — Paginated Fetch](../paginated-fetch)
+- [Pt. III — Intro to D3](../intro-to-d3)
+- [Pt. IV — Binding data with D3](../binding-data-d3)
+- [Pt. V — Horizontal Bar Plot With D3](../horizontal-bar-plot)
+
+</div>
+
+Data wrangling can be one of the most rewarding tasks in programming.
+I'm constantly searching for ways to make my data pipelines cleaner and faster, and in this post I outline a technique that I'm developing for simultaniously unnesting and reducing data.
+In short; I'll be reducing an array of 325 objects into an array of 166 _unique_ strings.
 
 ## A dataset of 325 beers!
 
