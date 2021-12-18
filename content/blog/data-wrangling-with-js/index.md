@@ -7,7 +7,7 @@ description: A new series on data wrangling and visualisation with JavaScript.
 <div class="call-out-indigo">
 
 This is the first post in a series about data wrangling and visualisation with JavaScript.
-It's audience is web developers that want to expand their toolkit with a few versitle tools; namely D3.js, and functional patterns for working with arrays.
+It exists for developers who want to expand their toolkit with a few versitle tools; namely D3.js, and functional patterns for working with arrays.
 
 You can find the other posts in this series at the links below.
 
@@ -172,7 +172,7 @@ It's a good idea to look-at one of these object though, because `Object.getOwnPr
 
 </div>
 
-We can see from the output above, that some of these properties contain nested ojbects or nested arrays.
+We can see from the output above, that some of these properties contain nested objects or nested arrays.
 In the next post in this series, we're going to dig-out one of these nested arrays, `ingredients.hops`, which we can see below.
 This array shows us that the original Punk IPA uses only two hops: Ahtanum and Chinook.
 
