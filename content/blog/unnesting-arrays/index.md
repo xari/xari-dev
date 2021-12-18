@@ -219,4 +219,4 @@ In this case, `keepUnique()` returns an anonymous function that can be used as a
 Changing the specific `keepUniqueHops()` function to the generic `keepUnique()` function means that this new function can be used throughout the codebase anytime that duplicate items need to be removed from an array.
 
 But is there a way it can be even better?
-Well; that depends on what we mean by better, but that's exactly the question we'll explore in the [next post](../reducing-arrays) which attempts to one-up this pipeline using `reduce()`.
+Well, that depends on what we mean by better; but that's exactly the question we'll explore in the [next post](../reducing-arrays) which attempts to one-up this pipeline using `reduce()`.
