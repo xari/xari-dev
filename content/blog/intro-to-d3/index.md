@@ -7,7 +7,7 @@ description: Everything you need to know to head down the road of D3 mastery.
 <div class="call-out-indigo">
 
 This post is part of a series on data wrangling and visualisation with JavaScript.
-You can find the other posts in the series at the link below.
+You can find the other posts in the series at the links below.
 
 - [Intro — Data Wrangling and Visualisation with JavaScript](../data-wrangling-with-js)
 - [Pt. I — Unnesting Arrays](../unnesting-arrays)
