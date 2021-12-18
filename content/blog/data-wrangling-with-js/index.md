@@ -27,7 +27,7 @@ If you aren't familliar with it yet, the Punk API is maintained by Brewdog, a hi
 This public REST API can be used to query a database of their entire beer catalogue.
 Over the course of this series, we'll work with this data to produce several beautiful visualisations, like the one below.
 
-![Horizontal bar plot of Brewdog's most bitter beers](./plot.png)
+![Horizontal bar plot of Brewdog's most bitter beers](./plot.svg)
 
 The approach that we'll take is to break-down the steps involved in wrangling and plotting the data into small, digestible pieces.
 
