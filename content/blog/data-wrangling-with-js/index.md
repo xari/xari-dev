@@ -6,8 +6,10 @@ description: A new series on data wrangling and visualisation with JavaScript.
 
 <div class="call-out-indigo">
 
-This is the first post in a series.
-We'll first examine the step-by-step process of surfacing and unnesting the names of the hops that Brewdog uses in its beer, and as we progress we'll develop a pattern that can combine multiple array permutations into a single step.
+This is the first post in a series about data wrangling and visualisation with JavaScript.
+It's audience is web developers that want to expand their toolkit with a few versitle tools; namely D3.js, and functional patterns for working with arrays.
+
+You can find the other posts in this series at the links below.
 
 - [Pt. I — Unnesting Arrays](../unnesting-arrays)
 - [Pt. II — Reducing Arrays](../reducing-arrays)
@@ -17,42 +19,69 @@ We'll first examine the step-by-step process of surfacing and unnesting the name
 
 </div>
 
-Data wrangling can be one of the most rewarding tasks in programming.
-I'm constantly searching for ways to make my data pipelines cleaner and faster, and in this post I outline a technique that I'm developing for simultaniously unnesting and reducing data.
-In short; I'll be reducing an array of 325 objects into an array of 166 _unique_ strings.
-
-## A dataset of 325 beers!
-
-Brewdog is a highly successful brewery in Scotland.
-They maintain a public REST API that can be used to query a database of their entire beer catalogue.
+This series is constructed around a dataset that I pulled from the Punk API.
 
 ![Punk API](./punk_api.png)
 
-Let's have a look at the data.
-I requested this data from the [Punk API](https://punkapi.com/), and stored it in a variable called `beers`, shown below.
+If you aren't familliar with it yet, the Punk API is maintained by Brewdog, a highly successful brewery in Scotland.
+This public REST API can be used to query a database of their entire beer catalogue.
+Over the course of this series, we'll work with this data to produce several beautiful visualisations, like the one below.
 
-## Querying a paginated REST API
+![Horizontal bar plot of Brewdog's most bitter beers](./plot.png)
+
+The approach that we'll take is to break-down the steps involved in wrangling and plotting the data into small, digestible pieces.
+
+## 325 beers!
+
+Our first step in this process is to examine the data that we'll be working with.
+I requested this data from the [Punk API](https://punkapi.com/), and stored it in a JSON file called `beers.json`.
+This file can be fetched in different ways, but I'm working in a Node.js environment, so I'm using the `fs` library for the job of reading and parsing this file.
 
 ```js
 const beers = JSON.parse(fs.readFileSync("./beers.json"))
 ```
 
-## Exploring the data
-
-As you can see; this array contains 325 beers.
-I want to compile an array of all hops used by Brewdog.
+`beers` is an array of 325 beer objects.
 
 ```js
 beers // Array(325) [{…}, {…}, {…}, {…}, {…}, …]
 ```
 
+To quickly check the top-level properties of these beer objects, we can use the `Object.getOwnPropertyNames()` method, shown below.
+
 ```js
 Object.getOwnPropertyNames(beers[1])
 ```
 
-To do that, I'll need to surface the hops data from each beer object.
-We can see the first beer below.
-There's a lot to it, but what I'm looking for is nested deep-down under `ingredients.hops`.
+From this, we can see that the data stored in these objects relates _mostly_ to the brewing of these beers.
+
+```json
+[
+  "id",
+  "name",
+  "tagline",
+  "first_brewed",
+  "description",
+  "image_url",
+  "abv",
+  "ibu",
+  "target_fg",
+  "target_og",
+  "ebc",
+  "srm",
+  "ph",
+  "attenuation_level",
+  "volume",
+  "boil_volume",
+  "method",
+  "ingredients",
+  "food_pairing",
+  "brewers_tips",
+  "contributed_by"
+]
+```
+
+It's a good idea to look-at one of these object though, because `Object.getOwnPropertyNames()` doesn't actually tell us anything about the values of these properties.
 
 <div class="sm-text">
 
@@ -143,8 +172,9 @@ There's a lot to it, but what I'm looking for is nested deep-down under `ingredi
 
 </div>
 
-`ingredients.hops` is an array of hops objects that outline the which hops are used in the brew, and at which point in the process they're added, along with what their effect on the recipe is.
-The original Punk IPA uses only two hops, Ahtanum and Chinook, shown below.
+We can see from the output above, that some of these properties contain nested ojbects or nested arrays.
+In the next post in this series, we're going to dig-out one of these nested arrays, `ingredients.hops`, which we can see below.
+This array shows us that the original Punk IPA uses only two hops: Ahtanum and Chinook.
 
 <div class="sm-text">
 
@@ -174,5 +204,4 @@ The original Punk IPA uses only two hops, Ahtanum and Chinook, shown below.
 </div>
 
 Each of the beers in the dataset contains at least one hop.
-Considering that these beers all come from the same brewery, we can expect many of the beers to have hops in common.  
-More on that in a moment.
+In the [next post](../unnesting-arrays) in this series, we're going to use simple array methods to create an array that contains the names of all of these hops.
