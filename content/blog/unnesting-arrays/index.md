@@ -18,6 +18,8 @@ You can find the other posts in the series at the link below.
 
 </div>
 
+This post explores how to unnest a collection of strings that are nested deep inside of an array of objects.
+
 Picking-up from where we left off in the previous post, we're now going to unnest the `ingredients.hops` array from each beer object.
 Well then use this new array to compile an array of the hops that Brewdog uses in its beers.
 
