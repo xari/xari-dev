@@ -55,6 +55,8 @@ Object.getOwnPropertyNames(beers[1])
 
 From this, we can see that the data stored in these objects relates _mostly_ to the brewing of these beers.
 
+<div class="sm-text">
+
 ```json
 [
   "id",
@@ -80,6 +82,8 @@ From this, we can see that the data stored in these objects relates _mostly_ to 
   "contributed_by"
 ]
 ```
+
+</div>
 
 It's a good idea to look-at one of these object though, because `Object.getOwnPropertyNames()` doesn't actually tell us anything about the values of these properties.
 

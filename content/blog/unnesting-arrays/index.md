@@ -29,6 +29,8 @@ beers // Array(325) [{…}, {…}, {…}, {…}, {…}, …]
 
 Each beer object has the following properties:
 
+<div class="sm-text">
+
 ```json
 [
   "id",
@@ -54,6 +56,8 @@ Each beer object has the following properties:
   "contributed_by"
 ]
 ```
+
+</div>
 
 `ingredients` is an object that has a `hops` array property.
 We're going to create a new array containing only data from these hop objects.
