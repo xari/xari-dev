@@ -7,6 +7,8 @@ description: Replacing flatmap(), map(), and filter() with a single reduce().
 <div class="call-out-indigo">
 
 This post is part of a series on data wrangling and visualisation with JavaScript.
+The content in this post is fairly advance, so it will help if you're already familliar with JavaScript's `reduce()` method.
+
 You can find the other posts in the series at the links below.
 
 - [Intro — Data Wrangling and Visualisation with JavaScript](../data-wrangling-with-js)
@@ -19,7 +21,7 @@ You can find the other posts in the series at the links below.
 </div>
 
 In the previous post in this series, we unnested and filtered an array of hop names from an array of beers that use these hops.
-Below we can see where we left off.
+The code below uses a higher-order function to return a filter predicate with a _closure_, which is just a fancy way to describe the way that the filter call has access to the `uniqueSet` state.
 
 ```js
 const keepUnique = () => {
@@ -36,19 +38,26 @@ const hops = beers
   .filter(keepUniqueHops)
 ```
 
-The current pipeline uses standard array methods, and the `filter()` predicate is already very generic.
+This pipeline uses standard array methods, and the `filter()` predicate is already very generic.
 The time complexity is a linear **O(n)**.
 This is already more than good enough to handle the relatively small `beers` array.
+The only real drawback that I can see is that some developers might not appreciate the overhead of the higher-order function.
+
 So why might we consider improving on what we already have?
 
-Well, in reality, the real time complexity is **O(3n)**, because the method chain traverses the array three times.
-Big-O notation doesn't make this kind of nuanced distinction, and just considers **O(3n)** to be **O(n)**.  
+In reality, the true time complexity is **O(3n)**, because the method chain traverses the array three times.
+Big-O notation doesn't make this nuanced distinction, and just considers **O(3n)** to be **O(n)**.  
 But if we found a way to combine the `flatMap()`, `map()`, and `filter()`, we could reduce the real time complexity by a factor of three.
-Better yet; it might even make our codebase _more_ readable and maintainable.
 
-A few months ago, I started nesting `reduce()` calls inside of `reduce()` calls.
-When you need to reduce _multiple arrays into one_, you can nest a reducer inside of another reducer.
-Have a look at the reducers below, and pay attention to the relationship between the accumulators `outerAcc` and `innerAcc`.
+Better still; there might be a way to make that higher-order function a little more readable and maintainable.
+
+Here's a tip:
+
+> When you're working with nested data, a nested reducer can surface that data with a true time complexity of **0(n)** —no matter how deeply nested that data may be!
+
+To illustrate what I mean, take a look at the mess of code below.
+In it, you'll see an inner-reducer nested inside of an outer-reducer.
+Pay attention to the `defaultValue` argument that is given to each reducer (that's the _second_ argument).
 
 ```js
 const hopsSet = new Set()
@@ -62,12 +71,16 @@ const hops = beers.reduce((outerAcc, cur) => {
 }, [])
 ```
 
-What you're looking at is an inner-reducer nested inside of an outer-reducer.
-The outer-reducer is running on the `beers` array, while the inner-reducer is running on the `ingredients.hops` array of each beer object.
+The outer-reducer receives `[]` as it's `defaultValue`.
+It then passes-on this `[]` (`outerAcc`) to the inner-reducer as it's `defaultValue`.
+`outerAcc` and `innerAcc` are thus the same; meaning that the outer-reducer and the inner-reducer are shaing a common accumulator.
 
-Let's break out the inner-reducer into it's own function.
-This inner-reducer is doing the work that `filter()` was previously doing.
-This function is similar to the earlier `keepUnique()` function, but it returns a reducer, instead of a filter predicate.
+The outer-reducer is iterating every beer in `beers`, while the inner-reducer is iterating every hop in each beer.
+This code looks terrible though, so let's clean it up before we judge it. We'll start by breaking-out the inner-reducer into it's own function.
+
+The inner-reducer is doing the work that `filter()` was doing in the earlier `flatMap()`/`map()`/`filter()` version of our pipeline.
+This new function is similar to `keepUnique()` from earlier.
+But where it differs is that it returns a reducer, instead of a filter predicate.
 
 ```js
 const keepUnique = property => {
@@ -83,53 +96,31 @@ const keepUnique = property => {
 }
 ```
 
-Calling `keepUnique("name")` will return the inner reducer that we'll feed to the outer reducer.
-
-**Notice that both of these reducers share a common accumulator.**
-The outer reducer is given the `initialValue` of `[]`, and it passes this value along to the inner reducer.
+Calling `keepUnique("name")` will return the inner-reducer that we'll feed to the outer-reducer.
 
 ```js
-const keepUniqueHops = keepUnique("name")
+const keepUniqueName = keepUnique("name")
 
 const hops = beers.reduce((acc, cur) => {
-  return cur.ingredients.hops.reduce(keepUniqueHops, acc)
+  return cur.ingredients.hops.reduce(keepUniqueName, acc)
 }, [])
 ```
 
-This single iteration of the `beers` array replaces the calls to `flatMap()`, `map()` and `filter()` because the outer-reducer just returns whatever the inner-reducer returns, and the inner reducer is only concatenating new hop names to the accumulator if they don't already exist in `uniqueHash`.
+This single run-through of the `beers` array replaces the chained calls to `flatMap()`, `map()` and `filter()` —each of which was iterating the entire array.
 
 ![Cartman](https://memegenerator.net/img/instances/75685855.jpg)
 
-Not only does this pattern keep the pipeline **O(n)**, it reduces the space complexity and number of times the array is iterated by a factor of three, because it only runs a single array method on `beers` (`reduce()`), instead of three (`flatMap()`, `map()`, `filter()`).
+Not only does this pattern reduce the true time complexity from **0(3n)** to **O(n)**, but arguably it simplifies the code by relying on a single array method, instead of three different ones.
 
-#### Transducers
-
-Time complexity is only one way to measure good code, and some developers might judge the kind of marginal time complexity that we just saved as not worth the added _transducer_ function (`keepUnique()`).
-But, if you can wrap your head around `reduce()` and higher-order functions, that's really all you need to know to unlock this powerful pattern.
-
-"Transducer" is just a fancy name for a function that returns a reducer.
-The benefit of transducers is that they can be used to dynamically generate reducers, as we've just seen.
-In the example above, we created the `keepUniqueHops()` reducer using the `keepUnique()` transducer because we wanted a reducer that could pull the `"name"` property out of many objects and remove any duplicate values.
-But we could also use `keepUnique()` to create a reducer for any other property as well.
-
-Here's that hop object from earlier.
-
-```json
-{
-  "name": "Chinook",
-  "amount": {
-    "value": 15,
-    "unit": "grams"
-  },
-  "add": "start",
-  "attribute": "bitter"
-}
-```
-
-If we needed a reducer that targets any of the other properties, we would simply call `keepUnique()` with the name of the property that we want to target.
+We also get a generic `keepUnique()` function out of it, which we can use anywhere we need to reduce non-unique items out of an array.
+For example, if we needed a reducer that targets any of the other hop properties, we would simply call `keepUnique()` with the name of the property that we want to target.
 
 ```js
 const keepUniqueAmount = keepUnique("amount")
-const keepUniqueAdd = keepUnique("add")
-const keepUniqueAttribute = keepUnique("attribute")
 ```
+
+While obviously this pattern isn't without the mental overhead of understanding higher-order functions, and having a solid grasp of `reduce()`, the upside is reduced time complexity, and potentially a radical reduction in the size of our codebase.
+
+---
+
+Now that we're familliar with the Punk API data, the [next post](../intro-to-d3) in this series will introduce D3.js which we'll later use to make some insightful plots using this data.
