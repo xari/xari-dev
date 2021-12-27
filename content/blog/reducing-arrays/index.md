@@ -7,7 +7,7 @@ description: Replacing flatmap(), map(), and filter() with a single reduce().
 <div class="call-out-indigo">
 
 This post is part of a series on data wrangling and visualisation with JavaScript.
-The content in this post is fairly advance, so it will help if you're already familliar with JavaScript's `reduce()` method.
+The content in this post is rather advanced, so it will help if you're already familliar with JavaScript's `reduce()` method.
 
 You can find the other posts in the series at the links below.
 
@@ -16,7 +16,8 @@ You can find the other posts in the series at the links below.
 - [Pt. II — Reducing Arrays](../reducing-arrays)
 - [Pt. III — Intro to D3](../intro-to-d3)
 - [Pt. IV — Binding data with D3](../binding-data-d3)
-- [Pt. V — Horizontal Bar Plot With D3](../horizontal-bar-plot)
+- [Pt. V — D3 Scales](../d3-scales)
+- [Pt. VI — Horizontal Bar Plot With D3](../horizontal-bar-plot)
 
 </div>
 

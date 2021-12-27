@@ -7,6 +7,14 @@ const beers = JSON.parse(fs.readFileSync("./beers.json"))
 
 // Load D3 and create a canvas + context
 let d3 = import("d3").then(d3 => {
+  const __dirname = path.resolve(path.dirname(""))
+
+  const width = 680
+  const height = 480
+  const margin = { top: 80, right: 50, bottom: 60, left: 200 }
+  const plotHeight = height - margin.top - margin.bottom
+  const plotWidth = width - margin.left - margin.right
+
   const body = d3.select(new JSDOM().window.document).select("body")
 
   const ibu = beers
@@ -17,10 +25,6 @@ let d3 = import("d3").then(d3 => {
     .filter(x => Number(x.value))
     .sort((a, b) => b.value - a.value)
     .slice(0, 20)
-
-  // Dimensions
-  const width = 680
-  const height = 480
 
   const svg = body
     .append("svg")
@@ -47,18 +51,9 @@ let d3 = import("d3").then(d3 => {
     .style("stroke", "#000")
     .style("fill", "none")
 
-  // Write to file
-  const __dirname = path.resolve(path.dirname(""))
-
   fs.writeFileSync(__dirname + "/outline.svg", body.html())
 
   // Draw the inner box to show where the plot will be
-
-  // Margins
-  const margin = { top: 80, right: 50, bottom: 60, left: 200 }
-
-  const plotHeight = height - margin.top - margin.bottom
-  const plotWidth = width - margin.left - margin.right
 
   // 0, 0 is top left
   const plotOutline = svg
@@ -73,7 +68,7 @@ let d3 = import("d3").then(d3 => {
 
   // Create the scales
 
-  const x = d3
+  const scaleX = d3
     .scaleLinear()
     .domain([0, ibu.at(0).value])
     .range([0, plotWidth])
@@ -82,7 +77,7 @@ let d3 = import("d3").then(d3 => {
   const axisX = svg
     .append("g") // new "group"
     .attr("transform", `translate(0, ${plotHeight})`)
-    .call(d3.axisBottom(x))
+    .call(d3.axisBottom(scaleX))
 
   fs.writeFileSync(__dirname + "/x_axis.svg", body.html())
 
@@ -124,14 +119,14 @@ let d3 = import("d3").then(d3 => {
 
   fs.writeFileSync(__dirname + "/label.svg", body.html())
 
-  const y = d3
+  const scaleY = d3
     .scaleBand()
     .range([0, plotHeight])
     .domain(ibu.map(x => x.name))
     .padding(0.1) // Adds space between the bars
 
   // Y Axis
-  const yNoTicks = d3.axisLeft(y).tickSize(0)
+  const yNoTicks = d3.axisLeft(scaleY).tickSize(0)
 
   const axisY = svg
     .append("g")
@@ -162,9 +157,9 @@ let d3 = import("d3").then(d3 => {
     .data(ibu)
     .join("rect")
     .attr("x", 0.5) // Half pixel?
-    .attr("y", data => y(data.name))
-    .attr("width", data => x(data.value))
-    .attr("height", y.bandwidth())
+    .attr("y", data => scaleY(data.name))
+    .attr("width", data => scaleX(data.value))
+    .attr("height", scaleY.bandwidth())
     .attr("transform", `translate(${margin.left}, ${margin.top})`)
     .attr("fill", "#00AFDB")
     .style("stroke", "#000")

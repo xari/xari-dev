@@ -14,7 +14,8 @@ You can find the other posts in the series at the links below.
 - [Pt. II — Reducing Arrays](../reducing-arrays)
 - [Pt. III — Intro to D3](../intro-to-d3)
 - [Pt. IV — Binding data with D3](../binding-data-d3)
-- [Pt. V — Horizontal Bar Plot With D3](../horizontal-bar-plot)
+- [Pt. V — D3 Scales](../d3-scales)
+- [Pt. VI — Horizontal Bar Plot With D3](../horizontal-bar-plot)
 
 </div>
 
