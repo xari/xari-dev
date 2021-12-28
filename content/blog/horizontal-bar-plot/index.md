@@ -1,7 +1,7 @@
 ---
 title: Horizontal Bar Plot With D3
 date: 2021-12-29
-description: Everything you need to know to head down the road of D3 mastery.
+description: A step-by step guide to plotting a custom D3 chart.
 ---
 
 <div class="call-out-indigo">
