@@ -1,7 +1,7 @@
 ---
 title: Intro to D3
 date: 2021-12-14
-description: Everything you need to know to head down the road of D3 mastery.
+description: A step-by-step guide to the basics of D3.js.
 ---
 
 <div class="call-out-indigo">

@@ -1,7 +1,7 @@
 ---
 title: Data Binding with D3
 date: 2021-12-15
-description: Everything you need to know to head down the road of D3 mastery.
+description: How to bind data to DOM elements with D3.
 ---
 
 <div class="call-out-indigo">
