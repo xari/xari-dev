@@ -32,6 +32,24 @@ const scaleX = d3
   .range([0, plotWidth])
 ```
 
+> _What is `scaleX`?_
+
+```js
+[Function: scale] {
+  invert: [Function (anonymous)],
+  domain: [Function (anonymous)],
+  range: [Function (anonymous)],
+  rangeRound: [Function (anonymous)],
+  clamp: [Function (anonymous)],
+  interpolate: [Function (anonymous)],
+  unknown: [Function (anonymous)],
+  copy: [Function (anonymous)],
+  ticks: [Function (anonymous)],
+  tickFormat: [Function (anonymous)],
+  nice: [Function (anonymous)]
+}
+```
+
 ```js
 const scaleY = d3
   .scaleBand()
@@ -39,6 +57,9 @@ const scaleY = d3
   .domain(ibu.map(x => x.name))
   .padding(0.1) // Adds space between the bars
 ```
+
+Returns same function as scaleX...
+And we can use it to set the width and height according to the IBU values.
 
 ```js
 bars.attr("height", scaleY.bandwidth())

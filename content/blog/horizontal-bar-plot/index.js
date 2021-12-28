@@ -93,7 +93,7 @@ let d3 = import("d3").then(d3 => {
     `translate(${margin.left}, ${plotHeight + margin.top})`
   )
 
-  fs.writeFileSync(__dirname + "/aligned.svg", body.html())
+  fs.writeFileSync(__dirname + "/positioned.svg", body.html())
 
   // Title
   svg
