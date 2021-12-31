@@ -1,61 +1,58 @@
 ---
-title: Data Wrangling and Visualisation with JavaScript
+title: Data Visualisation with Functional JavaScript
 date: 2021-12-08
-description: A new series on data wrangling and visualisation with JavaScript.
+description: A new series on data visualisation using functional patterns in JavaScript.
 ---
 
 <div class="call-out-indigo">
 
 This is the first post in a series about data wrangling and visualisation with JavaScript.
-It exists for developers who want to expand their toolkit with a few versitle tools; namely D3.js, and functional patterns for working with arrays.
+It's here for experienced developers who want to expand their toolkit with a few versitle tools; namely D3.js, and functional patterns for array manipulation.
 
 You can find the other posts in this series at the links below.
 
-- [Intro — Data Wrangling and Visualisation with JavaScript](../data-wrangling-with-js)
-- [Pt. I — Unnesting Arrays](../unnesting-arrays)
-- [Pt. II — Reducing Arrays](../reducing-arrays)
-- [Pt. III — Intro to D3](../intro-to-d3)
-- [Pt. IV — Binding data with D3](../binding-data-d3)
-- [Pt. V — D3 Scales](../d3-scales)
-- [Pt. VI — Horizontal Bar Plot With D3](../horizontal-bar-plot)
+- [Intro — Data Visualisation with Functional JavaScript](../data-wrangling-with-js)
+- [Pt. I — Intro to D3](../intro-to-d3)
+- [Pt. II — Binding Data with D3](../binding-data-d3)
+- [Pt. III — D3 Scales](../d3-scales)
+- [Pt. IV — Horizontal Bar Plot with D3](../horizontal-bar-plot)
+- [Pt. V — Higher Order Functions](../unnesting-arrays)
+- [Pt. VII — Scatterplot with D3](../scatter-plot)
+- [Pt. VIII — Reducers and Transducers](../reducing-arrays)
+- [Pt. IX — Facetplot with D3](../facet-plot)
+
+The best way to engage with this series is to code along.
+We've done our very best to approach each piece of code with a step-by-step visualisation of what's happening, but you'll want to already be familliar with ES6 array methods before you try to weed through this series.
 
 </div>
 
-This series is constructed around a dataset that I pulled from the Punk API.
+## The Approach
+
+This series is constructed around the [Punk API](./punk_api.png)'s data set of brewing production data.
 
 ![Punk API](./punk_api.png)
 
-If you aren't familliar with it yet, the Punk API is maintained by Brewdog, a highly successful brewery in Scotland.
-This public REST API can be used to query a database of their entire beer catalogue.
-Over the course of this series, we'll work with this data to produce several beautiful visualisations, like the one below.
+If you aren't familliar with the Punk API, it's a REST API maintained by Brewdog, a popular Scottish brewery.
+This API can be used to query a data set of Brewdog's entire beer catalogue.
+
+Over the course of this series, we'll work with this data to produce several visualisations like the one below using [D3.js](https://d3js.org/).
 
 ![Horizontal bar plot of Brewdog's most bitter beers](./plot.svg)
 
-The approach that we'll take is to break-down the steps involved in wrangling and plotting the data into small, digestible pieces.
+The approach that we'll take is to break-down the steps involved in creating each plot into illustrated, digestible pieces.
 
-## 325 beers!
+![Time lapse of plot creation](./scales_time_lapse.gif)
 
-Our first step in this process is to examine the data that we'll be working with.
-I requested this data from the [Punk API](https://punkapi.com/), and stored it in a JSON file called `beers.json`.
-This file can be fetched in different ways, but I'm working in a Node.js environment, so I'm using the `fs` library for the job of reading and parsing this file.
+## The Data: 325 beers!
 
-```js
-const beers = JSON.parse(fs.readFileSync("./beers.json"))
-```
-
-`beers` is an array of 325 beer objects.
+Let's have a look at the data that we'll be exploring and using throughout this series.
 
 ```js
 beers // Array(325) [{…}, {…}, {…}, {…}, {…}, …]
 ```
 
-To quickly check the top-level properties of these beer objects, we can use the `Object.getOwnPropertyNames()` method, shown below.
-
-```js
-Object.getOwnPropertyNames(beers[1])
-```
-
-From this, we can see that the data stored in these objects relates _mostly_ to the brewing of these beers.
+We've outlined how to query this data from the API in [another post](../paginated-fetch), but all you need to know for this series is that `beers` is an array of 325 objects.
+Each object has the the following properties:
 
 <div class="sm-text">
 
@@ -87,100 +84,15 @@ From this, we can see that the data stored in these objects relates _mostly_ to 
 
 </div>
 
-It's a good idea to look-at one of these object though, because `Object.getOwnPropertyNames()` doesn't actually tell us anything about the values of these properties.
+Over the course of this series we'll be creating new arrays from `beers` that restructure to suit the plots that we'll create.
+For example; to produce the hoizonal bar plot shown above, we'll create an array of only the name and IBU value of each beer.
 
-<div class="sm-text">
+## Nested Data
 
-```json
-{
-    "id": 192,
-    "name": "Punk IPA 2007 - 2010",
-    "tagline": "Post Modern Classic. Spiky. Tropical. Hoppy.",
-    "first_brewed": "04/2007",
-    "description": "Our flagship beer that kick started the craft beer revolution. This is James and Martin's original take on an American IPA, subverted with punchy New Zealand hops. Layered with new world hops to create an all-out riot of grapefruit, pineapple and lychee before a spiky, mouth-puckering bitter finish.",
-    "image_url": "https://images.punkapi.com/v2/192.png",
-    "abv": 6.0,
-    "ibu": 60.0,
-    "target_fg": 1010.0,
-    "target_og": 1056.0,
-    "ebc": 17.0,
-    "srm": 8.5,
-    "ph": 4.4,
-    "attenuation_level": 82.14,
-    "volume": {
-      "value": 20,
-      "unit": "liters"
-    },
-    "boil_volume": {
-      "value": 25,
-      "unit": "liters"
-    },
-    "method": {
-      "mash_temp": [
-        {
-          "temp": {
-            "value": 65,
-            "unit": "celsius"
-          },
-          "duration": 75
-        }
-      ],
-      "fermentation": {
-        "temp": {
-          "value": 19.0,
-          "unit": "celsius"
-        }
-      },
-      "twist": null
-    },
-    "ingredients": {
-      "malt": [
-        {
-          "name": "Extra Pale",
-          "amount": {
-            "value": 5.3,
-            "unit": "kilograms"
-          }
-        }
-      ],
-      "hops": [
-        {
-          "name": "Ahtanum",
-          "amount": {
-            "value": 17.5,
-            "unit": "grams"
-           },
-           "add": "start",
-           "attribute": "bitter"
-         },
-         {
-           "name": "Chinook",
-           "amount": {
-             "value": 15,
-             "unit": "grams"
-           },
-           "add": "start",
-           "attribute": "bitter"
-         },
-         ...
-      ],
-      "yeast": "Wyeast 1056 - American Ale™"
-    },
-    "food_pairing": [
-      "Spicy carne asada with a pico de gallo sauce",
-      "Shredded chicken tacos with a mango chilli lime salsa",
-      "Cheesecake with a passion fruit swirl sauce"
-    ],
-    "brewers_tips": "While it may surprise you, this version of Punk IPA isn't dry hopped but still packs a punch! To make the best of the aroma hops make sure they are fully submerged and add them just before knock out for an intense hop hit.",
-    "contributed_by": "Sam Mason <samjbmason>"
-  }
-```
+Several of the object properties above contain nested arrays, and much of the functional programming patterns that we'll cover will serve the purpose of performantly unnesting these nested arrays.
 
-</div>
-
-We can see from the output above, that some of these properties contain nested objects or nested arrays.
-In the next post in this series, we're going to dig-out one of these nested arrays, `ingredients.hops`, which we can see below.
-This array shows us that the original Punk IPA uses only two hops: Ahtanum and Chinook.
+For example, `ingredients.hops` contains an array of two hops: "Ahtanum" and "Chinook".
+In a later post, we'll create a new array containing the hops from each beer.
 
 <div class="sm-text">
 
@@ -209,5 +121,21 @@ This array shows us that the original Punk IPA uses only two hops: Ahtanum and C
 
 </div>
 
-Each of the beers in the dataset contains at least one hop.
-In the [next post](../unnesting-arrays) in this series, we're going to use simple array methods to create an array that contains the names of all of these hops.
+If you're already familliar with the terminology of functional programming, we'll be exploring higher-order functions, as well as currying.
+But if you aren't yet familliar with these patterns, don't sweat; they aren't very complicated, and we'll get you through them.
+
+## Data Visualisation
+
+This project is ongoing, but here are the plots that it contains so far:
+
+- Horizontal Bar Plot
+- Scatterplot
+- Facetplot
+
+As time goes on though, we hope to expand this list to more or less every kind of visualisation that can be found in Claus Wilke's ["Fundamentals of Data Visualization"](https://clauswilke.com/dataviz/).
+
+##
+
+It's our belief that the world has so far only scratched the surface when it comes to data's potential to transform society for the better.
+We're excited to expand our own data visualisation toolkit, and this series is borne out of our own learning process.
+We're excited to share it with you, and hope that you're get as much out of reading it as we did out of writing it.
