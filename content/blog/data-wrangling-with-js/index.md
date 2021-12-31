@@ -134,8 +134,11 @@ This project is ongoing, but here are the plots that it contains so far:
 
 As time goes on though, we hope to expand this list to more or less every kind of visualisation that can be found in Claus Wilke's ["Fundamentals of Data Visualization"](https://clauswilke.com/dataviz/).
 
-##
+## Getting started
 
 It's our belief that the world has so far only scratched the surface when it comes to data's potential to transform society for the better.
 We're excited to expand our own data visualisation toolkit, and this series is borne out of our own learning process.
 We're excited to share it with you, and hope that you're get as much out of reading it as we did out of writing it.
+
+We'll begin by diving into [the basics of D3](../intro-to-d3) in the next post.
+This will be our platform for the rest of the series.
