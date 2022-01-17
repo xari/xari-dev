@@ -16,7 +16,7 @@ You can find the other posts in this series at the links below.
 - [Pt. II — Binding Data with D3](../binding-data-d3)
 - [Pt. III — D3 Scales](../d3-scales)
 - [Pt. IV — Horizontal Bar Plot with D3](../horizontal-bar-plot)
-- [Pt. V — Higher Order Functions](../unnesting-arrays)
+- [Pt. V — Higher Order Functions](../higher-order-functions)
 - [Pt. VII — Scatterplot with D3](../scatter-plot)
 - [Pt. VIII — Reducers and Transducers](../reducing-arrays)
 - [Pt. IX — Facetplot with D3](../facet-plot)

@@ -9,13 +9,15 @@ description: Simplified axis generation and positioning with scales
 This post is part of a series on data wrangling and visualisation with JavaScript.
 You can find the other posts in the series at the links below.
 
-- [Intro — Data Wrangling and Visualisation with JavaScript](../data-wrangling-with-js)
-- [Pt. I — Unnesting Arrays](../unnesting-arrays)
-- [Pt. II — Reducing Arrays](../reducing-arrays)
-- [Pt. III — Intro to D3](../intro-to-d3)
-- [Pt. IV — Binding data with D3](../binding-data-d3)
-- [Pt. V — D3 Scales](../d3-scales)
-- [Pt. VI — Horizontal Bar Plot With D3](../horizontal-bar-plot)
+- [Intro — Data Visualisation with Functional JavaScript](../data-wrangling-with-js)
+- [Pt. I — Intro to D3](../intro-to-d3)
+- [Pt. II — Binding Data with D3](../binding-data-d3)
+- [Pt. III — D3 Scales](../d3-scales)
+- [Pt. IV — Horizontal Bar Plot with D3](../horizontal-bar-plot)
+- [Pt. V — Higher Order Functions](../unnesting-arrays)
+- [Pt. VII — Scatterplot with D3](../scatter-plot)
+- [Pt. VIII — Reducers and Transducers](../reducing-arrays)
+- [Pt. IX — Facetplot with D3](../facet-plot)
 
 </div>
 

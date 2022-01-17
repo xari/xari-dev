@@ -21,3 +21,16 @@ const keepUniqueHops = keepUnique("name")
 const hops = beers.reduce((acc, cur) => {
   return cur.ingredients.hops.reduce(keepUniqueHops, acc)
 }, [])
+
+// hopsByAttr
+
+const hopsByAttr = beers.reduce((acc, cur) => {
+  return cur.ingredients.hops.reduce((acc2, cur2) => {
+    return [
+      {
+        attribute: cur2.attribute,
+        hops: [acc2[i].hops, cur2.hops],
+      },
+    ]
+  }, acc)
+}, [])
