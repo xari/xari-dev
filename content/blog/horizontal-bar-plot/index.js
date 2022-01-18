@@ -6,7 +6,7 @@ const { JSDOM } = jsdom
 const beers = JSON.parse(fs.readFileSync("./beers.json"))
 
 // Load D3 and create a canvas + context
-let d3 = import("d3").then(d3 => {
+import("d3").then(d3 => {
   const __dirname = path.resolve(path.dirname(""))
 
   const width = 680
@@ -150,19 +150,96 @@ let d3 = import("d3").then(d3 => {
 
   fs.writeFileSync(__dirname + "/remove_domain.svg", body.html())
 
-  // Bars
-  svg
-    .append("g") // new "group"
+  // Not yet visible without width and height
+  let bars = svg
+    .append("g")
+    .attr("transform", `translate(${margin.left}, ${margin.top})`)
     .selectAll("rect")
     .data(ibu)
     .join("rect")
-    .attr("x", 0.5) // Half pixel?
-    .attr("y", data => scaleY(data.name))
+
+  // Now visible, but stacked on top of each other
+  bars
     .attr("width", data => scaleX(data.value))
     .attr("height", scaleY.bandwidth())
+
+  fs.writeFileSync(__dirname + "/un_positioned.svg", body.html())
+
+  bars.remove()
+
+  // Properly spaced along the Y axis
+  bars = svg
+    .append("g")
     .attr("transform", `translate(${margin.left}, ${margin.top})`)
+    .selectAll("rect")
+    .data(ibu)
+    .join("rect")
+    .attr("width", data => scaleX(data.value))
+    .attr("height", scaleY.bandwidth())
+    .attr("y", data => scaleY(data.name))
+
+  fs.writeFileSync(__dirname + "/positioned-y.svg", body.html())
+
+  bars.remove()
+
+  // Styled
+  bars = svg
+    .append("g")
+    .attr("transform", `translate(${margin.left}, ${margin.top})`)
+    .selectAll("rect")
+    .data(ibu)
+    .join("rect")
+    .attr("width", data => scaleX(data.value))
+    .attr("height", scaleY.bandwidth())
+    .attr("y", data => scaleY(data.name))
     .attr("fill", "#00AFDB")
     .style("stroke", "#000")
+
+  fs.writeFileSync(__dirname + "/styled.svg", body.html())
+
+  bars.remove()
+
+  // Store transform / scale for reset later
+  const transform = d3.zoomTransform(svg.node())
+
+  // Zoom-in to axis origin
+  svg.attr("transform", `translate(${1800}, ${-2750})scale(15)`)
+
+  // Zoomed-in:
+  bars = svg
+    .append("g")
+    .attr("transform", `translate(${margin.left}, ${margin.top})`)
+    .selectAll("rect")
+    .data(ibu)
+    .join("rect")
+    .attr("width", data => scaleX(data.value))
+    .attr("height", scaleY.bandwidth())
+    .attr("y", data => scaleY(data.name))
+    .attr("fill", "#00AFDB")
+    .style("stroke", "#000")
+
+  fs.writeFileSync(__dirname + "/zoomed.svg", body.html())
+
+  bars.remove()
+
+  // Corrected x origin
+  bars = svg
+    .append("g")
+    .attr("transform", `translate(${margin.left}, ${margin.top})`)
+    .selectAll("rect")
+    .data(ibu)
+    .join("rect")
+    .attr("width", data => scaleX(data.value))
+    .attr("height", scaleY.bandwidth())
+    .attr("y", data => scaleY(data.name))
+    .attr("x", 0.5)
+    .attr("fill", "#00AFDB")
+    .style("stroke", "#000")
+
+  fs.writeFileSync(__dirname + "/positioned-x.svg", body.html())
+
+  // Reset transform to pre-zoom origin
+  svg.attr("transform", transform)
 
   fs.writeFileSync(__dirname + "/bars.svg", body.html())
 })

@@ -8,7 +8,7 @@ description: A step-by step guide to plotting a custom D3 chart.
 
 This post is part of a series on data wrangling and visualisation with JavaScript.
 It explores data from the [Punk API](../data-wrangling-with-js), and uses it to plot asthetically pleasing charts with D3.js.
-You can find the other posts in the series at the links below.
+You can find the other posts in this series at the links below.
 
 - [Intro — Data Visualisation with Functional JavaScript](../data-wrangling-with-js)
 - [Pt. I — Intro to D3](../intro-to-d3)
@@ -32,7 +32,31 @@ IBU stands for International Bitterness Units.
 It's a metric that represents the bitterness of a drink.
 The higher the IBU, the more bitter the beer.
 
-## Getting started
+Below, we can see an animated breakdown of each part that makes up this chart.
+
+![Time lapse](./time_lapse.gif)
+
+## The data
+
+We're working with an array of 30 beer objects, shown below.
+
+```js
+ibu // Array(30) [{…}, {…}, {…}, {…}, {…}, …]
+```
+
+This array contains everything that we need to plot the horizontal bar chart above.
+Each object has two properties: `name` and `ibu`.
+
+```json
+{
+  "name": "Punk IPA 2007 - 2010",
+  "ibu": 60.0
+}
+```
+
+If you'd like to see how this array came to be, I encourage you to look back on the earlier posts about [../binding-data-d3](binding data) and [../d3-scales](D3 scales).
+
+## Creating the SVG object
 
 Let's set-up our SVG and append it to the document that we're working with.
 
@@ -242,7 +266,7 @@ const axisY = svg
 
 ![Y axis](./y_axis.svg)
 
-We're almost ready to plot our data, but before we do that, we'll need to remove the placeholder blue plot outline from our chart.
+We're almost ready to plot our data, but before we do that, we'll need to remove the blue plot outline placeholder from our chart.
 
 ## Removing selections from a chart
 
@@ -253,6 +277,9 @@ We can remove that element, along with the think black border around the chart b
 documentOutline.remove()
 plotOutline.remove()
 ```
+
+This works because these variables refer to D3 Selection objects.
+Selection objects refert to DOM elements, and whenever we create a new DOM element in D3, the function that we use to create it (i.e. `svg.append("rect")`) will return a Selection object that is bound to the element that we just created.
 
 ![Chart without data](./axes.svg)
 
@@ -272,17 +299,62 @@ The horizonal bars that we're going to plot each have a black border, so the Y a
 This next step was covered in-depth in [the post that introduced D3 scales](../d3-scales).
 But to briefly review what's happening below, we're using the X and Y axis scales to set the width and height of each horizontal bar.
 
+The code below creates and positions a new `<group/>` element that contains the bars, but without specifying the `width` and `height` attribute of each bar, we won't actually see the bars yet.
+
 ```js
-svg
+const bars = svg
   .append("g")
+  .attr("transform", `translate(${margin.left}, ${margin.top})`)
   .selectAll("rect")
   .data(ibu)
   .join("rect")
-  .attr("x", 0.5)
-  .attr("y", data => scaleY(data.name))
+```
+
+The code above will add those elements to the document, but we won't actually see them unless we give them each a `width` and a `height`.
+
+```js
+bars
   .attr("width", data => scaleX(data.value))
   .attr("height", scaleY.bandwidth())
+```
+
+Specifying the width and height of the rectangles will make them visible to us, but we quickly see that isn't all it's going to take.
+
+![Un-positioned bars](./un_positioned.svg)
+
+```js
+bars.attr("y", data => scaleY(data.name))
+```
+
+![Positioned Y](./positioned-y.svg)
+
+Styled...
+
+![Styled bars](./styled.svg)
+
+This next part is quite nit-picky, but it's actually quite important.
+
+![Zoomed-in](./zoomed.svg)
+
+```js
+bars.attr("x", 0.5)
+```
+
+![Positioned X](./positioned-x.svg)
+
+Putting it all together.
+
+```js
+svg
+  .append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`)
+  .selectAll("rect")
+  .data(ibu)
+  .join("rect")
+  .attr("width", data => scaleX(data.value))
+  .attr("height", scaleY.bandwidth())
+  .attr("y", data => scaleY(data.name))
+  .attr("x", 0.5)
   .attr("fill", "#00AFDB")
   .style("stroke", "#000")
 ```
