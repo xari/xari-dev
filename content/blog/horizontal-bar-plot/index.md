@@ -8,17 +8,7 @@ description: A step-by step guide to plotting a custom D3 chart.
 
 This post is part of a series on data wrangling and visualisation with JavaScript.
 It explores data from the [Punk API](../data-wrangling-with-js), and uses it to plot asthetically pleasing charts with D3.js.
-You can find the other posts in this series at the links below.
-
-- [Intro — Data Visualisation with Functional JavaScript](../data-wrangling-with-js)
-- [Pt. I — Intro to D3](../intro-to-d3)
-- [Pt. II — Binding Data with D3](../binding-data-d3)
-- [Pt. III — D3 Scales](../d3-scales)
-- [Pt. IV — Horizontal Bar Plot with D3](../horizontal-bar-plot)
-- [Pt. V — Higher Order Functions](../higher-order-functions)
-- [Pt. VII — Scatterplot with D3](../scatter-plot)
-- [Pt. VIII — Reducers and Transducers](../reducing-arrays)
-- [Pt. IX — Facetplot with D3](../facet-plot)
+You can find a list of the other posts in this series [here](../data-wrangling-with-js)
 
 </div>
 
@@ -32,33 +22,30 @@ IBU stands for International Bitterness Units.
 It's a metric that represents the bitterness of a drink.
 The higher the IBU, the more bitter the beer.
 
-Below, we can see an animated breakdown of each part that makes up this chart.
+We'll be going through this process in a step-by-step manner, which you can see a preview of below.
 
 ![Time lapse](./time_lapse.gif)
 
 ## The data
 
-We're working with an array of 30 beer objects, shown below.
-
-```js
-ibu // Array(30) [{…}, {…}, {…}, {…}, {…}, …]
-```
-
-This array contains everything that we need to plot the horizontal bar chart above.
-Each object has two properties: `name` and `ibu`.
+We're working with an array that represents 30 beers, shown below.
 
 ```json
-{
-  "name": "Punk IPA 2007 - 2010",
-  "ibu": 60.0
-}
+[
+  { "name": "Tactical Nuclear Penguin", "ibu": 1157 },
+  { "name": "Sink The Bismarck!", "ibu": 1085 }
+  // ... 28 more items
+]
 ```
 
-If you'd like to see how this array came to be, I encourage you to look back on the earlier posts about [../binding-data-d3](binding data) and [../d3-scales](D3 scales).
+This array contains everything that we need to plot the horizontal bar chart.
+Each object has two properties: `name` and `ibu`.
+If you'd like to see how this array came to be, I encourage you to look back on the earlier posts about [binding data](../binding-data-d3) and [D3 scales](../d3-scales).
 
-## Creating the SVG object
+## Boilerplate
 
 Let's set-up our SVG and append it to the document that we're working with.
+If you need help with the code below, check-out the [introduction to this series](../data-wrangling-with-js).
 
 ```js
 const width = 680
@@ -71,8 +58,9 @@ const svg = body
   .attr("height", height)
 ```
 
-Now that our SVG element has been appended to the document's body, let's add a full-height-and-width white background to it, with a black border.
-We'll remove this element later-on, but for the purpose of this step-by-step tutorial, I find it helpful because it shows us the boundary of the SVG.
+Now that our SVG element is appended to the document's body, let's add a full-height-and-width white background and black border to it.
+This is purely to help us get oriented with where the different elements of our plot will go, and we'll remove it once we've put our axes in place.
+Keep the variable name `documentOutline` in mind, as we'll need to reference that name when we're ready to remove the outline.
 
 ```js
 const documentOutline = svg
@@ -87,13 +75,7 @@ const documentOutline = svg
 
 ![Outline](./outline.svg)
 
-`documentOutline` is a D3 `Selection` object, and we can use this variable later-on to select and remove the element when that time comes.
-
-```js
-documentOutline // Selection { _groups: [ [ [SVGElement] ] ], _parents: [ null ] }
-```
-
-We'll also create an outline that shows us where our data will be plotted, relative to the margins of the chart.
+Let's also create another temporary outline that indicates where the horizontal bars will eventually go.
 
 ```js
 const margin = { top: 80, right: 50, bottom: 60, left: 200 }
@@ -109,17 +91,26 @@ const plotOutline = svg
   .style("fill", "#00AFDB")
 ```
 
-We'll also remove this blue box later-on.
+Creating variables for `plotHeight` and `plotWidth` will help us when it comes time to create and position other elements of the chart like axis labels, and even the horizontal bars themselves.
 
 ![Plot outline](./plot-outline.svg)
 
 ## Using a scale to plot the X axis
 
-In the previous post, we used scales to [calculate the width and height of elements based on the IBU data](../d3-scales).
-We're now going to apply that same technique to calculate our plot axes too.
+In another post, we used D3 scales to [calculate the width and height of plot elements from data](../d3-scales).
+We're going to apply that same technique here to create our plot axes.
 
-The X axis scale begins at `[0, 100]` and extends to `[0, 430]`.
-`100` is the lowest `value` in the IBU array, and `430` is the full-width of the plot area.
+Remember that data set of 30 beer objects that we're working with.
+It's ordered by _descending_ `value`.  
+Here's a look at that first array item once again:
+
+```js
+ibu[0] // { "name": "Tactical Nuclear Penguin", "ibu": 1157 }
+```
+
+We create a scale in D3 by calling a scale function —in this case `scaleLinear()` —and providing it with a domain and a range.
+In this case, the domain is derived from the values `0` and `1157`, because we want the axis to begin at 0 and go all the way to the largest value in the data set, `1157`.
+The range goes from `0` to `430`, because we want the axis line to begin at 0 and go the full length of `plotWidth`.
 
 ```js
 const scaleX = d3
@@ -130,39 +121,43 @@ const scaleX = d3
 
 We can generate everything we need for the X axis by calling `d3.axisBottom(scaleX)`.
 This function will take care of positioning all axis ticks and labels properly.
-Readers who have read the [post where we created the Y axis manually](../binding-data-d3) may appreciate just how much `axisBottom()` and `axisLeft()` simplify this process.
-
-The `call()` method will invoke the axis function and append the axis to the SVG.
+If you've read the [post on binding data to DOM elements](../binding-data-d3) you'll appreciate how much `axisBottom()` and `axisLeft()` simplify the axis generation process.
 
 ```js
 const axisX = svg
-  .append("g") // new "group"
+  .append("g")
   .attr("transform", `translate(0, ${plotHeight})`)
   .call(d3.axisBottom(scaleX))
+
+axisX // Selection { _groups: [ [ [SVGSVGElement] ] ], _parents: [ null ] }
 ```
 
 ![X axis](./x_axis.svg)
 
-`axisBottom()` also returns a number off methods that we can use for customizing this axis.
-These are shown below, and later-on we'll use the `tickSize` method to remove the ticks from the Y axis.
+<div class="call-out-indigo">
+
+## A note about `call()`
+
+The `call()` method will invoke the axis function and append the axis to the SVG.
+In the block above we "call" `d3.axisBottom(scaleX)` from the `svg.append("g")` method chain.
+The code below will do _almost_ the same thing, but with one major difference:
 
 ```js
-[Function: axis] {
-  scale: [Function (anonymous)],
-  ticks: [Function (anonymous)],
-  tickArguments: [Function (anonymous)],
-  tickValues: [Function (anonymous)],
-  tickFormat: [Function (anonymous)],
-  tickSize: [Function (anonymous)],
-  tickSizeInner: [Function (anonymous)],
-  tickSizeOuter: [Function (anonymous)],
-  tickPadding: [Function (anonymous)],
-  offset: [Function (anonymous)]
-}
+const axisX = d3.axisBottom(scaleX)(
+  svg.append("g").attr("transform", `translate(0, ${plotHeight})`)
+)
+
+axisX // undefined
 ```
 
-Before we get to the Y axis though, I'd like to rotate the X axis labels by 45 degrees.
-This is just a personal preference, but I find this rotation to add a flare of elegance to the chart.
+The difference being that `call()` will always return the selection that invoked it; thus keeping the method chain intact.
+If we never intend to reference `axisX` in our code, then we're free to use the syntax that doesn't return the selection.
+But if we do want to reference `axisX` later in our code, then we'll need to initialize it using the `call()` method.
+
+</div>
+
+This is just a personal preference, but I find that rotating the X axis tick labels by 45 degrees adds a flare of elegance and increases the readablility of the chart.
+Since `axisX` is a D3 selection, chaining-up a call to `selectAll("text")` will select the `<text/>` elements that are contained within the axis.
 
 ```js
 axisX
@@ -171,11 +166,9 @@ axisX
   .style("text-anchor", "end")
 ```
 
-`selectAll()` will select all `<text/>` elements contained within the current selection (`axisX`), and we can then transform and translate those elements however we see fit.
-
 ![Rotated axis labels](./rotated.svg)
 
-Speaking of `"transform"`, we'll also need to position the axis to it's proper place, along the bottom edge of the plot area.
+We'll also want to position the axis to it's proper place, along the bottom edge of the plot area.
 
 ```js
 axisX.attr("transform", `translate(${margin.left}, ${plotHeight + margin.top})`)
@@ -219,6 +212,26 @@ svg
 ![Adding an X axis label](./label.svg)
 
 ## Using a scale to plot the Y axis
+
+`axisBottom()` returns a number of methods that can be used to customize the axis.
+These are shown below, and later-on we'll use the `tickSize` method to remove the ticks from the Y axis.
+
+```js
+[Function: axis] {
+  scale: [Function (anonymous)],
+  ticks: [Function (anonymous)],
+  tickArguments: [Function (anonymous)],
+  tickValues: [Function (anonymous)],
+  tickFormat: [Function (anonymous)],
+  tickSize: [Function (anonymous)],
+  tickSizeInner: [Function (anonymous)],
+  tickSizeOuter: [Function (anonymous)],
+  tickPadding: [Function (anonymous)],
+  offset: [Function (anonymous)]
+}
+```
+
+Before we get to the Y axis though, I'd like to rotate the X axis labels by 45 degrees.
 
 We're now going to use a scale to do the work that was done manually in the previous post on [binding data to text elements](../d3-scales).
 In the code below, we're creating a scale for the Y axis using the names of the beers, and then setting it's `range` to the plot height.
@@ -270,6 +283,12 @@ We're almost ready to plot our data, but before we do that, we'll need to remove
 
 ## Removing selections from a chart
 
+`documentOutline` is a D3 `Selection` object, and we can use this variable later-on to select and remove the element when that time comes.
+
+```js
+documentOutline // Selection { _groups: [ [ [SVGElement] ] ], _parents: [ null ] }
+```
+
 Before we can plot the data, we'll need to remove that blue `<rect/>` that we created to indicate where the plot would go.
 We can remove that element, along with the think black border around the chart by selecting them (`documentOutline` and `plotOutline`) and calling `remove()` on each.
 
@@ -313,71 +332,52 @@ const bars = svg
 The code above will add those elements to the document, but we won't actually see them unless we give them each a `width` and a `height`.
 
 ```js
-bars
-  .attr("width", data => scaleX(data.value))
-  .attr("height", scaleY.bandwidth())
+bars.attr("width", data => scaleX(data.value))
 ```
+
+`selection.attr()` can accept an anonymous function as it's second argument.
+This function will be run once for each item in the bound data set (`ibu`, in this case).
+The function's argument (`data`) is an item of the bound data.  
+Think of this as a mapping function that will calculate the width of each bar from the data set's values.
+
+```js
+bars.attr("height", scaleY.bandwidth())
+```
+
+We're also using another scale method (`bandwidth()`) to calculate the height of each bar.  
+`scaleY.bandwidth()` returns the number `17.910447761194032`, which is the `plotHeight` divided by the number of items in the dataset —but also accounting for the `0.1` of padding that we specified when we created the Y axis scale!
+Imagine having to account for that level of detail without the help of D3.
+
+![Un-positioned bars](./un_positioned.svg)
 
 Specifying the width and height of the rectangles will make them visible to us, but we quickly see that isn't all it's going to take.
 
-![Un-positioned bars](./un_positioned.svg)
+## Positioning the bars
+
+By default, each bar has the x and y positions of `[0, 0]`, which leaves them appearing on-top of each other.
+We can show this behavior more clearly by styling the bars, shown below:
+
+```js
+bars.attr("fill", "#00AFDB").style("stroke", "#000")
+```
+
+> "There you are! —Mystery Gang
+
+![Styled](./styled.svg)
+
+> "And we would've gotten away with it too, if it weren't for you meddling D3 kids!" —Bars
+
+Positioning those bars is a breeze, thanks to `scaleY()`.
+Just plug in `data.name`, and that's it!
+It will return a calculated Y position for each bar.
 
 ```js
 bars.attr("y", data => scaleY(data.name))
 ```
 
-![Positioned Y](./positioned-y.svg)
+You can see a log of the calculated Y positions below:
 
-Styled...
-
-![Styled bars](./styled.svg)
-
-This next part is quite nit-picky, but it's actually quite important.
-
-![Zoomed-in](./zoomed.svg)
-
-```js
-bars.attr("x", 0.5)
 ```
-
-![Positioned X](./positioned-x.svg)
-
-Putting it all together.
-
-```js
-svg
-  .append("g")
-  .attr("transform", `translate(${margin.left}, ${margin.top})`)
-  .selectAll("rect")
-  .data(ibu)
-  .join("rect")
-  .attr("width", data => scaleX(data.value))
-  .attr("height", scaleY.bandwidth())
-  .attr("y", data => scaleY(data.name))
-  .attr("x", 0.5)
-  .attr("fill", "#00AFDB")
-  .style("stroke", "#000")
-```
-
-Specifically, we're using a scale method called `bandwidth()` to set the height of each bar.  
-This returns the number `17.910447761194032`, which is the `plotHeight` divided by the number of items in `ibu` —but also accounting for the `0.1` of padding that we specified when we created the Y axis scale.
-
-Setting `attr("x", 0.5)` is necessary because of the 1px black stroke we're using for the border of each bar.
-Somehow bumping them by half a pixel to the right will set the left border to exactly where the axis domain line would have been.
-
-![Completed chart](./bars.svg)
-
-There it is!
-A beautiful and informative chart that shows us the IBU of Brewdog's most bitter beers.
-
-<div class="call-out-indigo">
-
-## A note about `scaleX()`
-
-If, like I was, you're curious about how `attr("width", data => scaleX(data.value))` works; it returns the Y position of each item in `ibu`.
-Each of these values is shown below.
-
-```js
 1.990049751243788
 21.8905472636816
 41.79104477611941
@@ -400,13 +400,53 @@ Each of these values is shown below.
 380.0995024875622
 ```
 
-This is just one of the many ways that D3 scales simplify the creation of plot axes over manually creating them ourselves.
+![Positioned Y](./positioned-y.svg)
 
-</div>
+## Offsetting the `x` domain
+
+We're _almost_ done...
+There's just one pesky little detail to take care of.
+You may have not even noticed it, so let's take a closer look.
+
+![Zoom](./zoom.gif)
+
+The circle above outlines the domain origins of the X and Y axis.
+We removed the Y axis domain line earlier in this post to create a stylized look for the chart.
+The black left stroke of each bar now replaces the single Y axis domain line, but as we can see in the outline above, the bars are mis-aligned by half a pixel.
+
+We can clear that up by setting the `x` property of the whole bar group to `0.5`.
+
+```js
+bars.attr("x", 0.5)
+```
+
+![Completed chart](./bars.svg)
+
+> "Much better."
+
+We can see the entire code for the horizontal bars below.
+
+```js
+svg
+  .append("g")
+  .attr("transform", `translate(${margin.left}, ${margin.top})`)
+  .selectAll("rect")
+  .data(ibu)
+  .join("rect")
+  .attr("width", data => scaleX(data.value))
+  .attr("height", scaleY.bandwidth())
+  .attr("y", data => scaleY(data.name))
+  .attr("x", 0.5)
+  .attr("fill", "#00AFDB")
+  .style("stroke", "#000")
+```
+
+And there we have it.
+A beautiful and informative chart that shows us the IBU of Brewdog's most bitter beers.
 
 Did you notice that the most bitter beer, "Tactical Nuclear Penguin" has an IBU of almost 1200?
 I couldn't believe it at first, and assumed it must have been a an error in the data.
-I looked it up though, just in case, and found this hilarious video about how they made that beer.
-It turns out that the alcohol content of that beer is a whopping 32%!
+I looked it up though, and found this hilarious video about how that beer came to be.
+It turns out that the alcohol content of that beer is an alarming 32%! 😅
 
 <iframe title="vimeo-player" src="https://player.vimeo.com/video/7812379?h=1c9cd7ede5" width="640" height="360" frameborder="0" allowfullscreen></iframe>

@@ -150,13 +150,12 @@ import("d3").then(d3 => {
 
   fs.writeFileSync(__dirname + "/remove_domain.svg", body.html())
 
-  // Not yet visible without width and height
-  let bars = svg
+  const barGroup = svg
     .append("g")
     .attr("transform", `translate(${margin.left}, ${margin.top})`)
-    .selectAll("rect")
-    .data(ibu)
-    .join("rect")
+
+  // Not yet visible without width and height
+  let bars = barGroup.selectAll("rect").data(ibu).join("rect")
 
   // Now visible, but stacked on top of each other
   bars
@@ -165,81 +164,103 @@ import("d3").then(d3 => {
 
   fs.writeFileSync(__dirname + "/un_positioned.svg", body.html())
 
-  bars.remove()
-
-  // Properly spaced along the Y axis
-  bars = svg
-    .append("g")
-    .attr("transform", `translate(${margin.left}, ${margin.top})`)
-    .selectAll("rect")
-    .data(ibu)
-    .join("rect")
-    .attr("width", data => scaleX(data.value))
-    .attr("height", scaleY.bandwidth())
-    .attr("y", data => scaleY(data.name))
-
-  fs.writeFileSync(__dirname + "/positioned-y.svg", body.html())
-
-  bars.remove()
-
-  // Styled
-  bars = svg
-    .append("g")
-    .attr("transform", `translate(${margin.left}, ${margin.top})`)
-    .selectAll("rect")
-    .data(ibu)
-    .join("rect")
-    .attr("width", data => scaleX(data.value))
-    .attr("height", scaleY.bandwidth())
-    .attr("y", data => scaleY(data.name))
-    .attr("fill", "#00AFDB")
-    .style("stroke", "#000")
+  bars.style("fill", "#00AFDB").style("stroke", "#000")
 
   fs.writeFileSync(__dirname + "/styled.svg", body.html())
 
   bars.remove()
 
-  // Store transform / scale for reset later
-  const transform = d3.zoomTransform(svg.node())
-
-  // Zoom-in to axis origin
-  svg.attr("transform", `translate(${1800}, ${-2750})scale(15)`)
-
-  // Zoomed-in:
-  bars = svg
-    .append("g")
-    .attr("transform", `translate(${margin.left}, ${margin.top})`)
+  // Properly spaced along the Y axis
+  bars = barGroup
     .selectAll("rect")
     .data(ibu)
     .join("rect")
     .attr("width", data => scaleX(data.value))
     .attr("height", scaleY.bandwidth())
+    .style("fill", "#00AFDB")
+    .style("stroke", "#000")
     .attr("y", data => scaleY(data.name))
-    .attr("fill", "#00AFDB")
+
+  fs.writeFileSync(__dirname + "/positioned-y.svg", body.html())
+
+  const defs = svg.append("defs")
+
+  // Zoom focus mask
+  const mask = defs
+    .append("mask")
+    .attr("id", "circle-mask")
+    .attr("height", height)
+    .attr("width", width)
+    .attr("x", 0)
+    .attr("y", 0)
+
+  // Outer mask
+  mask
+    .append("rect")
+    .attr("height", height)
+    .attr("width", width)
+    .attr("x", 0)
+    .attr("y", 0)
+    .style("fill", "#fff") // White = opaque
+
+  // Add circle for inner cutout
+  mask
+    .append("circle")
+    .attr("r", 5)
+    .attr("cx", margin.left)
+    .attr("cy", margin.top + plotHeight)
+    .style("fill", "#000") // Black = transparent
     .style("stroke", "#000")
 
-  fs.writeFileSync(__dirname + "/zoomed.svg", body.html())
+  const focusLens = svg
+    .append("rect")
+    .attr("height", height)
+    .attr("width", width)
+    .attr("x", 0)
+    .attr("y", 0)
+    .style("mask", "url(#circle-mask)")
+    .style("fill", "#fff")
+    .style("fill-opacity", 0.5)
+
+  // Circle outline
+  let focusCircle = svg
+    .append("circle")
+    .attr("r", 5)
+    .attr("cx", margin.left)
+    .attr("cy", margin.top + plotHeight)
+    .style("fill", "none")
+    .style("stroke", "#ff0000") // Red
+
+  fs.writeFileSync(__dirname + "/red-circle.svg", body.html())
 
   bars.remove()
+  focusCircle.remove()
 
   // Corrected x origin
-  bars = svg
-    .append("g")
-    .attr("transform", `translate(${margin.left}, ${margin.top})`)
+  bars = barGroup // Use existing group
     .selectAll("rect")
     .data(ibu)
     .join("rect")
     .attr("width", data => scaleX(data.value))
     .attr("height", scaleY.bandwidth())
     .attr("y", data => scaleY(data.name))
-    .attr("x", 0.5)
+    .attr("x", 0.5) // Offset the x domain by half a pixel
     .attr("fill", "#00AFDB")
     .style("stroke", "#000")
 
-  fs.writeFileSync(__dirname + "/positioned-x.svg", body.html())
+  focusCircle = svg
+    .append("circle")
+    .attr("r", 5)
+    .attr("cx", margin.left)
+    .attr("cy", margin.top + plotHeight)
+    .style("fill", "none")
+    .style("stroke", "#00ff00") // Green
 
-  // Reset transform to pre-zoom origin
-  svg.attr("transform", transform)
+  fs.writeFileSync(__dirname + "/green-circle.svg", body.html())
+
+  mask.remove()
+  focusLens.remove()
+  focusCircle.remove()
 
   fs.writeFileSync(__dirname + "/bars.svg", body.html())
 })
