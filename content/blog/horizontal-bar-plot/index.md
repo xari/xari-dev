@@ -359,11 +359,11 @@ We can show this behavior more clearly by styling the bars, shown below:
 bars.attr("fill", "#00AFDB").style("stroke", "#000")
 ```
 
-> "There you are! —Mystery Gang
+> "There you are! — D3 Mystery Gang
 
 ![Styled](./styled.svg)
 
-> "And we would've gotten away with it too, if it weren't for you meddling D3 kids!" —Bars
+> "And we would've gotten away with it too, if it weren't for you meddling D3 kids!" — Bars
 
 Positioning those bars is a breeze, thanks to `scaleY()`.
 Just plug in `data.name`, and that's it!
