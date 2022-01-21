@@ -23,7 +23,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         </header>
         <span>{post.frontmatter.source_code}</span>
         <section
-          className="my-5 pb-5 max-w-2xl"
+          className="my-5 pb-5 max-w-3xl overflow-x-visible"
           dangerouslySetInnerHTML={{ __html: post.html }}
         />
         <footer>
