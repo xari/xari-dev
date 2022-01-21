@@ -231,8 +231,6 @@ These are shown below, and later-on we'll use the `tickSize` method to remove th
 }
 ```
 
-Before we get to the Y axis though, I'd like to rotate the X axis labels by 45 degrees.
-
 We're now going to use a scale to do the work that was done manually in the previous post on [binding data to text elements](../d3-scales).
 In the code below, we're creating a scale for the Y axis using the names of the beers, and then setting it's `range` to the plot height.
 
