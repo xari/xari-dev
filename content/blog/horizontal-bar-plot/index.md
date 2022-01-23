@@ -1,6 +1,6 @@
 ---
 title: Horizontal Bar Plot With D3
-date: 2021-01-21
+date: 2022-01-21
 description: A step-by step guide to plotting a custom D3 bar chart.
 ---
 
