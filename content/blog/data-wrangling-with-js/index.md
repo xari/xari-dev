@@ -12,14 +12,12 @@ It's here for experienced developers who want to expand their toolkit with a few
 You can find the other posts in this series at the links below.
 
 - [Intro — Data Visualisation with Functional JavaScript](../data-wrangling-with-js)
-- [Pt. I — Intro to D3](../intro-to-d3)
-- [Pt. II — Binding Data with D3](../binding-data-d3)
-- [Pt. III — D3 Scales](../d3-scales)
-- [Pt. IV — Horizontal Bar Plot with D3](../horizontal-bar-plot)
-- [Pt. V — Higher Order Functions](../higher-order-functions)
-- [Pt. VII — Scatterplot with D3](../scatter-plot)
-- [Pt. VIII — Reducers and Transducers](../reducing-arrays)
-- [Pt. IX — Facetplot with D3](../facet-plot)
+- [Intro to D3](../intro-to-d3)
+- [Binding Data with D3](../binding-data-d3)
+- [D3 Scales](../d3-scales)
+- [Horizontal Bar Plot with D3](../horizontal-bar-plot)
+- [Higher Order Functions](../higher-order-functions)
+- [Reducers and Transducers](../reducing-arrays)
 
 The best way to engage with this series is to code along.
 We've done our very best to approach each piece of code with a step-by-step visualisation of what's happening, but you'll want to already be familliar with ES6 array methods before you try to weed through this series.
