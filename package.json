@@ -40,11 +40,7 @@
   },
   "devDependencies": {
     "babel-preset-gatsby": "^2.0.0",
-    "d3": "^7.1.1",
-    "d3-zoom": "^3.0.0",
-    "jsdom": "^19.0.0",
-    "prettier": "^2.1.2",
-    "ramda": "^0.27.1"
+    "prettier": "^2.1.2"
   },
   "homepage": "https://xari.dev",
   "keywords": [
