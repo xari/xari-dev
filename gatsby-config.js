@@ -11,6 +11,10 @@ module.exports = {
   plugins: [
     `gatsby-plugin-postcss`,
     {
+      resolve: "gatsby-plugin-exclude",
+      options: { paths: ["/content/blog/**/node_modules"] },
+    },
+    {
       resolve: `gatsby-source-filesystem`,
       options: {
         path: `${__dirname}/content/blog`,

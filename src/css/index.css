@@ -74,16 +74,7 @@ pre[class*="language-"] {
 
 pre[class*="language-"] {
   @apply is-wide;
-  @apply painted-border;
   overflow: scroll;
-}
-
-.gatsby-highlight:nth-of-type(2n - 1) pre[class*="language-"] {
-  border-image-source: url(./bg-paper.svg);
-}
-
-.gatsby-highlight:nth-of-type(2n) pre[class*="language-"] {
-  border-image-source: url(./bg-paper-flip.svg);
 }
 
 pre[class*="language-"] span {
