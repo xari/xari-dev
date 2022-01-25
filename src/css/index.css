@@ -98,7 +98,9 @@ h1 a {
   border-image-source: url(./bg-paper-indigo.svg);
 }
 
+.call-out-indigo :not(pre) > code[class*="language-"],
 .call-out-indigo pre[class*="language-"] {
+  background: none;
   border: none;
   width: calc(100% + 20px);
   @apply max-w-none;

@@ -442,7 +442,7 @@ svg
 And there we have it.
 A beautiful and informative chart that shows us the IBU of Brewdog's most bitter beers.
 
-Did you notice that the most bitter beer, "Tactical Nuclear Penguin" has an IBU of almost 1200?
+Did you notice that the most bitter beer, "Tactical Nuclear Penguin", has an IBU of almost 1200?
 I couldn't believe it at first, and assumed it must have been an error in the data.
 I looked it up though, and found this hilarious video about how that beer came to be.
 It turns out that the alcohol content of that beer is an alarming 32%! 😅
