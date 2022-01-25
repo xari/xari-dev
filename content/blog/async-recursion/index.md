@@ -9,45 +9,49 @@ This API will return data about any package in NPM's public registry, including 
 
 But there's a catch.
 The `dependencies` property of the returned object doesn't contain the full data for each dependency; it only tells us the name and the version of each dependency.
-For example, requesting `"https://registry.npmjs.org/d3/latest"` will return an object that represents the D3 package.  
-The `dependencies` property of this object lists the following dependencies and their versions.
+For example, requesting `"https://registry.npmjs.org/d3/latest"` will return the object below.
 
 ```json
 {
-  "d3-array": "3",
-  "d3-axis": "3",
-  "d3-brush": "3",
-  "d3-chord": "3",
-  "d3-color": "3",
-  "d3-contour": "3",
-  "d3-delaunay": "6",
-  "d3-dispatch": "3",
-  "d3-drag": "3",
-  "d3-dsv": "3",
-  "d3-ease": "3",
-  "d3-fetch": "3",
-  "d3-force": "3",
-  "d3-format": "3",
-  "d3-geo": "3",
-  "d3-hierarchy": "3",
-  "d3-interpolate": "3",
-  "d3-path": "3",
-  "d3-polygon": "3",
-  "d3-quadtree": "3",
-  "d3-random": "3",
-  "d3-scale": "4",
-  "d3-scale-chromatic": "3",
-  "d3-selection": "3",
-  "d3-shape": "3",
-  "d3-time": "3",
-  "d3-time-format": "4",
-  "d3-timer": "3",
-  "d3-transition": "3",
-  "d3-zoom": "3"
+  "name": "d3",
+  "version": "latest",
+  "dependencies": {
+    "d3-array": "3",
+    "d3-axis": "3",
+    "d3-brush": "3",
+    "d3-chord": "3",
+    "d3-color": "3",
+    "d3-contour": "3",
+    "d3-delaunay": "6",
+    "d3-dispatch": "3",
+    "d3-drag": "3",
+    "d3-dsv": "3",
+    "d3-ease": "3",
+    "d3-fetch": "3",
+    "d3-force": "3",
+    "d3-format": "3",
+    "d3-geo": "3",
+    "d3-hierarchy": "3",
+    "d3-interpolate": "3",
+    "d3-path": "3",
+    "d3-polygon": "3",
+    "d3-quadtree": "3",
+    "d3-random": "3",
+    "d3-scale": "4",
+    "d3-scale-chromatic": "3",
+    "d3-selection": "3",
+    "d3-shape": "3",
+    "d3-time": "3",
+    "d3-time-format": "4",
+    "d3-timer": "3",
+    "d3-transition": "3",
+    "d3-zoom": "3"
+  }
 }
 ```
 
-But there's a lot more relevant information that is nested within each of these dependencies —including the dependencies of those dependencies.
+The API response doesn't tell us anything about the dependencies of those dependencies.
+But with a little recursion, we can write a function that will query the API again for each dependency.
 
 ![D3 package dep tree](./tree.svg)
 
