@@ -65,7 +65,7 @@ const { dependencies } = await fetch(
 
 <div class="call-out-indigo">
 
-If you've never seen the [`async`/`await`](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Async_await) syntax in JavaScript, it's just syntactic sugar around the Promise API that makes sure that `dependencies` above resolves to the `dependencies` property of the response body, rather than crashing by attempting to deconstruct a Promise instance.
+If you've never seen the [`async` / `await`](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Async_await) syntax in JavaScript, it's just syntactic sugar around the Promise API that makes sure that `dependencies` above resolves to the `dependencies` property of the response body, rather than crashing by attempting to deconstruct a Promise instance.
 
 </div>
 
