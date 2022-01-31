@@ -1,0 +1,39 @@
+---
+title: Analysing D3's Package Dependencies.
+date: 2022-01-31
+description: Visualising data from the NPM Package Registry API.
+---
+
+import d3Pkg from "./pkg-d3-latest.json"
+import { TreeChart, ForceGraphChart, ForceLegend } from "./index.js"
+
+In a recent post, I [queried the NPM Package Registry API](../async-recursion) for data about the D3 package.
+I decided to expand on that post slightly with the addition of a [force-directed graph](https://registry.npmjs.org/react/latest) of D3's dependencies.
+
+The benefit of the force-directed graph is that it shows us how packages can be inter-connected.
+For example; D3-Array is a dependency of D3, but it's also a dependency of D3-Time, D3-Geo, and D3-Contour.
+
+## The inter-dependencies of D3
+
+<>
+  <ForceGraphChart data={{nodes: d3Pkg.nodes, links: d3Pkg.links}} />
+  <ForceLegend range={[0, 1, 2, 3]} title="Maximum degrees of separation from the D3 package" />
+</>
+
+> Hint: Package names appear when hovering on a node.
+> Click-and-drag a node to get a better view of a particular package.
+
+The legend indicates the maximum number of degrees of separation that a package has from D3.
+For example, while D3-Array is a direct dependency of D3, it is also a dependency of D3-Time, D3-Geo, and D3-Contour —all of which are direct dependencies of D3 themselves.
+Therefor, the maximum degrees of separation of D3-Array from D3 is 2. 
+
+We can view these dependencies in a tree chart, or dendograph, shown below. 
+
+## D3 Dependency Tree
+
+<br/>
+
+<TreeChart data={d3Pkg.tree} />
+
+I found it helpful to have both the tree view and the force-directed graph to fully-understand the nature of D3's dependencies.
+I plan to follow-up on this post with an analysis of a few other packages.
