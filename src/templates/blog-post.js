@@ -23,7 +23,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           <p>{post.frontmatter.date}</p>
         </header>
         <span>{post.frontmatter.source_code}</span>
-        <section className="my-5 pb-5 max-w-3xl overflow-x-visible">
+        <section className="content">
           <MDXRenderer>{post.body}</MDXRenderer>
         </section>
         <footer>

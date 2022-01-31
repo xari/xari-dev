@@ -24,7 +24,7 @@ export function TreeChart({ data }) {
               .reverse()
               .map(d => d.data.name)
               .join(".")}`, // hover text
-          width: 1152,
+          width: 1100,
         },
         ref
       )

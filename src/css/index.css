@@ -51,6 +51,15 @@ pre[class*="language-"] {
   @apply text-lg;
 }
 
+.content {
+  @apply my-5;
+  @apply pb-5;
+}
+
+.content p {
+  @apply max-w-3xl;
+}
+
 .is-wide {
   @apply -mx-5;
   @apply pr-0;
