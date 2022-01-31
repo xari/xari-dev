@@ -4,7 +4,7 @@ date: 2021-10-27
 description: I heard you like reducers... How about we write some transducers for your reducers, so you can reduce while you reduce.
 ---
 
-> Search for JavaScript transducer</br>
+> Search for JavaScript transducer<br/>
 > And be blown away
 
 This was the message that I received from my friend Xavier that kicked-off several days of brain-racking and mental gymnastics that finally allowed me to transform the core of my home-grown test runner from a [previous post](https://xari.dev/reduce/).
