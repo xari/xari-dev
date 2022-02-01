@@ -447,4 +447,8 @@ I couldn't believe it at first, and assumed it must have been an error in the da
 I looked it up though, and found this hilarious video about how that beer came to be.
 It turns out that the alcohol content of that beer is an alarming 32%! 😅
 
-<iframe title="vimeo-player" src="https://player.vimeo.com/video/7812379?h=1c9cd7ede5" width="640" height="360" frameborder="0" allowfullscreen></iframe>
+<div class="max-w-3xl">
+
+  <iframe title="vimeo-player" src="https://player.vimeo.com/video/7812379?h=1c9cd7ede5" width="640" height="360" frameborder="0" allowfullscreen></iframe>
+
+</div>
