@@ -1,5 +1,5 @@
 module.exports = {
-  purge: ["./src/**/*.{js,jsx,ts,tsx,mdx}", "./content/blog/**/*.{mdx}"],
+  content: ["./src/**/*.{js,jsx,ts,tsx}", "./content/blog/**/*.{md,mdx}"],
   theme: {},
   variants: {},
   plugins: [],
