@@ -1,0 +1,32 @@
+---
+title: Comparing NPM Package Dependencies
+date: 2022-02-01
+description: Force-directed graphs of NPM package dependencies.
+---
+
+This is just a quick look at few of the packages that I regularly use in my projects.
+See my previous post about [visualising the D3 package](../package-dependencies) for more context about the force-directed graphs below. 
+
+import d3Pkg from "./pkg-d3-latest.json"
+import reactPkg from "./pkg-react-latest.json"
+import expressPkg from "./pkg-express-latest.json"
+import { ForceGraphChart, ForceLegend } from "./index.js"
+
+<>
+  <ForceLegend range={[0, 1, 2, 3]} title="Maximum degrees of separation from the root package" />
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+	  <div>
+		  <h3>D3</h3>
+		  <ForceGraphChart data={{nodes: d3Pkg.nodes, links: d3Pkg.links}} />
+	  </div>
+	  <div>
+		  <h3>React</h3>
+		  <ForceGraphChart data={{nodes: reactPkg.nodes, links: reactPkg.links}} />
+	  </div>
+	  <div>
+		  <h3>Express</h3>
+		  <ForceGraphChart data={{nodes: expressPkg.nodes, links: expressPkg.links}} />
+	  </div>
+  </div>
+</>
+

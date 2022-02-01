@@ -1,0 +1,54 @@
+{
+  "tree": {
+    "name": "react",
+    "version": "latest",
+    "dependencies": {
+      "loose-envify": {
+        "name": "loose-envify",
+        "version": "^1.1.0",
+        "dependencies": {
+          "js-tokens": {
+            "name": "js-tokens",
+            "version": "^3.0.0 || ^4.0.0"
+          }
+        }
+      },
+      "object-assign": {
+        "name": "object-assign",
+        "version": "^4.1.1"
+      }
+    }
+  },
+  "nodes": [
+    {
+      "id": "react",
+      "group": 0
+    },
+    {
+      "id": "object-assign",
+      "group": 1
+    },
+    {
+      "id": "loose-envify",
+      "group": 1
+    },
+    {
+      "id": "js-tokens",
+      "group": 2
+    }
+  ],
+  "links": [
+    {
+      "source": "react",
+      "target": "object-assign"
+    },
+    {
+      "source": "react",
+      "target": "loose-envify"
+    },
+    {
+      "source": "loose-envify",
+      "target": "js-tokens"
+    }
+  ]
+}

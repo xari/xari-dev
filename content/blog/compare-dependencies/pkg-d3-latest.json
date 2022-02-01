@@ -1,0 +1,1116 @@
+{
+  "tree": {
+    "name": "d3",
+    "version": "latest",
+    "dependencies": {
+      "d3-array": {
+        "name": "d3-array",
+        "version": "3",
+        "dependencies": {
+          "internmap": {
+            "name": "internmap",
+            "version": "1 - 2"
+          }
+        }
+      },
+      "d3-axis": {
+        "name": "d3-axis",
+        "version": "3"
+      },
+      "d3-brush": {
+        "name": "d3-brush",
+        "version": "3",
+        "dependencies": {
+          "d3-dispatch": {
+            "name": "d3-dispatch",
+            "version": "1 - 3"
+          },
+          "d3-drag": {
+            "name": "d3-drag",
+            "version": "2 - 3",
+            "dependencies": {
+              "d3-dispatch": {
+                "name": "d3-dispatch",
+                "version": "1 - 3"
+              },
+              "d3-selection": {
+                "name": "d3-selection",
+                "version": "3"
+              }
+            }
+          },
+          "d3-interpolate": {
+            "name": "d3-interpolate",
+            "version": "1 - 3",
+            "dependencies": {
+              "d3-color": {
+                "name": "d3-color",
+                "version": "1 - 3"
+              }
+            }
+          },
+          "d3-selection": {
+            "name": "d3-selection",
+            "version": "3"
+          },
+          "d3-transition": {
+            "name": "d3-transition",
+            "version": "3",
+            "dependencies": {
+              "d3-color": {
+                "name": "d3-color",
+                "version": "1 - 3"
+              },
+              "d3-dispatch": {
+                "name": "d3-dispatch",
+                "version": "1 - 3"
+              },
+              "d3-ease": {
+                "name": "d3-ease",
+                "version": "1 - 3"
+              },
+              "d3-interpolate": {
+                "name": "d3-interpolate",
+                "version": "1 - 3",
+                "dependencies": {
+                  "d3-color": {
+                    "name": "d3-color",
+                    "version": "1 - 3"
+                  }
+                }
+              },
+              "d3-timer": {
+                "name": "d3-timer",
+                "version": "1 - 3"
+              }
+            }
+          }
+        }
+      },
+      "d3-chord": {
+        "name": "d3-chord",
+        "version": "3",
+        "dependencies": {
+          "d3-path": {
+            "name": "d3-path",
+            "version": "1 - 3"
+          }
+        }
+      },
+      "d3-color": {
+        "name": "d3-color",
+        "version": "3"
+      },
+      "d3-contour": {
+        "name": "d3-contour",
+        "version": "3",
+        "dependencies": {
+          "d3-array": {
+            "name": "d3-array",
+            "version": "2 - 3",
+            "dependencies": {
+              "internmap": {
+                "name": "internmap",
+                "version": "1 - 2"
+              }
+            }
+          }
+        }
+      },
+      "d3-delaunay": {
+        "name": "d3-delaunay",
+        "version": "6",
+        "dependencies": {
+          "delaunator": {
+            "name": "delaunator",
+            "version": "5",
+            "dependencies": {
+              "robust-predicates": {
+                "name": "robust-predicates",
+                "version": "^3.0.0"
+              }
+            }
+          }
+        }
+      },
+      "d3-dispatch": {
+        "name": "d3-dispatch",
+        "version": "3"
+      },
+      "d3-drag": {
+        "name": "d3-drag",
+        "version": "3",
+        "dependencies": {
+          "d3-dispatch": {
+            "name": "d3-dispatch",
+            "version": "1 - 3"
+          },
+          "d3-selection": {
+            "name": "d3-selection",
+            "version": "3"
+          }
+        }
+      },
+      "d3-dsv": {
+        "name": "d3-dsv",
+        "version": "3",
+        "dependencies": {
+          "commander": {
+            "name": "commander",
+            "version": "7"
+          },
+          "iconv-lite": {
+            "name": "iconv-lite",
+            "version": "0.6",
+            "dependencies": {
+              "safer-buffer": {
+                "name": "safer-buffer",
+                "version": ">= 2.1.2 < 3.0.0"
+              }
+            }
+          },
+          "rw": {
+            "name": "rw",
+            "version": "1"
+          }
+        }
+      },
+      "d3-ease": {
+        "name": "d3-ease",
+        "version": "3"
+      },
+      "d3-fetch": {
+        "name": "d3-fetch",
+        "version": "3",
+        "dependencies": {
+          "d3-dsv": {
+            "name": "d3-dsv",
+            "version": "1 - 3",
+            "dependencies": {
+              "commander": {
+                "name": "commander",
+                "version": "7"
+              },
+              "iconv-lite": {
+                "name": "iconv-lite",
+                "version": "0.6",
+                "dependencies": {
+                  "safer-buffer": {
+                    "name": "safer-buffer",
+                    "version": ">= 2.1.2 < 3.0.0"
+                  }
+                }
+              },
+              "rw": {
+                "name": "rw",
+                "version": "1"
+              }
+            }
+          }
+        }
+      },
+      "d3-force": {
+        "name": "d3-force",
+        "version": "3",
+        "dependencies": {
+          "d3-dispatch": {
+            "name": "d3-dispatch",
+            "version": "1 - 3"
+          },
+          "d3-quadtree": {
+            "name": "d3-quadtree",
+            "version": "1 - 3"
+          },
+          "d3-timer": {
+            "name": "d3-timer",
+            "version": "1 - 3"
+          }
+        }
+      },
+      "d3-format": {
+        "name": "d3-format",
+        "version": "3"
+      },
+      "d3-geo": {
+        "name": "d3-geo",
+        "version": "3",
+        "dependencies": {
+          "d3-array": {
+            "name": "d3-array",
+            "version": "2.5.0 - 3",
+            "dependencies": {
+              "internmap": {
+                "name": "internmap",
+                "version": "1 - 2"
+              }
+            }
+          }
+        }
+      },
+      "d3-hierarchy": {
+        "name": "d3-hierarchy",
+        "version": "3"
+      },
+      "d3-interpolate": {
+        "name": "d3-interpolate",
+        "version": "3",
+        "dependencies": {
+          "d3-color": {
+            "name": "d3-color",
+            "version": "1 - 3"
+          }
+        }
+      },
+      "d3-path": {
+        "name": "d3-path",
+        "version": "3"
+      },
+      "d3-polygon": {
+        "name": "d3-polygon",
+        "version": "3"
+      },
+      "d3-quadtree": {
+        "name": "d3-quadtree",
+        "version": "3"
+      },
+      "d3-random": {
+        "name": "d3-random",
+        "version": "3"
+      },
+      "d3-scale": {
+        "name": "d3-scale",
+        "version": "4",
+        "dependencies": {
+          "d3-array": {
+            "name": "d3-array",
+            "version": "2.10.0 - 3",
+            "dependencies": {
+              "internmap": {
+                "name": "internmap",
+                "version": "1 - 2"
+              }
+            }
+          },
+          "d3-format": {
+            "name": "d3-format",
+            "version": "1 - 3"
+          },
+          "d3-interpolate": {
+            "name": "d3-interpolate",
+            "version": "1.2.0 - 3",
+            "dependencies": {
+              "d3-color": {
+                "name": "d3-color",
+                "version": "1 - 3"
+              }
+            }
+          },
+          "d3-time": {
+            "name": "d3-time",
+            "version": "2.1.1 - 3",
+            "dependencies": {
+              "d3-array": {
+                "name": "d3-array",
+                "version": "2 - 3",
+                "dependencies": {
+                  "internmap": {
+                    "name": "internmap",
+                    "version": "1 - 2"
+                  }
+                }
+              }
+            }
+          },
+          "d3-time-format": {
+            "name": "d3-time-format",
+            "version": "2 - 4",
+            "dependencies": {
+              "d3-time": {
+                "name": "d3-time",
+                "version": "1 - 3",
+                "dependencies": {
+                  "d3-array": {
+                    "name": "d3-array",
+                    "version": "2 - 3",
+                    "dependencies": {
+                      "internmap": {
+                        "name": "internmap",
+                        "version": "1 - 2"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "d3-scale-chromatic": {
+        "name": "d3-scale-chromatic",
+        "version": "3",
+        "dependencies": {
+          "d3-color": {
+            "name": "d3-color",
+            "version": "1 - 3"
+          },
+          "d3-interpolate": {
+            "name": "d3-interpolate",
+            "version": "1 - 3",
+            "dependencies": {
+              "d3-color": {
+                "name": "d3-color",
+                "version": "1 - 3"
+              }
+            }
+          }
+        }
+      },
+      "d3-selection": {
+        "name": "d3-selection",
+        "version": "3"
+      },
+      "d3-shape": {
+        "name": "d3-shape",
+        "version": "3",
+        "dependencies": {
+          "d3-path": {
+            "name": "d3-path",
+            "version": "1 - 3"
+          }
+        }
+      },
+      "d3-time": {
+        "name": "d3-time",
+        "version": "3",
+        "dependencies": {
+          "d3-array": {
+            "name": "d3-array",
+            "version": "2 - 3",
+            "dependencies": {
+              "internmap": {
+                "name": "internmap",
+                "version": "1 - 2"
+              }
+            }
+          }
+        }
+      },
+      "d3-time-format": {
+        "name": "d3-time-format",
+        "version": "4",
+        "dependencies": {
+          "d3-time": {
+            "name": "d3-time",
+            "version": "1 - 3",
+            "dependencies": {
+              "d3-array": {
+                "name": "d3-array",
+                "version": "2 - 3",
+                "dependencies": {
+                  "internmap": {
+                    "name": "internmap",
+                    "version": "1 - 2"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "d3-timer": {
+        "name": "d3-timer",
+        "version": "3"
+      },
+      "d3-transition": {
+        "name": "d3-transition",
+        "version": "3",
+        "dependencies": {
+          "d3-color": {
+            "name": "d3-color",
+            "version": "1 - 3"
+          },
+          "d3-dispatch": {
+            "name": "d3-dispatch",
+            "version": "1 - 3"
+          },
+          "d3-ease": {
+            "name": "d3-ease",
+            "version": "1 - 3"
+          },
+          "d3-interpolate": {
+            "name": "d3-interpolate",
+            "version": "1 - 3",
+            "dependencies": {
+              "d3-color": {
+                "name": "d3-color",
+                "version": "1 - 3"
+              }
+            }
+          },
+          "d3-timer": {
+            "name": "d3-timer",
+            "version": "1 - 3"
+          }
+        }
+      },
+      "d3-zoom": {
+        "name": "d3-zoom",
+        "version": "3",
+        "dependencies": {
+          "d3-dispatch": {
+            "name": "d3-dispatch",
+            "version": "1 - 3"
+          },
+          "d3-drag": {
+            "name": "d3-drag",
+            "version": "2 - 3",
+            "dependencies": {
+              "d3-dispatch": {
+                "name": "d3-dispatch",
+                "version": "1 - 3"
+              },
+              "d3-selection": {
+                "name": "d3-selection",
+                "version": "3"
+              }
+            }
+          },
+          "d3-interpolate": {
+            "name": "d3-interpolate",
+            "version": "1 - 3",
+            "dependencies": {
+              "d3-color": {
+                "name": "d3-color",
+                "version": "1 - 3"
+              }
+            }
+          },
+          "d3-selection": {
+            "name": "d3-selection",
+            "version": "2 - 3"
+          },
+          "d3-transition": {
+            "name": "d3-transition",
+            "version": "2 - 3",
+            "dependencies": {
+              "d3-color": {
+                "name": "d3-color",
+                "version": "1 - 3"
+              },
+              "d3-dispatch": {
+                "name": "d3-dispatch",
+                "version": "1 - 3"
+              },
+              "d3-ease": {
+                "name": "d3-ease",
+                "version": "1 - 3"
+              },
+              "d3-interpolate": {
+                "name": "d3-interpolate",
+                "version": "1 - 3",
+                "dependencies": {
+                  "d3-color": {
+                    "name": "d3-color",
+                    "version": "1 - 3"
+                  }
+                }
+              },
+              "d3-timer": {
+                "name": "d3-timer",
+                "version": "1 - 3"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "nodes": [
+    {
+      "id": "d3",
+      "group": 0
+    },
+    {
+      "id": "d3-axis",
+      "group": 1
+    },
+    {
+      "id": "d3-contour",
+      "group": 1
+    },
+    {
+      "id": "d3-drag",
+      "group": 1
+    },
+    {
+      "id": "d3-delaunay",
+      "group": 1
+    },
+    {
+      "id": "d3-chord",
+      "group": 1
+    },
+    {
+      "id": "d3-brush",
+      "group": 1
+    },
+    {
+      "id": "d3-force",
+      "group": 1
+    },
+    {
+      "id": "d3-format",
+      "group": 1
+    },
+    {
+      "id": "d3-path",
+      "group": 1
+    },
+    {
+      "id": "d3-random",
+      "group": 1
+    },
+    {
+      "id": "d3-shape",
+      "group": 1
+    },
+    {
+      "id": "d3-polygon",
+      "group": 1
+    },
+    {
+      "id": "d3-hierarchy",
+      "group": 1
+    },
+    {
+      "id": "d3-interpolate",
+      "group": 1
+    },
+    {
+      "id": "d3-ease",
+      "group": 1
+    },
+    {
+      "id": "d3-geo",
+      "group": 1
+    },
+    {
+      "id": "d3-quadtree",
+      "group": 1
+    },
+    {
+      "id": "d3-selection",
+      "group": 1
+    },
+    {
+      "id": "d3-time",
+      "group": 1
+    },
+    {
+      "id": "d3-timer",
+      "group": 1
+    },
+    {
+      "id": "d3-array",
+      "group": 2
+    },
+    {
+      "id": "d3-dispatch",
+      "group": 2
+    },
+    {
+      "id": "delaunator",
+      "group": 2
+    },
+    {
+      "id": "d3-color",
+      "group": 1
+    },
+    {
+      "id": "d3-transition",
+      "group": 2
+    },
+    {
+      "id": "d3-dsv",
+      "group": 1
+    },
+    {
+      "id": "d3-scale-chromatic",
+      "group": 1
+    },
+    {
+      "id": "d3-fetch",
+      "group": 1
+    },
+    {
+      "id": "d3-scale",
+      "group": 1
+    },
+    {
+      "id": "d3-time-format",
+      "group": 1
+    },
+    {
+      "id": "d3-zoom",
+      "group": 1
+    },
+    {
+      "id": "internmap",
+      "group": 3
+    },
+    {
+      "id": "iconv-lite",
+      "group": 2
+    },
+    {
+      "id": "commander",
+      "group": 2
+    },
+    {
+      "id": "rw",
+      "group": 2
+    },
+    {
+      "id": "robust-predicates",
+      "group": 3
+    },
+    {
+      "id": "safer-buffer",
+      "group": 3
+    }
+  ],
+  "links": [
+    {
+      "source": "d3",
+      "target": "d3-axis"
+    },
+    {
+      "source": "d3",
+      "target": "d3-contour"
+    },
+    {
+      "source": "d3",
+      "target": "d3-drag"
+    },
+    {
+      "source": "d3",
+      "target": "d3-delaunay"
+    },
+    {
+      "source": "d3",
+      "target": "d3-chord"
+    },
+    {
+      "source": "d3",
+      "target": "d3-brush"
+    },
+    {
+      "source": "d3",
+      "target": "d3-force"
+    },
+    {
+      "source": "d3",
+      "target": "d3-format"
+    },
+    {
+      "source": "d3",
+      "target": "d3-path"
+    },
+    {
+      "source": "d3",
+      "target": "d3-random"
+    },
+    {
+      "source": "d3",
+      "target": "d3-shape"
+    },
+    {
+      "source": "d3",
+      "target": "d3-polygon"
+    },
+    {
+      "source": "d3",
+      "target": "d3-hierarchy"
+    },
+    {
+      "source": "d3",
+      "target": "d3-interpolate"
+    },
+    {
+      "source": "d3",
+      "target": "d3-ease"
+    },
+    {
+      "source": "d3",
+      "target": "d3-geo"
+    },
+    {
+      "source": "d3",
+      "target": "d3-quadtree"
+    },
+    {
+      "source": "d3",
+      "target": "d3-selection"
+    },
+    {
+      "source": "d3",
+      "target": "d3-time"
+    },
+    {
+      "source": "d3-drag",
+      "target": "d3-selection"
+    },
+    {
+      "source": "d3-chord",
+      "target": "d3-path"
+    },
+    {
+      "source": "d3",
+      "target": "d3-timer"
+    },
+    {
+      "source": "d3-brush",
+      "target": "d3-drag"
+    },
+    {
+      "source": "d3-brush",
+      "target": "d3-interpolate"
+    },
+    {
+      "source": "d3-brush",
+      "target": "d3-selection"
+    },
+    {
+      "source": "d3-force",
+      "target": "d3-quadtree"
+    },
+    {
+      "source": "d3-force",
+      "target": "d3-timer"
+    },
+    {
+      "source": "d3-contour",
+      "target": "d3-array"
+    },
+    {
+      "source": "d3-drag",
+      "target": "d3-dispatch"
+    },
+    {
+      "source": "d3-delaunay",
+      "target": "delaunator"
+    },
+    {
+      "source": "d3-geo",
+      "target": "d3-array"
+    },
+    {
+      "source": "d3-shape",
+      "target": "d3-path"
+    },
+    {
+      "source": "d3-time",
+      "target": "d3-array"
+    },
+    {
+      "source": "d3",
+      "target": "d3-array"
+    },
+    {
+      "source": "d3-force",
+      "target": "d3-dispatch"
+    },
+    {
+      "source": "d3",
+      "target": "d3-color"
+    },
+    {
+      "source": "d3-brush",
+      "target": "d3-transition"
+    },
+    {
+      "source": "d3",
+      "target": "d3-dsv"
+    },
+    {
+      "source": "d3-drag",
+      "target": "d3-dispatch"
+    },
+    {
+      "source": "d3-drag",
+      "target": "d3-selection"
+    },
+    {
+      "source": "d3-interpolate",
+      "target": "d3-color"
+    },
+    {
+      "source": "d3",
+      "target": "d3-scale-chromatic"
+    },
+    {
+      "source": "d3",
+      "target": "d3-dispatch"
+    },
+    {
+      "source": "d3",
+      "target": "d3-fetch"
+    },
+    {
+      "source": "d3",
+      "target": "d3-scale"
+    },
+    {
+      "source": "d3-interpolate",
+      "target": "d3-color"
+    },
+    {
+      "source": "d3",
+      "target": "d3-time-format"
+    },
+    {
+      "source": "d3",
+      "target": "d3-transition"
+    },
+    {
+      "source": "d3-transition",
+      "target": "d3-dispatch"
+    },
+    {
+      "source": "d3-transition",
+      "target": "d3-ease"
+    },
+    {
+      "source": "d3-transition",
+      "target": "d3-color"
+    },
+    {
+      "source": "d3",
+      "target": "d3-zoom"
+    },
+    {
+      "source": "d3-transition",
+      "target": "d3-interpolate"
+    },
+    {
+      "source": "d3-array",
+      "target": "internmap"
+    },
+    {
+      "source": "d3-transition",
+      "target": "d3-timer"
+    },
+    {
+      "source": "d3-scale-chromatic",
+      "target": "d3-color"
+    },
+    {
+      "source": "d3-scale-chromatic",
+      "target": "d3-interpolate"
+    },
+    {
+      "source": "d3-fetch",
+      "target": "d3-dsv"
+    },
+    {
+      "source": "d3-array",
+      "target": "internmap"
+    },
+    {
+      "source": "d3-array",
+      "target": "internmap"
+    },
+    {
+      "source": "d3-scale",
+      "target": "d3-array"
+    },
+    {
+      "source": "d3-scale",
+      "target": "d3-interpolate"
+    },
+    {
+      "source": "d3-dsv",
+      "target": "iconv-lite"
+    },
+    {
+      "source": "d3-scale",
+      "target": "d3-format"
+    },
+    {
+      "source": "d3-transition",
+      "target": "d3-ease"
+    },
+    {
+      "source": "d3-scale",
+      "target": "d3-time-format"
+    },
+    {
+      "source": "d3-scale",
+      "target": "d3-time"
+    },
+    {
+      "source": "d3-transition",
+      "target": "d3-interpolate"
+    },
+    {
+      "source": "d3-transition",
+      "target": "d3-dispatch"
+    },
+    {
+      "source": "d3-dsv",
+      "target": "commander"
+    },
+    {
+      "source": "d3-transition",
+      "target": "d3-color"
+    },
+    {
+      "source": "d3-time-format",
+      "target": "d3-time"
+    },
+    {
+      "source": "d3-transition",
+      "target": "d3-timer"
+    },
+    {
+      "source": "d3-zoom",
+      "target": "d3-interpolate"
+    },
+    {
+      "source": "d3-dsv",
+      "target": "rw"
+    },
+    {
+      "source": "delaunator",
+      "target": "robust-predicates"
+    },
+    {
+      "source": "d3-zoom",
+      "target": "d3-drag"
+    },
+    {
+      "source": "d3-zoom",
+      "target": "d3-transition"
+    },
+    {
+      "source": "d3-zoom",
+      "target": "d3-selection"
+    },
+    {
+      "source": "d3-zoom",
+      "target": "d3-dispatch"
+    },
+    {
+      "source": "d3-interpolate",
+      "target": "d3-color"
+    },
+    {
+      "source": "d3-brush",
+      "target": "d3-dispatch"
+    },
+    {
+      "source": "d3-interpolate",
+      "target": "d3-color"
+    },
+    {
+      "source": "d3-array",
+      "target": "internmap"
+    },
+    {
+      "source": "d3-dsv",
+      "target": "commander"
+    },
+    {
+      "source": "d3-array",
+      "target": "internmap"
+    },
+    {
+      "source": "d3-dsv",
+      "target": "iconv-lite"
+    },
+    {
+      "source": "d3-dsv",
+      "target": "rw"
+    },
+    {
+      "source": "d3-interpolate",
+      "target": "d3-color"
+    },
+    {
+      "source": "d3-interpolate",
+      "target": "d3-color"
+    },
+    {
+      "source": "d3-time",
+      "target": "d3-array"
+    },
+    {
+      "source": "d3-time",
+      "target": "d3-array"
+    },
+    {
+      "source": "d3-time-format",
+      "target": "d3-time"
+    },
+    {
+      "source": "d3-drag",
+      "target": "d3-selection"
+    },
+    {
+      "source": "d3-transition",
+      "target": "d3-interpolate"
+    },
+    {
+      "source": "d3-transition",
+      "target": "d3-dispatch"
+    },
+    {
+      "source": "d3-drag",
+      "target": "d3-dispatch"
+    },
+    {
+      "source": "d3-interpolate",
+      "target": "d3-color"
+    },
+    {
+      "source": "d3-transition",
+      "target": "d3-color"
+    },
+    {
+      "source": "d3-transition",
+      "target": "d3-ease"
+    },
+    {
+      "source": "d3-transition",
+      "target": "d3-timer"
+    },
+    {
+      "source": "d3-array",
+      "target": "internmap"
+    },
+    {
+      "source": "d3-array",
+      "target": "internmap"
+    },
+    {
+      "source": "d3-time",
+      "target": "d3-array"
+    },
+    {
+      "source": "d3-interpolate",
+      "target": "d3-color"
+    },
+    {
+      "source": "iconv-lite",
+      "target": "safer-buffer"
+    },
+    {
+      "source": "d3-array",
+      "target": "internmap"
+    },
+    {
+      "source": "iconv-lite",
+      "target": "safer-buffer"
+    }
+  ]
+}
