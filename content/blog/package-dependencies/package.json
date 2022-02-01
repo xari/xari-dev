@@ -1,6 +1,5 @@
 {
-	"type": "module",
-	"devDependencies": {
+	"dependencies": {
 		"d3": "^7.3.0"
 	}
 }
