@@ -1,5 +1,5 @@
 ---
-title: Querying the NPM Package Registry API.
+title: Querying the NPM Package Registry API
 date: 2022-01-25
 description: A pattern for recursive fetching.
 ---
