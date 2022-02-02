@@ -1,0 +1,37 @@
+---
+title: Visualising NPM Package Dependencies — 2 Ways
+date: 2022-02-02
+description: Chord Diagrams & Force-Directed Graphs of NPM Package Dependencies.
+---
+
+I'm following-up my previous posts about Force-Directed Graphs with a new way to visualise NPM package dependencies; the [Chord Diagram](https://observablehq.com/@d3/chord-diagram).
+I see this format as a helpful pairing to the force-directed graph, because they both show the link between two NPM packages in the [package dependency tree](../package-dependencies). 
+
+import d3Pkg from "../compare-dependencies/pkg-d3-latest.json"
+import reactPkg from "../compare-dependencies/pkg-react-latest.json"
+import expressPkg from "../compare-dependencies/pkg-express-latest.json"
+import { ChordDiagram } from "./index.js"
+import { ForceGraphChart, ForceLegend } from "../compare-dependencies/index.js"
+
+<>
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+	  <div>
+		  <h3>D3</h3>
+		  <ChordDiagram data={d3Pkg.links} />
+		  <ForceGraphChart data={{nodes: d3Pkg.nodes, links: d3Pkg.links}} />
+		  <div className="flex justify-center">
+		  <ForceLegend range={[0, 1, 2, 3]} title="Maximum degrees of separation from the root package" />
+		  </div>
+	  </div>
+	  <div>
+		  <h3>React</h3>
+		  <ChordDiagram data={reactPkg.links} />
+		  <ForceGraphChart data={{nodes: reactPkg.nodes, links: reactPkg.links}} />
+	  </div>
+	  <div>
+		  <h3>Express</h3>
+		  <ChordDiagram data={expressPkg.links} />
+		  <ForceGraphChart data={{nodes: expressPkg.nodes, links: expressPkg.links}} />
+	  </div>
+  </div>
+</>
