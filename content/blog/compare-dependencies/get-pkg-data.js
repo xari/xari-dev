@@ -42,14 +42,14 @@ const getPkgDeps = async (name, version, group = 0, source) => {
   }
 }
 
-const pkg = await getPkgDeps("protractor", "latest")
+const pkg = await getPkgDeps("gatsby", "latest")
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 // Export data to use in force-directed chart post
 fs.writeFileSync(
-  __dirname + "/pkg-protractor-latest.json",
+  __dirname + "/pkg-gatsby-latest.json",
   JSON.stringify({ tree: pkg, nodes, links }, null, 2),
   "utf-8"
 )

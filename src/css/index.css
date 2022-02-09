@@ -46,11 +46,6 @@
   }
 }
 
-code[class*="language-"],
-pre[class*="language-"] {
-  @apply text-lg;
-}
-
 .content {
   @apply my-5;
   @apply pb-5;
@@ -81,9 +76,20 @@ pre[class*="language-"] {
   overflow: hidden;
 }
 
+code[class*="language-"],
 pre[class*="language-"] {
+  @apply text-lg;
+}
+
+pre[class*="language-"] {
+  @apply -mx-5;
+  @apply pr-0;
+  @apply pl-5;
+  max-width: 51rem;
+  /*
   @apply is-wide;
   overflow: scroll;
+*/
 }
 
 pre[class*="language-"] span {
