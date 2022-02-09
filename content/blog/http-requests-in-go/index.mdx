@@ -1,0 +1,68 @@
+---
+title: HTTP Requests – Go vs. JavaScript
+date: 2022-02-09
+description: A simple syntax comparison.
+---
+
+This week I decided to learn the basics of [Go](https://go.dev/) by re-building my [NPM dependency tree](../async-recursion) Express app using Go and [Fiber](https://docs.gofiber.io/api/fiber).
+I'll likely follow-up with a more detailed post about this experience as Go begins to sink-in a little more for me, but below you can see how I constructed the recursive `getPkgDeps()` function from the original Express app.
+
+<div className="grid grid-cols-1 lg:grid-cols-2">
+<div>
+
+#### Go
+
+```go
+func getPkgDeps(name string, version string) NpmPkg {
+	semVer := validateSemVer(version)
+	path := fmt.Sprintf("https://registry.npmjs.org/%s/%s", name, semVer)
+	pkg, err := http.Get(url)
+
+	if err != nil {
+		return err
+	}
+
+	defer r.Body.Close()
+
+	dependencies := pkg.Dependencies
+
+	if dependencies != nil {
+		for k, v := range dependencies {
+			dependencies[k] = getPkgDeps(k, fmt.Sprint(v))
+		}
+	}
+
+	return pkg
+}
+```
+
+</div>
+<div>
+
+#### JavaScript
+
+```js
+const getPkgDeps = async (name, version) => {
+  const semVer: string = validateSemVer(version);
+
+  let { dependencies } = await got(
+    `https://registry.npmjs.org/${name}/${semVer}`
+  ).json();
+
+  if (typeof dependencies !== 'undefined') {
+    dependencies = Object.fromEntries(
+      await Promise.all(
+        Object.entries(dependencies).map(async ([k, v]) => [
+          k,
+          await getPkgDeps(k, v),
+        ])
+      )
+    );
+  }
+
+  return { name, version: semVer, dependencies };
+};
+```
+
+</div>
+</div>
