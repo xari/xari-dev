@@ -13,6 +13,12 @@ I'll likely follow-up with a more detailed post about this experience as Go begi
 #### Go
 
 ```go
+type NpmPkg struct {
+	Name         string
+	Version      string
+	Dependencies map[string]interface{}
+}
+
 func getPkgDeps(name string, version string) NpmPkg {
 	semVer := validateSemVer(version)
 	path := fmt.Sprintf("https://registry.npmjs.org/%s/%s", name, semVer)
