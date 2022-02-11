@@ -1,6 +1,6 @@
 ---
 title: Data Binding with D3
-date: 2021-12-15
+date: 2021-02-10
 description: How to bind data to DOM elements with D3.
 ---
 
@@ -104,19 +104,22 @@ svg.append("g") // New "group"
 This object is a D3 `Selection` object, and we can see from the output above that it is a [`SVGSVGElement`](https://developer.mozilla.org/en-US/docs/Web/API/SVGSVGElement).
 
 The way that data binding in D3 works is that we first need to tell D3 what kind of DOM element we want to bind the data to.
-These elements won't exist until we create them, and their number will depend on how many items exist in the array that they will be bound to.
+These elements won't actually exist until we create them, and their number will depend on how many items exist in the array that they will be bound to.
 
-```
-Selection { _groups: [ [ SVGElement {} ] ], _parents: [ null ] }
-```
+> `Selection { _groups: [ [ SVGElement {} ] ], _parents: [ null ] }`
+
+Appending a new group will return the Selection object shown above.
 
 ```js
 svg.append("g").selectAll("text") // Empty selection
 ```
 
-```
-Selection { _groups: [ NodeList {} ], _parents: [ SVGElement {} ] }
-```
+Selecting all (not yet existing) `<text/>` elements in this group using `selectAll()` will return an empty `NodeList`, shown below.
+If there were any existing `<text/>` elements, this would be the first step in modifying or removing them.
+
+> `Selection { _groups: [ NodeList {} ], _parents: [ SVGElement {} ] }`
+
+The `data()` method will bind this empty `NodeList` to the data.
 
 ```js
 svg
@@ -124,6 +127,9 @@ svg
   .selectAll("text")
   .data(ibu)
 ```
+
+But we're not quite done yet.
+We now have 20 empty DOM nodes, but we'll need to specify the form that each one should take.
 
 ```js
 Selection {
@@ -147,6 +153,8 @@ Selection {
 }
 ```
 
+By chaining-up the `enter()`, `append()` and `text()` methods, and using `text()` as a map function that takes a callback, we can point D3 to exactly the values in our data that should be appended as `<text/>` elements to the `<group/>`.
+
 ```js
 const text = svg
   .append("g")
@@ -156,6 +164,27 @@ const text = svg
   .append("text")
   .text(beer => beer.name)
 ```
+
+How did we do?
+Let's take a look.
+
+![Text only](./text.svg)
+
+We now have the Y-axis labels appearing in our document, but as they aren't yet properly positioned, we can only just see them.
+Before we get to positioning the labels, I've included a deep-dive into what exactly makes up the axis labels group in the blue box below.
+Feel free to skip ahead if you're not interested in the inner-workings of D3 Selections.
+
+## Spotlight: D3 Selections
+
+In the box below, we'll examine D3 Selection object that we created above (`text`).
+
+<div class="grid grid-cols-1 lg:grid-cols-3 call-out-indigo">
+  <div>
+
+### `text`
+
+Printing the `text` variable will show us exactly what makes up this D3 Selection object.
+The only problem is that all it tells us at this level is that the selection contains a SVG group that holds twenty SVG elements.
 
 ```js
 Selection {
@@ -177,9 +206,12 @@ Selection {
 }
 ```
 
-```js
-text._groups
-```
+  </div>
+  <div>
+
+### `text._groups`
+
+Looking deeper into the `_groups` property reveals that the SVG element each have their own `data` property.
 
 ```js
 [
@@ -208,9 +240,12 @@ text._groups
 ]
 ```
 
-```js
-text._groups.flatMap(x => x)
-```
+  </div>
+  <div>
+
+### `text._groups.flatMap(x => x)`
+
+We can use `flatMap()` to surface the data that we're looking for.
 
 ```js
 [
@@ -251,30 +286,34 @@ text._groups.flatMap(x => x)
 ]
 ```
 
-## Appending the `<text/>`
+  </div>
+</div>
 
-```js
-const text = svg
-  .selectAll("text") // Create an empty array
-  .data(ibu) // Fill the array with "empty" data bindings
-  .enter() // What does this do?
-  .append("text")
-  .text(beer => beer.name)
-```
+## Positioning the Y-axis labels
 
-![Text only](./text.svg)
-
-```js
-text.attr("x", margin.left)
-```
-
-![X](./x.svg)
+The labels are sitting above the plot area, so we'll need to bring them downward according to our specified margins.
 
 ```js
 text.attr("y", (x, i) => margin.top + i * (plotHeight / ibu.length))
 ```
 
-![Y](./y.svg)
+`text.attr()` accepts a callback that offers two arguments —one of them being an iterator (`i` above).
+This callback will be run for each text element, and in this case we're telling each element to take-on a `y` value that's a function of `i`.
+
+![X](./y.svg)
+
+It's looking better.
+Let's now set the `x` offset.
+
+```js
+text.attr("x", margin.left)
+```
+
+![Y](./x.svg)
+
+Great!
+We're almost done.
+These last steps are stylistic, and we'll begin be setting the orientation of the text (`text-anchor`).
 
 ```js
 text.attr("text-anchor", "end")
@@ -282,14 +321,23 @@ text.attr("text-anchor", "end")
 
 ![Text anchor](./text-anchor.svg)
 
+Next, we'll set the font to `sans-serif`; which is uniersally supported, so we don't need to install any fonts.
+
 ```js
 text.style("font-family", "sans-serif")
 ```
 
 ![Font family](./font-family.svg)
 
+Woah; that's a little on the large side.
+Let's take the size down a notch to `12px`.
+
 ```js
 text.style("font-size", "12px")
 ```
 
 ![Font size](./font-size.svg)
+
+Perfect!
+We're almost ready to [put it all together](../horizontal-bar-plot), but there's one more thing we'll need to learn about before we can do that.
+I'm refering to D3 scales, which we'll dig into in the [next post in this series](../d3-scales).
