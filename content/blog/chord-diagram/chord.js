@@ -16,9 +16,6 @@ export default function Chord(
   },
   ref
 ) {
-  console.log("STRARSATSRA")
-  console.log(ref)
-
   const svg = d3
     .select(ref.current)
     .attr("viewBox", [-width / 2, -height / 2, width, height])
