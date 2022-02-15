@@ -1,5 +1,5 @@
 ---
-title: Data Binding with D3
+title: Binding Data to DOM with D3
 date: 2022-02-10
 description: How to bind data to DOM elements with D3.
 ---
