@@ -19,7 +19,7 @@ export const ChordDiagram = ({ data }) => {
   const matrix = Array.from(index, () => new Array(names.length).fill(0))
 
   for (const { source, target, value } of data) {
-    matrix[index.get(source)][index.get(target)] += value
+    matrix[index.get(target)][index.get(source)] += value
   }
 
   return useD3(
