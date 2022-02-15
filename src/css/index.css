@@ -86,10 +86,6 @@ pre[class*="language-"] {
   @apply pr-0;
   @apply pl-5;
   max-width: 51rem;
-  /*
-  @apply is-wide;
-  overflow: scroll;
-*/
 }
 
 pre[class*="language-"] span {
@@ -111,6 +107,7 @@ h1 a {
   @apply pr-0;
   @apply pb-4;
   border-image-source: url(./bg-paper-indigo.svg);
+  max-width: unset;
 }
 
 .call-out-indigo :not(pre) > code[class*="language-"],
