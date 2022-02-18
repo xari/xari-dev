@@ -50,3 +50,5 @@ It tells the story of an early game developer making his way in 1980s Silicon Va
 - [Around the World in 1000 Days](https://gawellforlag.com/product/around-the-world-in-1000-days)
 - Shoe Dog
 - 12 Rules for Life
+- Ermita: A Filipino Novel
+- The Fran Lebowitz Reader
