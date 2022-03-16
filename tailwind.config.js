@@ -1,5 +1,9 @@
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}", "./content/blog/**/*.{md,mdx}"],
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+    "./content/blog/**/*.{md,mdx}",
+    "./node_modules/xari-boggle/dist/*.{html,js}",
+  ],
   theme: {},
   variants: {},
   plugins: [],
