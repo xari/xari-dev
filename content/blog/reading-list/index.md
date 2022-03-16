@@ -21,6 +21,7 @@ So far, I'm finding this to be very effective.
 - Simples Déductions
 - Harry Potter et l'Enfant maudit
 - Harry Potter et la Coupe de Feu
+- Ermita: A Filipino Novel
 
 ### Non-Fiction
 
@@ -50,3 +51,4 @@ It tells the story of an early game developer making his way in 1980s Silicon Va
 - [Around the World in 1000 Days](https://gawellforlag.com/product/around-the-world-in-1000-days)
 - Shoe Dog
 - 12 Rules for Life
+- The Fran Lebowitz Reader
