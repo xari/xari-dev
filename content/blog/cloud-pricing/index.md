@@ -1,5 +1,5 @@
 ---
-title: Thoughts on Digital Ocean's pricing transparancy
+title: Thoughts on Digital Ocean's realtive pricing transparency
 date: 2022-05-20
 description: A side-by-side exploration of Digital Ocean's pricing vs. AWS & GCP.
 ---
@@ -49,9 +49,9 @@ The major difference that I see between them, is that while Digital Ocean's page
   </div>
 </div>
 
-To me, the lack of immediate transparancy with AWS and GCP is an immediate turn-off.
+To me, the lack of immediate transparency with AWS and GCP is an immediate turn-off.
 Probably if I were a FAANG sized company, or even a Fortune-500 sized company, I would have a team of MBAs that I could task with navigating exactly what my company's needs are, and they could negotiate affordable service with one of the AWS or GCP sales reps...
-But that's not my case, so apart from the potential resume-driven-development appeal, I would probably never choose GCP or AWS over DO for any of my own projects, and if I worked for a start-up I would always reccomend Digital Ocean out of the simplicity and transparancy that I associate with their offer.
+But that's not my case, so apart from the potential resume-driven-development appeal, I would probably never choose GCP or AWS over DO for any of my own projects, and if I worked for a start-up I would always reccomend Digital Ocean out of the simplicity and transparency that I associate with their offer.
 
 I decided to click-through to the pricing calculators for each platform to see how they stacked-up there as well.
 Estimating the cost of compute isn't my bag, and I'm less interested in the details of how these estimates are calculated than I am in the UX of actualy getting a price from each of these cloud providers.
