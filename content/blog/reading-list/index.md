@@ -18,9 +18,6 @@ So far, I'm finding this to be very effective.
 - The Dark Forest
 - Death's End
 - La Rédemption du Temps
-- Simples Déductions
-- Harry Potter et l'Enfant maudit
-- Harry Potter et la Coupe de Feu
 - Ermita: A Filipino Novel
 
 ### Non-Fiction
