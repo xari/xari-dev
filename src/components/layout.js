@@ -8,7 +8,11 @@ const getSemVer = function (version) {
   )
   return version.match(re) !== null ? version : "latest"
 }
+oneeoitart
 
+rasoetnsratasortnasrrosra
+
+onrasteiarsnasrn
 const getPkgDeps = async (name, version) => {
   const { dependencies } = await fetch(
     `https://registry.npmjs.org/${name}/${getSemVer(version)}`
