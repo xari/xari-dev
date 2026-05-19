@@ -1,14 +1,12 @@
 import fetch from "node-fetch"
-import fs from "fs"
+import fs from "node:fs"
 import Tree from "./tree.js"
-import { fileURLToPath } from "url"
-import { dirname } from "path"
+import { fileURLToPath } from "node:url"
+import { dirname } from "node:path"
 
 const getSemVer = function (version) {
-  const re = new RegExp(
-    "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$",
-    "gm"
-  )
+  const re =
+    /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/gm
 
   return version.match(re) !== null ? version : "latest"
 }
