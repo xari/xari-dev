@@ -6,11 +6,11 @@ import { dirname } from "path"
 
 const getSemVer = function (version) {
   const re = new RegExp(
-    "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$",
+    String.raw`^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$`,
     "gm"
   )
 
-  return version.match(re) !== null ? version : "latest"
+  return version.match(re) === null ? "latest" : version
 }
 
 const getPkgDeps = async (name, version) => {
@@ -22,16 +22,16 @@ const getPkgDeps = async (name, version) => {
     name,
     version,
     dependencies:
-      typeof dependencies !== "undefined"
-        ? Object.fromEntries(
+      typeof dependencies === "undefined"
+        ? dependencies
+        : Object.fromEntries(
             await Promise.all(
               Object.entries(dependencies).map(async ([k, v]) => [
                 k,
                 await getPkgDeps(k, v),
               ])
             )
-          )
-        : dependencies,
+          ),
   }
 }
 
