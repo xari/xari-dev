@@ -1,6 +1,8 @@
 import React from "react"
 import { Link } from "gatsby"
 
+const testRemediationAgent = 123;
+
 const Layout = ({ location, title, children }) => {
   const rootPath = `${__PATH_PREFIX__}/`
   let header
