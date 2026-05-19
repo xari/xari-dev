@@ -22,7 +22,7 @@ const getPkgDeps = async (name, version) => {
     name,
     version,
     dependencies:
-      typeof dependencies !== "undefined"
+      dependencies !== undefined
         ? Object.fromEntries(
             await Promise.all(
               Object.entries(dependencies).map(async ([k, v]) => [
@@ -40,7 +40,7 @@ const npmPkg = await getPkgDeps("d3", "latest")
 const treeChart = Tree(npmPkg, {
   label: d => d.name,
   children: d =>
-    typeof d.dependencies !== "undefined" && Object.values(d.dependencies),
+    d.dependencies !== undefined && Object.values(d.dependencies),
   title: (d, n) =>
     `${n
       .ancestors()
